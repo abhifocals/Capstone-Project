@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import com.focals.myreddit.network.RedditAsyncTask;
+
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,40 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    class RedditAsyncTask extends AsyncTask<Void, Void, String> {
-        HttpURLConnection httpURLConnection = null;
 
-        @Override
-        protected String doInBackground(Void... voids) {
-            try {
-                URL url = new URL("https://www.reddit.com/r/php/search.json?q=oop");
-
-
-                httpURLConnection = (HttpURLConnection) url.openConnection();
-
-
-                Scanner scanner = new Scanner(httpURLConnection.getInputStream());
-
-                if (scanner.hasNext()) {
-                    return scanner.next();
-                }
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            finally {
-                httpURLConnection.disconnect();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-        }
-    }
 
 }
