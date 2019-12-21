@@ -6,19 +6,18 @@ import java.util.Scanner;
 
 public class NetworkUtil {
 
+    static String searchUrl = "https://www.reddit.com/r/php/search.json?q=oop";
 
 
-    public static String getResponseFromUrl() {
+    public static String getResponseFromUrl(String endPoint) {
 
-        HttpURLConnection httpURLConnection =  null;
+        HttpURLConnection httpURLConnection = null;
 
 
         try {
-            URL url = new URL("https://www.reddit.com/r/php/search.json?q=oop");
-
+            URL url = new URL(searchUrl);
 
             httpURLConnection = (HttpURLConnection) url.openConnection();
-
 
             Scanner scanner = new Scanner(httpURLConnection.getInputStream());
             scanner.useDelimiter("\\A");
@@ -27,18 +26,13 @@ public class NetworkUtil {
                 return scanner.next();
             }
 
-
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
-        finally {
+        } finally {
             httpURLConnection.disconnect();
         }
 
         return null;
 
     }
-
-
 }
