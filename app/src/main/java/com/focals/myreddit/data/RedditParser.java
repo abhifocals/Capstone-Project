@@ -89,7 +89,6 @@ public class RedditParser {
 
                 String commentBody = commentJson.getString("body");
                 int[] replies = new int[1];
-
                 Comment comment = new Comment(subRedditName, title, commentBody, replies);
                 commentsList.add(comment);
             }
@@ -98,4 +97,36 @@ public class RedditParser {
             e.printStackTrace();
         }
     }
+
+    public static void recurseComments(JSONObject commentJson) {
+
+        try {
+
+            if (commentJson.getJSONObject("replies") == null) {
+                return;
+            }
+
+            if (commentJson.getJSONObject("replies") != null) {
+
+                JSONArray childrenArray = commentJson.getJSONObject("replies").getJSONObject("data").getJSONArray("children");
+
+                for (int i = 0; i < childrenArray.length() - 1; i++) {
+                    JSONObject childJson = childrenArray.getJSONObject(i).getJSONObject("data");
+
+                    String body = childJson.getJSONObject("data").getString("body");
+
+                }
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        System.out.println();
+
+
+    }
+
 }
