@@ -14,7 +14,7 @@ public class RedditAsyncTask extends AsyncTask <Void, Void, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
 
-        RedditParser.parseRedditPosts(s);
+        RedditParser.parseComments(s);
 
     }
 }

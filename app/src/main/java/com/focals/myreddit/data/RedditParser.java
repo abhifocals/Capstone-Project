@@ -67,4 +67,35 @@ public class RedditParser {
             e.printStackTrace();
         }
     }
+
+    public static void parseComments(String response) {
+
+        JSONArray jsonArray = null;
+        ArrayList<Comment> commentsList = new ArrayList<>();
+
+        try {
+            jsonArray = new JSONArray(response);
+
+            JSONArray subredditArray = jsonArray.getJSONObject(0).getJSONObject("data").getJSONArray("children");
+            JSONArray commentsArray = jsonArray.getJSONObject(1).getJSONObject("data").getJSONArray("children");
+
+            JSONObject subredditJson = subredditArray.getJSONObject(0).getJSONObject("data");
+            String subRedditName = subredditJson.getString("subreddit");
+            String title = subredditJson.getString("title");
+
+            for (int i = 0; i < commentsArray.length() - 1; i++) {
+
+                JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
+
+                String commentBody = commentJson.getString("body");
+                int[] replies = new int[1];
+
+                Comment comment = new Comment(subRedditName, title, commentBody, replies);
+                commentsList.add(comment);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }
