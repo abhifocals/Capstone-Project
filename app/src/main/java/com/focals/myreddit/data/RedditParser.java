@@ -1,5 +1,7 @@
 package com.focals.myreddit.data;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -113,7 +115,11 @@ public class RedditParser {
                 for (int i = 0; i < childrenArray.length() - 1; i++) {
                     JSONObject childJson = childrenArray.getJSONObject(i).getJSONObject("data");
 
-                    String body = childJson.getJSONObject("data").getString("body");
+                    String body = childJson.getString("body");
+
+                    Log.d(RedditParser.class.getSimpleName(), body);
+
+                    recurseComments(childJson);
 
                 }
             }
