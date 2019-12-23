@@ -6,7 +6,8 @@ import java.util.Scanner;
 
 public class NetworkUtil {
 
-    static String searchUrl = "https://api.reddit.com/subreddits/popular/.json";
+//    static String searchUrl = "https://api.reddit.com/subreddits/popular/.json";
+    static String searchUrl = "https://api.reddit.com/r/news/.json";
 
 
     public static String getResponseFromUrl(String endPoint) {

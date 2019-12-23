@@ -6,9 +6,9 @@ public class Post {
     String title;
     int score;
     int numComments;
-    int id;
+    String id;
 
-    public Post(String subredditName, String title, int score, int numComments, int id) {
+    public Post(String subredditName, String title, int score, int numComments, String id) {
         this.subredditName = subredditName;
         this.title = title;
         this.score = score;
