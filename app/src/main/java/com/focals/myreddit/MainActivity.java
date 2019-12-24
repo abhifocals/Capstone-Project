@@ -3,6 +3,7 @@ package com.focals.myreddit;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 
 import com.focals.myreddit.data.RedditParser;
 import com.focals.myreddit.data.Subreddit;
@@ -30,12 +31,15 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.Click
     }
 
     @Override
-    public void onClickHandle(int position) {
+    public void onClickHandle(int position, View view) {
 
-        // Launch RedditActivity
-
-        Intent intent = new Intent(this,  PostsActivity.class);
-        startActivity(intent);
+        if (view.getId() == R.id.imgbtn_addToFavorite) {
+            // Add to Favorites here
+        } else {
+            // Launch RedditActivity
+            Intent intent = new Intent(this, PostsActivity.class);
+            startActivity(intent);
+        }
     }
 
 

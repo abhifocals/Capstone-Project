@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -57,7 +58,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     }
 
     public interface ClickHandler {
-        void onClickHandle(int position);
+        void onClickHandle(int position, View view);
     }
 
 
@@ -66,6 +67,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         TextView subredditTitle;
         TextView subredditDesc;
         TextView numSubscribers;
+        ImageButton addToFavorites;
 
         public MainViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,13 +76,16 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             subredditTitle = (TextView) itemView.findViewById(R.id.tv_redditTitle);
             subredditDesc = (TextView) itemView.findViewById(R.id.tv_redditDesc);
             numSubscribers = (TextView) itemView.findViewById(R.id.tv_subscriberCount);
+            addToFavorites = (ImageButton) itemView.findViewById(R.id.imgbtn_addToFavorite);
 
-            itemView.setOnClickListener(this);
+            subredditTitle.setOnClickListener(this);
+            subredditDesc.setOnClickListener(this);
+            addToFavorites.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            clickHandler.onClickHandle(getAdapterPosition());
+            clickHandler.onClickHandle(getAdapterPosition(), v);
         }
     }
 
