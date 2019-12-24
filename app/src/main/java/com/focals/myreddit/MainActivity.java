@@ -1,20 +1,14 @@
 package com.focals.myreddit;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.focals.myreddit.data.RedditParser;
 import com.focals.myreddit.network.NetworkUtil;
-import com.focals.myreddit.network.RedditAsyncTask;
 
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Scanner;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,9 +31,6 @@ public class MainActivity extends AppCompatActivity {
         mainRecyclerView.setAdapter(mainAdapter);
         mainRecyclerView.setLayoutManager(layoutManager);
     }
-
-
-
 
 
     class RedditAsyncTask extends AsyncTask <Void, Void, String> {
