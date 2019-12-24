@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import com.focals.myreddit.data.RedditParser;
+import com.focals.myreddit.network.NetworkUtil;
 import com.focals.myreddit.network.RedditAsyncTask;
 
 import java.net.HttpURLConnection;
@@ -34,5 +36,24 @@ public class MainActivity extends AppCompatActivity {
 
         mainRecyclerView.setAdapter(mainAdapter);
         mainRecyclerView.setLayoutManager(layoutManager);
+    }
+
+
+
+
+
+    class RedditAsyncTask extends AsyncTask <Void, Void, String> {
+        @Override
+        protected String doInBackground(Void... voids) {
+            return NetworkUtil.getResponseFromUrl(NetworkUtil.searchUrl);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            RedditParser.parseReddit(s);
+
+        }
     }
 }
