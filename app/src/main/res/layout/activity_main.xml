@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,23 +17,27 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:background="@color/colorPrimaryDark">
-
-            <!-- TODO: Replace with ImageView of AppLogo   -->
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:text="MyReddit"></TextView>
-
         </com.google.android.material.appbar.CollapsingToolbarLayout>
-        
+
+        <!-- TODO: Replace with ImageView of AppLogo   -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="MyReddit"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"></TextView>
+
     </com.google.android.material.appbar.AppBarLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="939dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"></androidx.recyclerview.widget.RecyclerView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
