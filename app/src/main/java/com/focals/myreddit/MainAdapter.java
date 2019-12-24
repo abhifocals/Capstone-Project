@@ -18,9 +18,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
     Context context;
     ArrayList<Subreddit> subredditList;
+    ClickHandler clickHandler;
 
-    public MainAdapter(ArrayList<Subreddit> subredditList) {
+    public MainAdapter(ArrayList<Subreddit> subredditList, ClickHandler clickHandler) {
         this.subredditList = subredditList;
+        this.clickHandler = clickHandler;
     }
 
     @NonNull
@@ -54,8 +56,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         return subredditList.size();
     }
 
+    public interface ClickHandler {
+        void onClickHandle(int position);
+    }
 
-    class MainViewHolder extends RecyclerView.ViewHolder {
+
+    class MainViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView subredditImage;
         TextView subredditTitle;
         TextView subredditDesc;
@@ -68,6 +74,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             subredditTitle = (TextView) itemView.findViewById(R.id.tv_redditTitle);
             subredditDesc = (TextView) itemView.findViewById(R.id.tv_redditDesc);
             numSubscribers = (TextView) itemView.findViewById(R.id.tv_subscriberCount);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            clickHandler.onClickHandle(getAdapterPosition());
         }
     }
 

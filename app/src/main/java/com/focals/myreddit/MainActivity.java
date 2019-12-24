@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainAdapter.ClickHandler {
 
     RecyclerView mainRecyclerView;
     ArrayList<Subreddit> subredditList;
@@ -24,16 +24,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         new RedditAsyncTask().execute();
 
         mainRecyclerView = (RecyclerView) findViewById(R.id.rv_main);
+    }
 
+    @Override
+    public void onClickHandle(int position) {
 
+        // Launch RedditActivity
+
+        Intent intent = new Intent(this,  PostsActivity.class);
+        startActivity(intent);
     }
 
 
-    class RedditAsyncTask extends AsyncTask <Void, Void, String> {
+    class RedditAsyncTask extends AsyncTask<Void, Void, String> {
         @Override
         protected String doInBackground(Void... voids) {
             return NetworkUtil.getResponseFromUrl(NetworkUtil.searchUrl);
@@ -45,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
             subredditList = RedditParser.parseReddit(s);
 
-            MainAdapter mainAdapter = new MainAdapter(subredditList);
+            MainAdapter mainAdapter = new MainAdapter(subredditList, MainActivity.this);
             GridLayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 1);
 
             mainRecyclerView.setAdapter(mainAdapter);
