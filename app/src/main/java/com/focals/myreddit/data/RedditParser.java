@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class RedditParser {
 
-    public static void parseReddit(String response) {
+    public static ArrayList<Subreddit> parseReddit(String response) {
         JSONObject jsonObject = null;
         ArrayList<Subreddit> subredditsList = new ArrayList<>();
 
@@ -39,6 +39,7 @@ public class RedditParser {
             e.printStackTrace();
         }
 
+        return  subredditsList;
     }
 
     public static void parseRedditPosts(String response) {

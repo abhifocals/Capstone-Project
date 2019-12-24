@@ -1,10 +1,14 @@
 package com.focals.myreddit;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.focals.myreddit.data.RedditParser;
+import com.focals.myreddit.data.Subreddit;
 import com.focals.myreddit.network.NetworkUtil;
+
+import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -13,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView mainRecyclerView;
-
+    ArrayList<Subreddit> subredditList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         mainRecyclerView = (RecyclerView) findViewById(R.id.rv_main);
 
-        MainAdapter mainAdapter = new MainAdapter();
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
 
-        mainRecyclerView.setAdapter(mainAdapter);
-        mainRecyclerView.setLayoutManager(layoutManager);
     }
 
 
@@ -43,7 +43,13 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            RedditParser.parseReddit(s);
+            subredditList = RedditParser.parseReddit(s);
+
+            MainAdapter mainAdapter = new MainAdapter(subredditList);
+            GridLayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 1);
+
+            mainRecyclerView.setAdapter(mainAdapter);
+            mainRecyclerView.setLayoutManager(layoutManager);
 
         }
     }
