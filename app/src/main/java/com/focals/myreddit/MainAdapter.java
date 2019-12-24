@@ -1,7 +1,6 @@
 package com.focals.myreddit;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +45,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
         holder.subredditTitle.setText(title);
         holder.subredditDesc.setText(desc);
-        holder.commentsCount.setText(String.valueOf(subscribers));
+        holder.numSubscribers.setText(String.valueOf(subscribers));
 
     }
 
@@ -60,7 +59,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         ImageView subredditImage;
         TextView subredditTitle;
         TextView subredditDesc;
-        TextView commentsCount;
+        TextView numSubscribers;
 
         public MainViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -68,7 +67,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             subredditImage = (ImageView) itemView.findViewById(R.id.iv_reddit);
             subredditTitle = (TextView) itemView.findViewById(R.id.tv_redditTitle);
             subredditDesc = (TextView) itemView.findViewById(R.id.tv_redditDesc);
-            commentsCount = (TextView) itemView.findViewById(R.id.tv_commentsCount);
+            numSubscribers = (TextView) itemView.findViewById(R.id.tv_subscriberCount);
         }
     }
 
