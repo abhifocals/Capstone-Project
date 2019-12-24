@@ -30,7 +30,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.single_subreddit, parent);
+        View view = inflater.inflate(R.layout.single_subreddit, parent, false);
 
         return new MainViewHolder(view);
     }
@@ -38,20 +38,25 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
 
+        String title = subredditList.get(position).getName();
+        String bannerUrl = subredditList.get(position).getBannerUrl();
+        String desc = subredditList.get(position).getPublicDescription();
+        int subscribers = subredditList.get(position).getSubscribers();
 
 
-
+        holder.subredditTitle.setText(title);
+        holder.subredditDesc.setText(desc);
+        holder.commentsCount.setText(String.valueOf(subscribers));
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return subredditList.size();
     }
 
 
     class MainViewHolder extends RecyclerView.ViewHolder {
-
         ImageView subredditImage;
         TextView subredditTitle;
         TextView subredditDesc;

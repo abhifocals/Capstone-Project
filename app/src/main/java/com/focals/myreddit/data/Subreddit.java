@@ -13,4 +13,20 @@ public class Subreddit {
         this.publicDescription = publicDescription;
         this.subscribers = subscribers;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getBannerUrl() {
+        return bannerUrl;
+    }
+
+    public String getPublicDescription() {
+        return publicDescription;
+    }
+
+    public int getSubscribers() {
+        return subscribers;
+    }
 }
