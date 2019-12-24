@@ -33,18 +33,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="17dp"
-        android:text="TextView"
+        android:text="Subreddit Description"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
         app:layout_constraintStart_toEndOf="@+id/iv_reddit"
         app:layout_constraintTop_toBottomOf="@+id/tv_redditTitle" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tv_commentsCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="40dp"
-        android:text="TextView"
+        android:text="Comments Count"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         app:layout_constraintStart_toEndOf="@+id/iv_reddit"
         app:layout_constraintTop_toBottomOf="@+id/tv_redditDesc" />
