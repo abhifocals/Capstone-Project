@@ -42,7 +42,7 @@ public class RedditParser {
         return  subredditsList;
     }
 
-    public static void parseRedditPosts(String response) {
+    public static ArrayList<Post> parseRedditPosts(String response) {
 
         JSONObject jsonObject = null;
         ArrayList<Post> postsList = new ArrayList<>();
@@ -69,6 +69,8 @@ public class RedditParser {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        return postsList;
     }
 
     public static void parseComments(String response) {

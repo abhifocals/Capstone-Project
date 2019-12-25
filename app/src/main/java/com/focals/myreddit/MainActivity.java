@@ -25,7 +25,9 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.Click
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new RedditAsyncTask().execute();
+        String popularSubreddits = "https://api.reddit.com/subreddits/popular/.json";
+
+        new RedditAsyncTask().execute(popularSubreddits);
 
         mainRecyclerView = (RecyclerView) findViewById(R.id.rv_main);
     }
@@ -36,17 +38,21 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.Click
         if (view.getId() == R.id.imgbtn_addToFavorite) {
             // Add to Favorites here
         } else {
-            // Launch RedditActivity
-            Intent intent = new Intent(this, PostsActivity.class);
+            // Launch SubredditActivity
+            Intent intent = new Intent(this, SubredditActivity.class);
+            String name = subredditList.get(position).getName();
+
+            intent.putExtra("SubredditName", name);
+
             startActivity(intent);
         }
     }
 
 
-    class RedditAsyncTask extends AsyncTask<Void, Void, String> {
+    class RedditAsyncTask extends AsyncTask<String, Void, String> {
         @Override
-        protected String doInBackground(Void... voids) {
-            return NetworkUtil.getResponseFromUrl(NetworkUtil.searchUrl);
+        protected String doInBackground(String... url) {
+            return NetworkUtil.getResponseFromUrl(url[0]);
         }
 
         @Override

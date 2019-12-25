@@ -6,18 +6,13 @@ import java.util.Scanner;
 
 public class NetworkUtil {
 
-    public static String searchUrl = "https://api.reddit.com/subreddits/popular/.json";
-//    static String searchUrl = "https://api.reddit.com/r/news/.json";
-//    static String searchUrl = "https://api.reddit.com/r/news/comments/ee5eva/.json";
-
-
     public static String getResponseFromUrl(String endPoint) {
 
         HttpURLConnection httpURLConnection = null;
 
 
         try {
-            URL url = new URL(searchUrl);
+            URL url = new URL(endPoint);
 
             httpURLConnection = (HttpURLConnection) url.openConnection();
 
