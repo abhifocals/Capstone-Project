@@ -15,4 +15,24 @@ public class Post {
         this.numComments = numComments;
         this.id = id;
     }
+
+    public String getSubredditName() {
+        return subredditName;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getNumComments() {
+        return numComments;
+    }
+
+    public String getId() {
+        return id;
+    }
 }
