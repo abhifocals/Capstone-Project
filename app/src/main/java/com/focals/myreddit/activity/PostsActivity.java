@@ -31,7 +31,7 @@ public class PostsActivity extends AppCompatActivity  implements PostsAdapter.Cl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.subreddit);
+        setContentView(R.layout.rv_posts);
 
         subredditName = getIntent().getStringExtra("SubredditName");
 
