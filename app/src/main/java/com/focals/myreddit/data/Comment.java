@@ -21,4 +21,20 @@ public class Comment {
         this.commentBody = commentBody;
         this.replyToComments = replyToComments;
     }
+
+    public String getSubredditName() {
+        return subredditName;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getCommentBody() {
+        return commentBody;
+    }
+
+    public int[] getReplies() {
+        return replies;
+    }
 }

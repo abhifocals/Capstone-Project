@@ -1,6 +1,7 @@
 package com.focals.myreddit;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
@@ -55,9 +56,11 @@ public class CommentsActivity extends AppCompatActivity {
 
             commentsList = RedditParser.parseComments(s);
 
+            CommentsAdapter adapter = new CommentsAdapter(commentsList);
+            GridLayoutManager layoutManager = new GridLayoutManager(CommentsActivity.this, 1);
 
-
-
+            commentsRecyclerView.setAdapter(adapter);
+            commentsRecyclerView.setLayoutManager(layoutManager);
         }
     }
 
