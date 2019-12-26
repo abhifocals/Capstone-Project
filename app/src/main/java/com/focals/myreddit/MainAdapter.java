@@ -53,12 +53,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
         if (!bannerUrl.isEmpty()) {
             new Picasso.Builder(context).build().load(bannerUrl).into(holder.subredditImage);
-        } else {
-
-
-
         }
-
 
     }
 
