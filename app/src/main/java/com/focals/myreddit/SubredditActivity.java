@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.focals.myreddit.data.Post;
@@ -14,11 +16,13 @@ import com.focals.myreddit.network.NetworkUtil;
 
 import java.util.ArrayList;
 
-public class SubredditActivity extends AppCompatActivity {
+public class SubredditActivity extends AppCompatActivity  implements SubredditAdapter.ClickHandler {
 
     RecyclerView subredditRecyclerView;
     ArrayList<Post> postsList;
     TextView subredditNameView;
+    int subRedditId;
+    String subredditName;
 
 
     @Override
@@ -27,7 +31,7 @@ public class SubredditActivity extends AppCompatActivity {
 
         setContentView(R.layout.subreddit);
 
-        String subredditName = getIntent().getStringExtra("SubredditName");
+        subredditName = getIntent().getStringExtra("SubredditName");
 
         subredditRecyclerView = (RecyclerView) findViewById(R.id.rv_posts);
         subredditNameView = (TextView) findViewById(R.id.tv_subredditName);
@@ -43,6 +47,17 @@ public class SubredditActivity extends AppCompatActivity {
         subredditTask.execute(url);
     }
 
+    @Override
+    public void onClick(int position, View view) {
+
+        String postId = postsList.get(position).getId();
+
+        Intent intent = new Intent(this, CommentsActivity.class);
+        intent.putExtra("PostId", postId);
+        intent.putExtra("SubredditName", subredditName);
+
+        startActivity(intent);
+    }
 
     class SubredditTask extends AsyncTask<String, Void, String> {
 
@@ -57,7 +72,7 @@ public class SubredditActivity extends AppCompatActivity {
 
             postsList = RedditParser.parseRedditPosts(s);
 
-            SubredditAdapter subredditAdapter = new SubredditAdapter(postsList);
+            SubredditAdapter subredditAdapter = new SubredditAdapter(postsList, SubredditActivity.this);
             GridLayoutManager layoutManager = new GridLayoutManager(SubredditActivity.this, 1);
 
             subredditRecyclerView.setAdapter(subredditAdapter);

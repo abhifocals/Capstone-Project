@@ -18,9 +18,11 @@ public class SubredditAdapter extends RecyclerView.Adapter<SubredditAdapter.Subr
 
     ArrayList<Post> postsList;
     Context context;
+    ClickHandler clickHandler;
 
-    public SubredditAdapter(ArrayList<Post> posts) {
+    public SubredditAdapter(ArrayList<Post> posts, ClickHandler clickHandler) {
         this.postsList = posts;
+        this.clickHandler = clickHandler;
     }
 
     @NonNull
@@ -31,7 +33,7 @@ public class SubredditAdapter extends RecyclerView.Adapter<SubredditAdapter.Subr
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View view = inflater.inflate(R.layout.single_post, parent, false);
-        
+
         return new SubredditViewHolder(view);
     }
 
@@ -50,7 +52,11 @@ public class SubredditAdapter extends RecyclerView.Adapter<SubredditAdapter.Subr
         return postsList.size();
     }
 
-    class SubredditViewHolder extends RecyclerView.ViewHolder {
+    public interface ClickHandler {
+        public void onClick (int position, View view);
+    }
+
+    class SubredditViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView postsTextView;
         TextView commentsCount;
@@ -61,9 +67,14 @@ public class SubredditAdapter extends RecyclerView.Adapter<SubredditAdapter.Subr
 
             postsTextView = (TextView) itemView.findViewById(R.id.tv_postText);
             commentsCount = (TextView) itemView.findViewById(R.id.tv_commentsCount);
+
+            itemView.setOnClickListener(this);
         }
 
-
+        @Override
+        public void onClick(View v) {
+            clickHandler.onClick(getAdapterPosition(), v);
+        }
     }
 
 

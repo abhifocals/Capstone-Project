@@ -73,7 +73,7 @@ public class RedditParser {
         return postsList;
     }
 
-    public static void parseComments(String response) {
+    public static ArrayList<Comment> parseComments(String response) {
 
         JSONArray jsonArray = null;
         ArrayList<Comment> commentsList = new ArrayList<>();
@@ -101,6 +101,8 @@ public class RedditParser {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        return commentsList;
     }
 
     public static void recurseComments(JSONObject commentJson) {
