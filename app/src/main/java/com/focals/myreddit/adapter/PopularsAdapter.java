@@ -78,11 +78,11 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
         public MainViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            subredditImage = (ImageView) itemView.findViewById(R.id.iv_reddit);
-            subredditTitle = (TextView) itemView.findViewById(R.id.tv_redditTitle);
-            subredditDesc = (TextView) itemView.findViewById(R.id.tv_redditDesc);
+            subredditImage = (ImageView) itemView.findViewById(R.id.iv_subredditImage);
+            subredditTitle = (TextView) itemView.findViewById(R.id.tv_subredditTitle);
+            subredditDesc = (TextView) itemView.findViewById(R.id.tv_subredditDesc);
             numSubscribers = (TextView) itemView.findViewById(R.id.tv_subscriberCount);
-            addToFavorites = (ImageButton) itemView.findViewById(R.id.imgbtn_addToFavorite);
+            addToFavorites = (ImageButton) itemView.findViewById(R.id.ib_addToFavorites);
 
             subredditTitle.setOnClickListener(this);
             subredditDesc.setOnClickListener(this);

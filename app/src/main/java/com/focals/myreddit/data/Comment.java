@@ -3,21 +3,21 @@ package com.focals.myreddit.data;
 public class Comment {
 
     String subredditName;
-    String title; // Subreddit Post
+    String postText;
     String commentBody;
     int[] replies;
     Comment[] replyToComments;
 
-    public Comment(String subredditName, String title, String commentBody, int[] replies) {
+    public Comment(String subredditName, String postText, String commentBody, int[] replies) {
         this.subredditName = subredditName;
-        this.title = title;
+        this.postText = postText;
         this.commentBody = commentBody;
         this.replies = replies;
     }
 
-    public Comment(String subredditName, String title, String commentBody, Comment[] replyToComments) {
+    public Comment(String subredditName, String postText, String commentBody, Comment[] replyToComments) {
         this.subredditName = subredditName;
-        this.title = title;
+        this.postText = postText;
         this.commentBody = commentBody;
         this.replyToComments = replyToComments;
     }
@@ -26,8 +26,8 @@ public class Comment {
         return subredditName;
     }
 
-    public String getTitle() {
-        return title;
+    public String getPostText() {
+        return postText;
     }
 
     public String getCommentBody() {

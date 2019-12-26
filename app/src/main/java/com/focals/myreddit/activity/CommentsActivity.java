@@ -34,7 +34,7 @@ public class CommentsActivity extends AppCompatActivity {
         commentsRecyclerView = (RecyclerView) findViewById(R.id.rv_comments);
 
         subredditNameTextView = (TextView) findViewById(R.id.tv_subredditName);
-        postTextView = (TextView) findViewById(R.id.tv_post);
+        postTextView = (TextView) findViewById(R.id.tv_postText);
 
 
         String postId = getIntent().getStringExtra("PostId");

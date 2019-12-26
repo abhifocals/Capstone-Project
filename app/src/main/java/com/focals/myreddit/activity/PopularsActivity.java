@@ -31,13 +31,13 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
 
         new RedditAsyncTask().execute(popularSubreddits);
 
-        mainRecyclerView = (RecyclerView) findViewById(R.id.rv_main);
+        mainRecyclerView = (RecyclerView) findViewById(R.id.rv_populars);
     }
 
     @Override
     public void onClickHandle(int position, View view) {
 
-        if (view.getId() == R.id.imgbtn_addToFavorite) {
+        if (view.getId() == R.id.ib_addToFavorites) {
             // Add to Favorites here
         } else {
             // Launch PostsActivity

@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/iv_reddit"
+        android:id="@+id/iv_subredditImage"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:scaleType="centerCrop"
@@ -18,26 +18,26 @@
         android:src="@drawable/ic_reddit_white" />
 
     <TextView
-        android:id="@+id/tv_redditTitle"
+        android:id="@+id/tv_subredditTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="4dp"
         android:text="Subreddit Title"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-        app:layout_constraintStart_toEndOf="@+id/iv_reddit"
+        app:layout_constraintStart_toEndOf="@+id/iv_subredditImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_redditDesc"
+        android:id="@+id/tv_subredditDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="17dp"
         android:text="Subreddit Description"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-        app:layout_constraintStart_toEndOf="@+id/iv_reddit"
-        app:layout_constraintTop_toBottomOf="@+id/tv_redditTitle" />
+        app:layout_constraintStart_toEndOf="@+id/iv_subredditImage"
+        app:layout_constraintTop_toBottomOf="@+id/tv_subredditTitle" />
 
     <TextView
         android:id="@+id/tv_subscriberCount"
@@ -47,11 +47,11 @@
         android:layout_marginTop="40dp"
         android:text="# Subscribers"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        app:layout_constraintStart_toEndOf="@+id/iv_reddit"
-        app:layout_constraintTop_toBottomOf="@+id/tv_redditDesc" />
+        app:layout_constraintStart_toEndOf="@+id/iv_subredditImage"
+        app:layout_constraintTop_toBottomOf="@+id/tv_subredditDesc" />
 
     <ImageButton
-        android:id="@+id/imgbtn_addToFavorite"
+        android:id="@+id/ib_addToFavorites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
