@@ -1,4 +1,4 @@
-package com.focals.myreddit;
+package com.focals.myreddit.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.focals.myreddit.R;
 import com.focals.myreddit.data.Comment;
 
 import java.util.ArrayList;

@@ -1,10 +1,12 @@
-package com.focals.myreddit;
+package com.focals.myreddit.activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 
+import com.focals.myreddit.R;
+import com.focals.myreddit.adapter.MainAdapter;
 import com.focals.myreddit.data.RedditParser;
 import com.focals.myreddit.data.Subreddit;
 import com.focals.myreddit.network.NetworkUtil;

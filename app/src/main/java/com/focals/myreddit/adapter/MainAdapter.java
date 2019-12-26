@@ -1,4 +1,4 @@
-package com.focals.myreddit;
+package com.focals.myreddit.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.focals.myreddit.R;
 import com.focals.myreddit.data.Subreddit;
 import com.squareup.picasso.Picasso;
 

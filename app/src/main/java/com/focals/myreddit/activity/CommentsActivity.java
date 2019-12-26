@@ -1,4 +1,4 @@
-package com.focals.myreddit;
+package com.focals.myreddit.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.focals.myreddit.R;
+import com.focals.myreddit.adapter.CommentsAdapter;
 import com.focals.myreddit.data.Comment;
 import com.focals.myreddit.data.RedditParser;
 import com.focals.myreddit.network.NetworkUtil;
