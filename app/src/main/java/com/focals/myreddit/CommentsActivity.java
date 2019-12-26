@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.focals.myreddit.data.Comment;
 import com.focals.myreddit.data.RedditParser;
@@ -18,6 +19,9 @@ public class CommentsActivity extends AppCompatActivity {
     RecyclerView commentsRecyclerView;
     ArrayList<Comment> commentsList;
 
+    TextView subredditNameTextView;
+    TextView postTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +31,17 @@ public class CommentsActivity extends AppCompatActivity {
 
         commentsRecyclerView = (RecyclerView) findViewById(R.id.rv_comments);
 
+        subredditNameTextView = (TextView) findViewById(R.id.tv_subredditName);
+        postTextView = (TextView) findViewById(R.id.tv_post);
+
+
         String postId = getIntent().getStringExtra("PostId");
         String subredditName = getIntent().getStringExtra("SubredditName");
+        String postText = getIntent().getStringExtra("PostText");
+
+
+        subredditNameTextView.setText(subredditName);
+        postTextView.setText(postText);
 
         String url = "https://api.reddit.com/r/" + subredditName + "/comments/" + postId + "/.json";
 
@@ -36,10 +49,6 @@ public class CommentsActivity extends AppCompatActivity {
         CommentsTask commentsTask = new CommentsTask();
         commentsTask.execute(url);
     }
-
-
-
-
 
 
     class CommentsTask extends AsyncTask<String, Void, String> {

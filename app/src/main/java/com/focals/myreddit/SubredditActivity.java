@@ -55,6 +55,7 @@ public class SubredditActivity extends AppCompatActivity  implements SubredditAd
         Intent intent = new Intent(this, CommentsActivity.class);
         intent.putExtra("PostId", postId);
         intent.putExtra("SubredditName", subredditName);
+        intent.putExtra("PostText", postsList.get(position).getTitle());
 
         startActivity(intent);
     }
