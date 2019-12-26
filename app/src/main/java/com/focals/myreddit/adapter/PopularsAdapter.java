@@ -34,7 +34,7 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
 
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.single_subreddit, parent, false);
+        View view = inflater.inflate(R.layout.single_popular, parent, false);
 
         return new MainViewHolder(view);
     }

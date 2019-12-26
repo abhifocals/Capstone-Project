@@ -25,7 +25,7 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.rv_populars);
 
         String popularSubreddits = "https://api.reddit.com/subreddits/popular/.json";
 
