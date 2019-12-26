@@ -52,13 +52,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
     class CommentViewHolder extends RecyclerView.ViewHolder {
         TextView commentsTextView;
-        TextView numReplies;
 
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);
 
             commentsTextView = (TextView) itemView.findViewById(R.id.tv_comment);
-            numReplies = (TextView) itemView.findViewById(R.id.tv_repliesCount);
         }
     }
 
