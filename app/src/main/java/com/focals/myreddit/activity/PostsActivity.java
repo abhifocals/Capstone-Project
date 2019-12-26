@@ -18,7 +18,7 @@ import com.focals.myreddit.network.NetworkUtil;
 
 import java.util.ArrayList;
 
-public class SubredditActivity extends AppCompatActivity  implements SubredditAdapter.ClickHandler {
+public class PostsActivity extends AppCompatActivity  implements SubredditAdapter.ClickHandler {
 
     RecyclerView subredditRecyclerView;
     ArrayList<Post> postsList;
@@ -75,8 +75,8 @@ public class SubredditActivity extends AppCompatActivity  implements SubredditAd
 
             postsList = RedditParser.parseRedditPosts(s);
 
-            SubredditAdapter subredditAdapter = new SubredditAdapter(postsList, SubredditActivity.this);
-            GridLayoutManager layoutManager = new GridLayoutManager(SubredditActivity.this, 1);
+            SubredditAdapter subredditAdapter = new SubredditAdapter(postsList, PostsActivity.this);
+            GridLayoutManager layoutManager = new GridLayoutManager(PostsActivity.this, 1);
 
             subredditRecyclerView.setAdapter(subredditAdapter);
             subredditRecyclerView.setLayoutManager(layoutManager);

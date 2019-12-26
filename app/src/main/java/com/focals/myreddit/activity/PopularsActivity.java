@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity implements MainAdapter.ClickHandler {
+public class PopularsActivity extends AppCompatActivity implements MainAdapter.ClickHandler {
 
     RecyclerView mainRecyclerView;
     ArrayList<Subreddit> subredditList;
@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.Click
         if (view.getId() == R.id.imgbtn_addToFavorite) {
             // Add to Favorites here
         } else {
-            // Launch SubredditActivity
-            Intent intent = new Intent(this, SubredditActivity.class);
+            // Launch PostsActivity
+            Intent intent = new Intent(this, PostsActivity.class);
             String name = subredditList.get(position).getName();
 
             intent.putExtra("SubredditName", name);
@@ -63,8 +63,8 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.Click
 
             subredditList = RedditParser.parseReddit(s);
 
-            MainAdapter mainAdapter = new MainAdapter(subredditList, MainActivity.this);
-            GridLayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 1);
+            MainAdapter mainAdapter = new MainAdapter(subredditList, PopularsActivity.this);
+            GridLayoutManager layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
 
             mainRecyclerView.setAdapter(mainAdapter);
             mainRecyclerView.setLayoutManager(layoutManager);

@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.CommentsActivity"></activity>
-        <activity android:name=".activity.SubredditActivity" />
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.PostsActivity" />
+        <activity android:name=".activity.PopularsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
