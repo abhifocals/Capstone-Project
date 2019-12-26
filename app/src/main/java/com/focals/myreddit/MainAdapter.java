@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.focals.myreddit.data.Subreddit;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -49,6 +50,15 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         holder.subredditTitle.setText(title);
         holder.subredditDesc.setText(desc);
         holder.numSubscribers.setText(String.valueOf(subscribers));
+
+        if (!bannerUrl.isEmpty()) {
+            new Picasso.Builder(context).build().load(bannerUrl).into(holder.subredditImage);
+        } else {
+
+
+
+        }
+
 
     }
 
