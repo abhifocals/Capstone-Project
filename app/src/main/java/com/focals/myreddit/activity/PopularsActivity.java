@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.focals.myreddit.R;
-import com.focals.myreddit.adapter.MainAdapter;
+import com.focals.myreddit.adapter.PopularsAdapter;
 import com.focals.myreddit.data.RedditParser;
 import com.focals.myreddit.data.Subreddit;
 import com.focals.myreddit.network.NetworkUtil;
@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PopularsActivity extends AppCompatActivity implements MainAdapter.ClickHandler {
+public class PopularsActivity extends AppCompatActivity implements PopularsAdapter.ClickHandler {
 
     RecyclerView mainRecyclerView;
     ArrayList<Subreddit> subredditList;
@@ -63,10 +63,10 @@ public class PopularsActivity extends AppCompatActivity implements MainAdapter.C
 
             subredditList = RedditParser.parseReddit(s);
 
-            MainAdapter mainAdapter = new MainAdapter(subredditList, PopularsActivity.this);
+            PopularsAdapter popularsAdapter = new PopularsAdapter(subredditList, PopularsActivity.this);
             GridLayoutManager layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
 
-            mainRecyclerView.setAdapter(mainAdapter);
+            mainRecyclerView.setAdapter(popularsAdapter);
             mainRecyclerView.setLayoutManager(layoutManager);
 
         }

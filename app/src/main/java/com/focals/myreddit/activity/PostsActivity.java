@@ -11,14 +11,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.focals.myreddit.R;
-import com.focals.myreddit.adapter.SubredditAdapter;
+import com.focals.myreddit.adapter.PostsAdapter;
 import com.focals.myreddit.data.Post;
 import com.focals.myreddit.data.RedditParser;
 import com.focals.myreddit.network.NetworkUtil;
 
 import java.util.ArrayList;
 
-public class PostsActivity extends AppCompatActivity  implements SubredditAdapter.ClickHandler {
+public class PostsActivity extends AppCompatActivity  implements PostsAdapter.ClickHandler {
 
     RecyclerView subredditRecyclerView;
     ArrayList<Post> postsList;
@@ -75,10 +75,10 @@ public class PostsActivity extends AppCompatActivity  implements SubredditAdapte
 
             postsList = RedditParser.parseRedditPosts(s);
 
-            SubredditAdapter subredditAdapter = new SubredditAdapter(postsList, PostsActivity.this);
+            PostsAdapter postsAdapter = new PostsAdapter(postsList, PostsActivity.this);
             GridLayoutManager layoutManager = new GridLayoutManager(PostsActivity.this, 1);
 
-            subredditRecyclerView.setAdapter(subredditAdapter);
+            subredditRecyclerView.setAdapter(postsAdapter);
             subredditRecyclerView.setLayoutManager(layoutManager);
 
         }

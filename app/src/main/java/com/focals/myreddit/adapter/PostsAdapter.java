@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class SubredditAdapter extends RecyclerView.Adapter<SubredditAdapter.SubredditViewHolder> {
+public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditViewHolder> {
 
     ArrayList<Post> postsList;
     Context context;
     ClickHandler clickHandler;
 
-    public SubredditAdapter(ArrayList<Post> posts, ClickHandler clickHandler) {
+    public PostsAdapter(ArrayList<Post> posts, ClickHandler clickHandler) {
         this.postsList = posts;
         this.clickHandler = clickHandler;
     }

@@ -17,13 +17,13 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder> {
+public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainViewHolder> {
 
     Context context;
     ArrayList<Subreddit> subredditList;
     ClickHandler clickHandler;
 
-    public MainAdapter(ArrayList<Subreddit> subredditList, ClickHandler clickHandler) {
+    public PopularsAdapter(ArrayList<Subreddit> subredditList, ClickHandler clickHandler) {
         this.subredditList = subredditList;
         this.clickHandler = clickHandler;
     }
