@@ -36,8 +36,8 @@ public class PostsActivity extends AppCompatActivity  implements PostsAdapter.Cl
         subredditName = getIntent().getStringExtra("SubredditName");
 
         subredditRecyclerView = (RecyclerView) findViewById(R.id.rv_posts);
-        subredditNameView = (TextView) findViewById(R.id.tv_subredditName);
-        subredditNameView.setText(subredditName);
+//        subredditNameView = (TextView) findViewById(R.id.tv_subredditName);
+//        subredditNameView.setText(subredditName);
 
 
 

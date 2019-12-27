@@ -1,43 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.PopularsActivity">
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:background="@color/colorPrimaryDark">
+            android:layout_height="60dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MyReddit"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"></TextView>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/AppBar"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                app:layout_collapseMode="pin"/>
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <!-- TODO: Replace with ImageView of AppLogo   -->
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="MyReddit"
-            android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"></TextView>
-
     </com.google.android.material.appbar.AppBarLayout>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_populars"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></androidx.recyclerview.widget.RecyclerView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

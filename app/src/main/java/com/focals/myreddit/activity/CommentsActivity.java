@@ -33,7 +33,7 @@ public class CommentsActivity extends AppCompatActivity {
 
         commentsRecyclerView = (RecyclerView) findViewById(R.id.rv_comments);
 
-        subredditNameTextView = (TextView) findViewById(R.id.tv_subredditName);
+//        subredditNameTextView = (TextView) findViewById(R.id.tv_subredditName);
         postTextView = (TextView) findViewById(R.id.tv_postText);
 
 
@@ -42,7 +42,7 @@ public class CommentsActivity extends AppCompatActivity {
         String postText = getIntent().getStringExtra("PostText");
 
 
-        subredditNameTextView.setText(subredditName);
+//        subredditNameTextView.setText(subredditName);
         postTextView.setText(postText);
 
         String url = "https://api.reddit.com/r/" + subredditName + "/comments/" + postId + "/.json";
