@@ -1,6 +1,7 @@
 package com.focals.myreddit.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,8 @@ public class CommentsActivity extends AppCompatActivity {
 
     TextView subredditNameTextView;
     TextView postTextView;
+    Toolbar toolbar;
+
 
 
     @Override
@@ -50,6 +53,12 @@ public class CommentsActivity extends AppCompatActivity {
 
         CommentsTask commentsTask = new CommentsTask();
         commentsTask.execute(url);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle(subredditName);
     }
 
 

@@ -1,6 +1,7 @@
 package com.focals.myreddit.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +26,7 @@ public class PostsActivity extends AppCompatActivity  implements PostsAdapter.Cl
     TextView subredditNameView;
     int subRedditId;
     String subredditName;
+    Toolbar toolbar;
 
 
     @Override
@@ -40,13 +42,17 @@ public class PostsActivity extends AppCompatActivity  implements PostsAdapter.Cl
 //        subredditNameView.setText(subredditName);
 
 
-
-
         // Start task with correct URL here
         String url = "https://api.reddit.com/r/" + subredditName + "/.json";
 
         SubredditTask subredditTask = new SubredditTask();
         subredditTask.execute(url);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle(subredditName);
     }
 
     @Override

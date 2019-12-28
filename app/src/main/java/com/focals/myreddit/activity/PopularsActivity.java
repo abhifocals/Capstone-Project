@@ -14,6 +14,7 @@ import com.focals.myreddit.network.NetworkUtil;
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
 
     RecyclerView mainRecyclerView;
     ArrayList<Subreddit> subredditList;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,12 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
         new RedditAsyncTask().execute(popularSubreddits);
 
         mainRecyclerView = (RecyclerView) findViewById(R.id.rv_populars);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
     }
+
 
     @Override
     public void onClickHandle(int position, View view) {
