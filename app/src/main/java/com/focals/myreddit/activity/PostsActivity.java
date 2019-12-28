@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.focals.myreddit.R;
@@ -27,6 +28,7 @@ public class PostsActivity extends AppCompatActivity  implements PostsAdapter.Cl
     int subRedditId;
     String subredditName;
     Toolbar toolbar;
+    ImageButton imageButton;
 
 
     @Override
@@ -53,6 +55,9 @@ public class PostsActivity extends AppCompatActivity  implements PostsAdapter.Cl
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle(subredditName);
+
+        imageButton = (ImageButton) findViewById(R.id.ib_addToFavorites);
+        imageButton.setVisibility(View.VISIBLE);
     }
 
     @Override
