@@ -28,7 +28,7 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
     RecyclerView mainRecyclerView;
     ArrayList<Subreddit> subredditList;
     Toolbar toolbar;
-    ImageView iv_appbarImage;
+
 
 
     @Override
@@ -46,12 +46,10 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
 
         setSupportActionBar(toolbar);
 
-        iv_appbarImage = (ImageView) findViewById(R.id.expandedImage);
-
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
-
-        Blurry.with(this).radius(10).sampling(2).async().from(bitmap).into(iv_appbarImage);
-
+//        ImageView iv_appbarImage;
+//        iv_appbarImage = (ImageView) findViewById(R.id.expandedImage);
+//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
+//        Blurry.with(this).radius(10).sampling(2).async().from(bitmap).into(iv_appbarImage);
 
     }
 
