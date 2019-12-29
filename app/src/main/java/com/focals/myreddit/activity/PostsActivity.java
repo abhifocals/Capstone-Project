@@ -1,19 +1,10 @@
 package com.focals.myreddit.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import jp.wasabeef.blurry.Blurry;
-
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.focals.myreddit.R;
@@ -24,7 +15,12 @@ import com.focals.myreddit.network.NetworkUtil;
 
 import java.util.ArrayList;
 
-public class PostsActivity extends AppCompatActivity  implements PostsAdapter.ClickHandler {
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class PostsActivity extends AppCompatActivity implements PostsAdapter.ClickHandler {
 
     RecyclerView subredditRecyclerView;
     ArrayList<Post> postsList;
@@ -44,9 +40,6 @@ public class PostsActivity extends AppCompatActivity  implements PostsAdapter.Cl
         subredditName = getIntent().getStringExtra("SubredditName");
 
         subredditRecyclerView = (RecyclerView) findViewById(R.id.rv_posts);
-//        subredditNameView = (TextView) findViewById(R.id.tv_subredditName);
-//        subredditNameView.setText(subredditName);
-
 
         // Start task with correct URL here
         String url = "https://api.reddit.com/r/" + subredditName + "/.json";
@@ -59,13 +52,6 @@ public class PostsActivity extends AppCompatActivity  implements PostsAdapter.Cl
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle(subredditName);
-
-
-
-//        ImageView iv_appbarImage;
-//        iv_appbarImage = (ImageView) findViewById(R.id.expandedImage);
-//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
-//        Blurry.with(this).radius(10).sampling(2).async().from(bitmap).into(iv_appbarImage);
 
         imageButton = (ImageButton) findViewById(R.id.ib_addToFavorites);
         imageButton.setVisibility(View.VISIBLE);

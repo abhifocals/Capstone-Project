@@ -6,17 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<!--    <TextView-->
-<!--        android:id="@+id/tv_subredditName"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="128dp"-->
-<!--        android:layout_marginTop="56dp"-->
-<!--        android:text="Subreddit Title"-->
-<!--        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
     <include layout="@layout/app_bar_layout" />
 
     <LinearLayout
@@ -46,17 +35,5 @@
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
     </LinearLayout>
-
-
-<!--    <ImageButton-->
-<!--        android:id="@+id/ib_addToFavorites"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="61dp"-->
-<!--        android:layout_marginEnd="15dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:srcCompat="@android:drawable/ic_input_add" />-->
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

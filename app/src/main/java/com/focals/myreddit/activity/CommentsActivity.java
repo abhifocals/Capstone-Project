@@ -34,7 +34,6 @@ public class CommentsActivity extends AppCompatActivity {
     ImageButton imageButton;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +41,6 @@ public class CommentsActivity extends AppCompatActivity {
         setContentView(R.layout.rv_comments);
 
         commentsRecyclerView = (RecyclerView) findViewById(R.id.rv_comments);
-
-//        subredditNameTextView = (TextView) findViewById(R.id.tv_subredditName);
         postTextView = (TextView) findViewById(R.id.tv_postText);
 
 
@@ -51,8 +48,6 @@ public class CommentsActivity extends AppCompatActivity {
         String subredditName = getIntent().getStringExtra("SubredditName");
         String postText = getIntent().getStringExtra("PostText");
 
-
-//        subredditNameTextView.setText(subredditName);
         postTextView.setText(postText);
 
         String url = "https://api.reddit.com/r/" + subredditName + "/comments/" + postId + "/.json";
@@ -66,13 +61,6 @@ public class CommentsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle(subredditName);
-
-
-
-//        ImageView iv_appbarImage;
-//        iv_appbarImage = (ImageView) findViewById(R.id.expandedImage);
-//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
-//        Blurry.with(this).radius(10).sampling(2).async().from(bitmap).into(iv_appbarImage);
 
         imageButton = (ImageButton) findViewById(R.id.ib_addToFavorites);
         imageButton.setVisibility(View.VISIBLE);
