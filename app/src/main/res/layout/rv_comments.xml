@@ -21,15 +21,13 @@
             android:layout_marginStart="35dp"
             android:layout_marginTop="16dp"
             android:text="Post Text"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_comments"
             android:layout_width="match_parent"
             android:layout_height="500dp"
-            android:layout_marginTop="26dp"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+            android:layout_marginTop="26dp" />
 
     </LinearLayout>
 
