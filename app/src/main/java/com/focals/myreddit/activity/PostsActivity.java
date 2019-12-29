@@ -68,8 +68,7 @@ public class PostsActivity extends AppCompatActivity  implements PostsAdapter.Cl
 //        Blurry.with(this).radius(10).sampling(2).async().from(bitmap).into(iv_appbarImage);
 
         imageButton = (ImageButton) findViewById(R.id.ib_addToFavorites);
-
-//        imageButton.setVisibility(View.VISIBLE);
+        imageButton.setVisibility(View.VISIBLE);
     }
 
     @Override
