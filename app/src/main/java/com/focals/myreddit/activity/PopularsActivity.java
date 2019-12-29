@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -53,6 +55,18 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = new MenuInflater(this);
+
+        menuInflater.inflate(R.menu.menu, menu);
+
+
+
+
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     public void onClickHandle(int position, View view) {
