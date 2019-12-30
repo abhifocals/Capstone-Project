@@ -28,8 +28,9 @@ public class RedditParser {
                 String bannerlUrl = subredditJson.getString("banner_img");
                 String publicDescription = subredditJson.getString("public_description");
                 int subscribers = subredditJson.getInt("subscribers");
+                boolean favorite = false;
 
-                Subreddit subreddit = new Subreddit(name, bannerlUrl, publicDescription, subscribers);
+                Subreddit subreddit = new Subreddit(name, bannerlUrl, publicDescription, subscribers, favorite);
 
                 subredditsList.add(subreddit);
 
