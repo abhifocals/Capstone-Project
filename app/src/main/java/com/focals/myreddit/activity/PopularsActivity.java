@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.focals.myreddit.R;
 import com.focals.myreddit.adapter.PopularsAdapter;
@@ -65,11 +66,8 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
         if (item.getItemId() == R.id.menu_favorite) {
             showingFavorites = true;
 
-            popularsAdapter = new PopularsAdapter(FAVORITES, PopularsActivity.this, showingFavorites);
-            layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
+            popularsAdapter.setSubredditList(FAVORITES);
 
-            mainRecyclerView.setAdapter(popularsAdapter);
-            mainRecyclerView.setLayoutManager(layoutManager);
         }
 
 
@@ -81,30 +79,46 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
 
         if (view.getId() == R.id.ib_addToFavorites) {
 
+            // if Showing Fav Screen, remove from Fav position
 
-            // if Subreddit in Fav List, remove from Favorite
+            if (showingFavorites) {
 
-            if (FAVORITES.contains(subredditList.get(position))) {
+                FAVORITES.remove(position);
 
-                showingFavorites = true;
+            }
 
-                FAVORITES.remove(subredditList.get(position));
 
-//                popularsAdapter.notifyItemRemoved(position);
 
-                popularsAdapter = new PopularsAdapter(FAVORITES, PopularsActivity.this, showingFavorites);
-                layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
 
-                mainRecyclerView.setAdapter(popularsAdapter);
-                mainRecyclerView.setLayoutManager(layoutManager);
+
+
+
+
+
+
+
+            // if item at position is a fav, remove from fav, else add to fav
+
+            if (!subredditList.get(position).isFavorite()) {
+
+                subredditList.get(position).setFavorite(true);
+                FAVORITES.add(subredditList.get(position));
+                popularsAdapter.notifyDataSetChanged();
 
             }
 
             else {
-                saveAsFavorite(position);
+                subredditList.get(position).setFavorite(false);
+                FAVORITES.remove(subredditList.get(position));
+                popularsAdapter.notifyDataSetChanged();
             }
 
-        } else {
+
+        }
+
+        // if anything other than Fav button is clicked, launch Posts activity.
+
+        else {
             // Launch PostsActivity
             Intent intent = new Intent(this, PostsActivity.class);
             String name = subredditList.get(position).getName();
@@ -113,11 +127,6 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
 
             startActivity(intent);
         }
-    }
-
-
-    public void saveAsFavorite(int position) {
-        FAVORITES.add(subredditList.get(position));
     }
 
 

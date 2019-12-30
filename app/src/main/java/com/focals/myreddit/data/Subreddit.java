@@ -31,4 +31,12 @@ public class Subreddit {
     public int getSubscribers() {
         return subscribers;
     }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
 }

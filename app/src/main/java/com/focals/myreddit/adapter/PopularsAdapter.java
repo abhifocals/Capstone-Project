@@ -58,11 +58,21 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
             new Picasso.Builder(context).build().load(bannerUrl).into(holder.subredditImage);
         }
 
+        // Display +/- depending on Fav Status
+        if (subredditList.get(position).isFavorite()) {
+            holder.addToFavorites.setImageDrawable(context.getDrawable(android.R.drawable.ic_delete));
+        }
+
     }
 
     @Override
     public int getItemCount() {
         return subredditList.size();
+    }
+
+    public void setSubredditList(ArrayList<Subreddit> subredditList) {
+        this.subredditList = subredditList;
+        notifyDataSetChanged();
     }
 
     public interface ClickHandler {
@@ -90,13 +100,6 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
             subredditDesc.setOnClickListener(this);
             addToFavorites.setOnClickListener(this);
 
-
-            // Adjust if showing Favorites Screen
-
-            if (showingFavorites) {
-                numSubscribers.setVisibility(View.INVISIBLE);
-                addToFavorites.setImageDrawable(context.getDrawable(android.R.drawable.ic_delete));
-            }
         }
 
         @Override
