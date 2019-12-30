@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import jp.wasabeef.blurry.Blurry;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
