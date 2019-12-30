@@ -22,10 +22,12 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
     Context context;
     ArrayList<Subreddit> subredditList;
     ClickHandler clickHandler;
+    boolean showingFavorites;
 
-    public PopularsAdapter(ArrayList<Subreddit> subredditList, ClickHandler clickHandler) {
+    public PopularsAdapter(ArrayList<Subreddit> subredditList, ClickHandler clickHandler, boolean showingFavorites) {
         this.subredditList = subredditList;
         this.clickHandler = clickHandler;
+        this.showingFavorites = showingFavorites;
     }
 
     @NonNull
@@ -87,6 +89,14 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
             subredditTitle.setOnClickListener(this);
             subredditDesc.setOnClickListener(this);
             addToFavorites.setOnClickListener(this);
+
+
+            // Adjust if showing Favorites Screen
+
+            if (showingFavorites) {
+                numSubscribers.setVisibility(View.INVISIBLE);
+                addToFavorites.setImageDrawable(context.getDrawable(android.R.drawable.ic_delete));
+            }
         }
 
         @Override

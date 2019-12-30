@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.focals.myreddit.R;
@@ -25,6 +26,12 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
     RecyclerView mainRecyclerView;
     ArrayList<Subreddit> subredditList;
     Toolbar toolbar;
+    PopularsAdapter popularsAdapter;
+    GridLayoutManager layoutManager;
+    boolean showingFavorites;
+
+    public static ArrayList<Subreddit> FAVORITES = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,17 +56,54 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
 
         menuInflater.inflate(R.menu.menu, menu);
 
-
-
-
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.menu_favorite) {
+            showingFavorites = true;
+
+            popularsAdapter = new PopularsAdapter(FAVORITES, PopularsActivity.this, showingFavorites);
+            layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
+
+            mainRecyclerView.setAdapter(popularsAdapter);
+            mainRecyclerView.setLayoutManager(layoutManager);
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onClickHandle(int position, View view) {
 
         if (view.getId() == R.id.ib_addToFavorites) {
-            // Add to Favorites here
+
+
+            // if Subreddit in Fav List, remove from Favorite
+
+            if (FAVORITES.contains(subredditList.get(position))) {
+
+                showingFavorites = true;
+
+                FAVORITES.remove(subredditList.get(position));
+
+//                popularsAdapter.notifyItemRemoved(position);
+
+                popularsAdapter = new PopularsAdapter(FAVORITES, PopularsActivity.this, showingFavorites);
+                layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
+
+                mainRecyclerView.setAdapter(popularsAdapter);
+                mainRecyclerView.setLayoutManager(layoutManager);
+
+            }
+
+            else {
+                saveAsFavorite(position);
+            }
+
         } else {
             // Launch PostsActivity
             Intent intent = new Intent(this, PostsActivity.class);
@@ -69,6 +113,11 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
 
             startActivity(intent);
         }
+    }
+
+
+    public void saveAsFavorite(int position) {
+        FAVORITES.add(subredditList.get(position));
     }
 
 
@@ -84,8 +133,8 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
 
             subredditList = RedditParser.parseReddit(s);
 
-            PopularsAdapter popularsAdapter = new PopularsAdapter(subredditList, PopularsActivity.this);
-            GridLayoutManager layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
+            popularsAdapter = new PopularsAdapter(subredditList, PopularsActivity.this, showingFavorites);
+            layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
 
             mainRecyclerView.setAdapter(popularsAdapter);
             mainRecyclerView.setLayoutManager(layoutManager);
