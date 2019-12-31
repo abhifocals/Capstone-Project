@@ -77,113 +77,65 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
     @Override
     public void onClickHandle(int position, View view) {
 
+        int viewId = view.getId();
+        Subreddit sub = null;
 
-        //  If Click + or -
+        // If Add/Remove Fav Button is clicked
 
-
-
-
-
-
+        if (viewId == R.id.ib_addToFavorites) {
 
 
-            // If Favorites Page
-
-                    // Mark as Not Fav
-                    // Remove from Fav
-                    // Notify Adapter
-
-
-            // If Populars Page
-
-                    // If item is not Fav
-
-                        // Mark as Fav
-                        // Add to Fav
-                        // Notify Adapter
-
-                    // If item Fav
-
-                        // Mark as Not Fav
-                        // Remove from Fav
-                        // Notify Adapter
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // If Click Subreddit Title or Text or Image
-
-            // Launch Posts Activity
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        if (view.getId() == R.id.ib_addToFavorites) {
-
-            // if Showing Fav Screen, remove from Fav position
-
+            // If on Fav Screen, get sub using Fav List
             if (showingFavorites) {
 
-                FAVORITES.remove(position);
-                popularsAdapter.notifyDataSetChanged();
+                sub = FAVORITES.get(position);
 
+                setFavoriteState(sub, false);
             }
+
+
+            // If on Populars Screen, get sub using Populars List
 
             else {
+                sub = subredditList.get(position);
 
+                // Set Fav Status depending on current Fav State
 
-                // if item at position is a fav, remove from fav, else add to fav
-
-                if (!subredditList.get(position).isFavorite()) {
-
-                    subredditList.get(position).setFavorite(true);
-                    FAVORITES.add(subredditList.get(position));
-                    popularsAdapter.notifyDataSetChanged();
-
+                if (sub.isFavorite()) {
+                    setFavoriteState(sub, false);
                 } else {
-                    subredditList.get(position).setFavorite(false);
-                    FAVORITES.remove(subredditList.get(position));
-                    popularsAdapter.notifyDataSetChanged();
+                    setFavoriteState(sub, true);
                 }
-
             }
-
         }
 
 
-        // if anything other than Fav button is clicked, launch Posts activity.
+        // If Sub Title or Post or Image is clicked
 
         else {
-            // Launch PostsActivity
-            Intent intent = new Intent(this, PostsActivity.class);
-            String name = subredditList.get(position).getName();
-
-            intent.putExtra("SubredditName", name);
-
-            startActivity(intent);
+            launchPostsActivity(position);
         }
+    }
+
+    private void setFavoriteState(Subreddit sub, boolean newFavState) {
+        sub.setFavorite(newFavState);
+
+        if (newFavState) {
+            FAVORITES.add(sub);
+        } else {
+            FAVORITES.remove(sub);
+        }
+
+        popularsAdapter.notifyDataSetChanged();
+    }
+
+    private void launchPostsActivity(int position) {
+        Intent intent = new Intent(this, PostsActivity.class);
+        String name = subredditList.get(position).getName();
+
+        intent.putExtra("SubredditName", name);
+
+        startActivity(intent);
     }
 
 
