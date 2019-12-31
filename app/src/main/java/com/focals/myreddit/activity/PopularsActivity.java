@@ -81,15 +81,10 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
         Subreddit sub = getCurrentSub(showingFavorites, position);
 
         if (viewId == R.id.ib_addToFavorites) {
-
-            if (showingFavorites) {
+            if (sub.isFavorite() || showingFavorites) {
                 setFavoriteState(sub, false);
             } else {
-                if (sub.isFavorite()) {
-                    setFavoriteState(sub, false);
-                } else {
-                    setFavoriteState(sub, true);
-                }
+                setFavoriteState(sub, true);
             }
         } else {
             launchPostsActivity(position);
