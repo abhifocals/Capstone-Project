@@ -70,6 +70,14 @@ public class PostsActivity extends AppCompatActivity implements PostsAdapter.Cli
         startActivity(intent);
     }
 
+    public void addRemoveFavorite(View view) {
+
+      // Get Fav by Id and update it's status.
+
+        System.out.println();
+
+    }
+
     class SubredditTask extends AsyncTask<String, Void, String> {
 
         @Override

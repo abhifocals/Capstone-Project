@@ -65,6 +65,14 @@ public class CommentsActivity extends AppCompatActivity {
         imageButton.setVisibility(View.VISIBLE);
     }
 
+    public void addRemoveFavorite(View view) {
+
+        // Get Fav by Id and update it's status.
+
+        System.out.println();
+
+    }
+
 
     class CommentsTask extends AsyncTask<String, Void, String> {
 
