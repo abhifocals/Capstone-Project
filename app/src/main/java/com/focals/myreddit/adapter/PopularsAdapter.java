@@ -62,6 +62,9 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
         if (subredditList.get(position).isFavorite()) {
             holder.addToFavorites.setImageDrawable(context.getDrawable(android.R.drawable.ic_delete));
         }
+        else {
+            holder.addToFavorites.setImageDrawable(context.getDrawable(android.R.drawable.ic_input_add));
+        }
 
     }
 
