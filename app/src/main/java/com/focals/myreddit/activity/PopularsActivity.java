@@ -78,18 +78,13 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
     public void onClickHandle(int position, View view) {
 
         int viewId = view.getId();
-        Subreddit sub = null;
+        Subreddit sub = getCurrentSub(showingFavorites, position);
 
         if (viewId == R.id.ib_addToFavorites) {
 
             if (showingFavorites) {
-
-                sub = FAVORITES.get(position);
-
                 setFavoriteState(sub, false);
             } else {
-                sub = subredditList.get(position);
-
                 if (sub.isFavorite()) {
                     setFavoriteState(sub, false);
                 } else {
@@ -99,6 +94,18 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
         } else {
             launchPostsActivity(position);
         }
+    }
+
+    private Subreddit getCurrentSub(boolean showingFavScreen, int position) {
+        Subreddit sub;
+
+        if (showingFavScreen) {
+            sub = FAVORITES.get(position);
+        } else {
+            sub = subredditList.get(position);
+        }
+
+        return sub;
     }
 
     private void setFavoriteState(Subreddit sub, boolean newFavState) {
