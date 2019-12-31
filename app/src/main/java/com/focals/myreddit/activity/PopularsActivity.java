@@ -77,6 +77,69 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
     @Override
     public void onClickHandle(int position, View view) {
 
+
+        //  If Click + or -
+
+
+
+
+
+
+
+
+            // If Favorites Page
+
+                    // Mark as Not Fav
+                    // Remove from Fav
+                    // Notify Adapter
+
+
+            // If Populars Page
+
+                    // If item is not Fav
+
+                        // Mark as Fav
+                        // Add to Fav
+                        // Notify Adapter
+
+                    // If item Fav
+
+                        // Mark as Not Fav
+                        // Remove from Fav
+                        // Notify Adapter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // If Click Subreddit Title or Text or Image
+
+            // Launch Posts Activity
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         if (view.getId() == R.id.ib_addToFavorites) {
 
             // if Showing Fav Screen, remove from Fav position
