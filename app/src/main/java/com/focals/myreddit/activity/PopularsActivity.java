@@ -84,37 +84,31 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
             if (showingFavorites) {
 
                 FAVORITES.remove(position);
-
-            }
-
-
-
-
-
-
-
-
-
-
-
-            // if item at position is a fav, remove from fav, else add to fav
-
-            if (!subredditList.get(position).isFavorite()) {
-
-                subredditList.get(position).setFavorite(true);
-                FAVORITES.add(subredditList.get(position));
                 popularsAdapter.notifyDataSetChanged();
 
             }
 
             else {
-                subredditList.get(position).setFavorite(false);
-                FAVORITES.remove(subredditList.get(position));
-                popularsAdapter.notifyDataSetChanged();
+
+
+                // if item at position is a fav, remove from fav, else add to fav
+
+                if (!subredditList.get(position).isFavorite()) {
+
+                    subredditList.get(position).setFavorite(true);
+                    FAVORITES.add(subredditList.get(position));
+                    popularsAdapter.notifyDataSetChanged();
+
+                } else {
+                    subredditList.get(position).setFavorite(false);
+                    FAVORITES.remove(subredditList.get(position));
+                    popularsAdapter.notifyDataSetChanged();
+                }
+
             }
 
-
         }
+
 
         // if anything other than Fav button is clicked, launch Posts activity.
 
