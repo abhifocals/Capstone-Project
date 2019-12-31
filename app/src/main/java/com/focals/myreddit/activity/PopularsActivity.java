@@ -80,26 +80,15 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
         int viewId = view.getId();
         Subreddit sub = null;
 
-        // If Add/Remove Fav Button is clicked
-
         if (viewId == R.id.ib_addToFavorites) {
 
-
-            // If on Fav Screen, get sub using Fav List
             if (showingFavorites) {
 
                 sub = FAVORITES.get(position);
 
                 setFavoriteState(sub, false);
-            }
-
-
-            // If on Populars Screen, get sub using Populars List
-
-            else {
+            } else {
                 sub = subredditList.get(position);
-
-                // Set Fav Status depending on current Fav State
 
                 if (sub.isFavorite()) {
                     setFavoriteState(sub, false);
@@ -107,12 +96,7 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
                     setFavoriteState(sub, true);
                 }
             }
-        }
-
-
-        // If Sub Title or Post or Image is clicked
-
-        else {
+        } else {
             launchPostsActivity(position);
         }
     }
