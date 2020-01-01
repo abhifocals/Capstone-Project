@@ -8,10 +8,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.focals.myreddit.R;
+import com.focals.myreddit.adapter.PopularsAdapter;
 
 import static com.focals.myreddit.activity.PopularsActivity.FAVORITES;
 
 public class BaseActivity extends AppCompatActivity {
+
+    boolean showingFavorites;
+    PopularsAdapter popularsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +32,17 @@ public class BaseActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        if (item.getItemId() == R.id.menu_favorite) {
-//            showingFavorites = true;
-//
-//            popularsAdapter.setSubredditList(FAVORITES);
-//
-//        }
-//
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.menu_favorite) {
+            showingFavorites = true;
+
+            popularsAdapter.setSubredditList(FAVORITES);
+
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
 }

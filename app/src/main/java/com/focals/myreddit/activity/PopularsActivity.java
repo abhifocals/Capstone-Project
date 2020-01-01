@@ -27,9 +27,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     RecyclerView mainRecyclerView;
     ArrayList<Subreddit> subredditList;
     Toolbar toolbar;
-    PopularsAdapter popularsAdapter;
     GridLayoutManager layoutManager;
-    boolean showingFavorites;
 
     public static ArrayList<Subreddit> FAVORITES = new ArrayList<>();
 
