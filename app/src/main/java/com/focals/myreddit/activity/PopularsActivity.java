@@ -49,20 +49,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == R.id.menu_favorite) {
-            showingFavorites = true;
-
-            popularsAdapter.setSubredditList(FAVORITES);
-
-        }
-
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onClickHandle(int position, View view) {
 
         int viewId = view.getId();
