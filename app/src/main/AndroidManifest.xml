@@ -9,9 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.CommentsActivity"></activity>
-        <activity android:name=".activity.PostsActivity" />
-        <activity android:name=".activity.PopularsActivity">
+        <activity
+            android:name=".activity.CommentsActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activity.PostsActivity"></activity>
+        <activity
+            android:name=".activity.PostsActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activity.PopularsActivity" />
+        <activity
+            android:name=".activity.PopularsActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

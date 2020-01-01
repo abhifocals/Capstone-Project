@@ -63,6 +63,8 @@ public class CommentsActivity extends AppCompatActivity {
 
         imageButton = (ImageButton) findViewById(R.id.ib_addToFavorites);
         imageButton.setVisibility(View.VISIBLE);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void addRemoveFavorite(View view) {
