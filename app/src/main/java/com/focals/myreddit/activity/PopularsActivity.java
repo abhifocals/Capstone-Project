@@ -22,7 +22,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PopularsActivity extends AppCompatActivity implements PopularsAdapter.ClickHandler {
+public class PopularsActivity extends BaseActivity implements PopularsAdapter.ClickHandler {
 
     RecyclerView mainRecyclerView;
     ArrayList<Subreddit> subredditList;
@@ -50,15 +50,15 @@ public class PopularsActivity extends AppCompatActivity implements PopularsAdapt
         setSupportActionBar(toolbar);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater menuInflater = new MenuInflater(this);
-
-        menuInflater.inflate(R.menu.menu, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        MenuInflater menuInflater = new MenuInflater(this);
+//
+//        menuInflater.inflate(R.menu.menu, menu);
+//
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -21,7 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PostsActivity extends AppCompatActivity implements PostsAdapter.ClickHandler {
+public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHandler {
 
     RecyclerView subredditRecyclerView;
     ArrayList<Post> postsList;

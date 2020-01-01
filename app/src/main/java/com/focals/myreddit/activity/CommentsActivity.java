@@ -22,7 +22,7 @@ import com.focals.myreddit.network.NetworkUtil;
 
 import java.util.ArrayList;
 
-public class CommentsActivity extends AppCompatActivity {
+public class CommentsActivity extends BaseActivity {
 
     RecyclerView commentsRecyclerView;
     ArrayList<Comment> commentsList;
