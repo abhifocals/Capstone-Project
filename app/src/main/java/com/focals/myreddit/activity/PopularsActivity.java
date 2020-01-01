@@ -50,16 +50,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         setSupportActionBar(toolbar);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//
-//        MenuInflater menuInflater = new MenuInflater(this);
-//
-//        menuInflater.inflate(R.menu.menu, menu);
-//
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
