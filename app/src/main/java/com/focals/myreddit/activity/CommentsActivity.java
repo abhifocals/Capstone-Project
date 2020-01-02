@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -73,6 +74,18 @@ public class CommentsActivity extends BaseActivity {
 
         System.out.println();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.menu_favorite) {
+            setResult(2);
+            finish();
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 
 

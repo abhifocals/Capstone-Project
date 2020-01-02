@@ -16,6 +16,7 @@ import com.focals.myreddit.network.NetworkUtil;
 
 import java.util.ArrayList;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -69,7 +70,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         intent.putExtra("SubredditName", subredditName);
         intent.putExtra("PostText", postsList.get(position).getTitle());
 
-        startActivity(intent);
+        startActivityForResult(intent,100);
     }
 
     public void addRemoveFavorite(View view) {
@@ -90,6 +91,16 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == 2) {
+            setResult(2);
+            finish();
+        }
     }
 
     class SubredditTask extends AsyncTask<String, Void, String> {
