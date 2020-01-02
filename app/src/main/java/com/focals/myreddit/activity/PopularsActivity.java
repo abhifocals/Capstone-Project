@@ -61,7 +61,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         Subreddit sub = getCurrentSub(SHOWING_FAVS, position);
 
         if (viewId == R.id.ib_addToFavorites) {
-            if (sub.isFavorite() || SHOWING_FAVS) {
+            if (sub.isFavorite()) {
                 setFavoriteState(sub, false);
             } else {
                 setFavoriteState(sub, true);
