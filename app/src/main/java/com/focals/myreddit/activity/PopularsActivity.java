@@ -46,6 +46,14 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         setSupportActionBar(toolbar);
     }
 
+    /**
+     * Gets the current sub. Then:
+     * If Sub is Fav (or on Fav Screen, meaning Sub is Fav), remove from Fav list. Else add to Fav List.
+     *
+     * @param position
+     * @param view
+     */
+
     @Override
     public void onClickHandle(int position, View view) {
 
@@ -63,6 +71,15 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         }
     }
 
+
+    /**
+     * Retreives the current sub from either Fav list or Popular list.
+     *
+     * @param showingFavScreen
+     * @param position
+     * @return
+     */
+
     private Subreddit getCurrentSub(boolean showingFavScreen, int position) {
         Subreddit sub;
 
@@ -74,6 +91,14 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         return sub;
     }
+
+    /**
+     * Adds or Removes sub from Fav list.
+     * Updates the adapter.
+     *
+     * @param sub
+     * @param newFavState
+     */
 
     private void setFavoriteState(Subreddit sub, boolean newFavState) {
         sub.setFavorite(newFavState);
@@ -111,7 +136,12 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
     /**
      * This handles callback from PostsActivity when Favorites is selected from Menu.
-     **/
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
