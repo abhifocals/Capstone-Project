@@ -25,6 +25,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     ArrayList<Subreddit> subredditList;
     Toolbar toolbar;
     GridLayoutManager layoutManager;
+    static boolean SHOWING_FAVS;
 
     public static ArrayList<Subreddit> FAVORITES = new ArrayList<>();
 
@@ -49,10 +50,10 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     public void onClickHandle(int position, View view) {
 
         int viewId = view.getId();
-        Subreddit sub = getCurrentSub(showingFavorites, position);
+        Subreddit sub = getCurrentSub(SHOWING_FAVS, position);
 
         if (viewId == R.id.ib_addToFavorites) {
-            if (sub.isFavorite() || showingFavorites) {
+            if (sub.isFavorite() || SHOWING_FAVS) {
                 setFavoriteState(sub, false);
             } else {
                 setFavoriteState(sub, true);
@@ -99,7 +100,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.menu_favorite) {
-            showingFavorites = true;
+            // This is used to determine if Fav list or Sub list should be used in getCurrentSub()
+            SHOWING_FAVS = true;
 
             popularsAdapter.setSubredditList(FAVORITES);
 
@@ -115,6 +117,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == 2) {
+            SHOWING_FAVS = true;
             popularsAdapter.setSubredditList(FAVORITES);
         }
     }
@@ -131,7 +134,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
             subredditList = RedditParser.parseReddit(s);
 
-            popularsAdapter = new PopularsAdapter(subredditList, PopularsActivity.this, showingFavorites);
+            popularsAdapter = new PopularsAdapter(subredditList, PopularsActivity.this, SHOWING_FAVS);
             layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
 
             mainRecyclerView.setAdapter(popularsAdapter);

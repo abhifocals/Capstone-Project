@@ -14,7 +14,7 @@ import static com.focals.myreddit.activity.PopularsActivity.FAVORITES;
 
 public class BaseActivity extends AppCompatActivity {
 
-    boolean showingFavorites;
+
     PopularsAdapter popularsAdapter;
 
     @Override

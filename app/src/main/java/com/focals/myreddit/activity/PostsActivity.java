@@ -84,7 +84,6 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.menu_favorite) {
-            showingFavorites = true;
             setResult(2);
             finish();
         }
