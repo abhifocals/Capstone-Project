@@ -47,8 +47,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     }
 
     /**
-     * Gets the current sub. Then:
-     * If Sub is Fav (or on Fav Screen, meaning Sub is Fav), remove from Fav list. Else add to Fav List.
+     * Gets the current sub (based on what screen user is on) and set its fav state.
      *
      * @param position
      * @param view
@@ -61,11 +60,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         Subreddit sub = getCurrentSub(SHOWING_FAVS, position);
 
         if (viewId == R.id.ib_addToFavorites) {
-            if (sub.isFavorite()) {
-                setFavoriteState(sub, false);
-            } else {
-                setFavoriteState(sub, true);
-            }
+            setFavoriteState(sub);
         } else {
             launchPostsActivity(position);
         }
@@ -93,22 +88,19 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     }
 
     /**
-     * Adds or Removes sub from Fav list.
-     * Updates the adapter.
-     *
+     * Add/Removes sub from Fav List. Sets sub's Fav State. Notifies the adapter.
      * @param sub
-     * @param newFavState
      */
 
-    private void setFavoriteState(Subreddit sub, boolean newFavState) {
-        sub.setFavorite(newFavState);
+    private void setFavoriteState(Subreddit sub) {
 
-        if (newFavState) {
-            FAVORITES.add(sub);
-        } else {
+        if (sub.isFavorite()) {
+            sub.setFavorite(false);
             FAVORITES.remove(sub);
+        } else {
+            sub.setFavorite(true);
+            FAVORITES.add(sub);
         }
-
         popularsAdapter.notifyDataSetChanged();
     }
 
