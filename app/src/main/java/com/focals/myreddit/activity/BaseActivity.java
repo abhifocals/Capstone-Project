@@ -31,18 +31,4 @@ public class BaseActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == R.id.menu_favorite) {
-            showingFavorites = true;
-
-            popularsAdapter.setSubredditList(FAVORITES);
-
-        }
-
-
-        return super.onOptionsItemSelected(item);
-    }
 }

@@ -3,11 +3,8 @@ package com.focals.myreddit.activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 
 import com.focals.myreddit.R;
 import com.focals.myreddit.adapter.PopularsAdapter;
@@ -17,7 +14,7 @@ import com.focals.myreddit.network.NetworkUtil;
 
 import java.util.ArrayList;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -95,9 +92,32 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         intent.putExtra("SubredditName", name);
 
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.menu_favorite) {
+            showingFavorites = true;
+
+            popularsAdapter.setSubredditList(FAVORITES);
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * This handles callback from PostsActivity when Favorites is selected from Menu.
+     **/
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == 2) {
+            popularsAdapter.setSubredditList(FAVORITES);
+        }
+    }
 
     class RedditAsyncTask extends AsyncTask<String, Void, String> {
         @Override

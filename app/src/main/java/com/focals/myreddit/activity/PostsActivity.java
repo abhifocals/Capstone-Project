@@ -3,6 +3,7 @@ package com.focals.myreddit.activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -15,8 +16,6 @@ import com.focals.myreddit.network.NetworkUtil;
 
 import java.util.ArrayList;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -75,10 +74,23 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
 
     public void addRemoveFavorite(View view) {
 
-      // Get Fav by Id and update it's status.
+        // Get Fav by Id and update it's status.
 
         System.out.println();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.menu_favorite) {
+            showingFavorites = true;
+            setResult(2);
+            finish();
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 
     class SubredditTask extends AsyncTask<String, Void, String> {
