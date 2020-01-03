@@ -1,5 +1,6 @@
 package com.focals.myreddit.activity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -70,7 +71,9 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         intent.putExtra("SubredditName", subredditName);
         intent.putExtra("PostText", postsList.get(position).getTitle());
 
-        startActivityForResult(intent,100);
+        // Start Activity w/Transition
+        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+        startActivityForResult(intent,100, bundle);
     }
 
     public void addRemoveFavorite(View view) {
