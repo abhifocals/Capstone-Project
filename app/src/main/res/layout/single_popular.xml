@@ -26,7 +26,7 @@
             android:id="@+id/iv_subredditImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_reddit_white"
