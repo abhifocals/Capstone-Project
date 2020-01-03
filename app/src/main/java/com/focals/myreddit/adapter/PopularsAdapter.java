@@ -52,7 +52,7 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
 
         holder.subredditTitle.setText(title);
         holder.subredditDesc.setText(desc);
-        holder.numSubscribers.setText(String.valueOf(subscribers));
+        holder.numSubscribers.setText("Subscribers: " + String.valueOf(subscribers));
 
         if (!bannerUrl.isEmpty()) {
             new Picasso.Builder(context).build().load(bannerUrl).into(holder.subredditImage);
