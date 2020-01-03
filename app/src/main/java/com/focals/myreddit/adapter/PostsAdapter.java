@@ -44,7 +44,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
         int numComments = postsList.get(position).getNumComments();
 
         holder.postsTextView.setText(postText);
-        holder.commentsCount.setText(String.valueOf(numComments));
+        holder.commentsCount.setText("Comments: " + String.valueOf(numComments));
     }
 
     @Override
