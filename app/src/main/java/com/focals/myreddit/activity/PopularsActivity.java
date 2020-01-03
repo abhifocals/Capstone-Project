@@ -112,7 +112,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         intent.putExtra("SubredditName", name);
 
-        startActivityForResult(intent, 1);
+        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+        startActivityForResult(intent, 1, bundle);
     }
 
     @Override

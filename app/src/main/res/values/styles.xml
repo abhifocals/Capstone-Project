@@ -6,19 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationStyle</item>
-        <item name="android:windowActivityTransitions">true</item>
-        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowExitTransition">@transition/explode</item>
         <item name="android:windowContentTransitions">true</item>
     </style>
 
     <style name="ToolbarTheme" parent="AppTheme">
         <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="WindowAnimationStyle">
-        <item name="android:windowEnterTransition">@transition/explode</item>
-        <item name="android:windowExitTransition">@transition/explode</item>
     </style>
 
 </resources>
