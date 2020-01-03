@@ -18,16 +18,17 @@
             android:id="@+id/tv_postText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:text="Post Text"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_comments"
             android:layout_width="match_parent"
             android:layout_height="500dp"
-            android:layout_marginTop="26dp" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp" />
 
     </LinearLayout>
 
