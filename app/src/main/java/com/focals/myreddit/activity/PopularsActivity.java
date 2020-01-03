@@ -1,5 +1,6 @@
 package com.focals.myreddit.activity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -110,7 +111,9 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         intent.putExtra("SubredditName", name);
 
-        startActivityForResult(intent, 1);
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
+
+        startActivityForResult(intent, 1, options.toBundle());
     }
 
     @Override
