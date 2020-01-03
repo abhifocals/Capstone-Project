@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<View xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/divider"
+    android:layout_width="match_parent"
+    android:layout_height="3dp"
+    android:layout_marginTop="16dp"
+    android:background="@android:color/darker_gray"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/iv_subredditImage"
+    tools:showIn="@layout/single_popular" />
