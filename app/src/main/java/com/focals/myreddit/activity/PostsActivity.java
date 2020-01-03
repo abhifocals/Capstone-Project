@@ -75,9 +75,14 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
 
     public void addRemoveFavorite(View view) {
 
-        // Get Fav by Id and update it's status.
-
         System.out.println();
+
+        // Get Sub by Id - Add to DB
+
+        // If Sub is a Fav: Remove from Fav List; Update Sub to be not Fav
+
+        // If Sub is not a Fav: Add sub to Fav List; Update Sub to be Fav
+
 
     }
 
