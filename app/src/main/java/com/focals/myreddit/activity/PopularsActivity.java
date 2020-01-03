@@ -90,6 +90,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
     /**
      * Add/Removes sub from Fav List. Sets sub's Fav State. Notifies the adapter.
+     *
      * @param sub
      */
 
@@ -111,9 +112,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         intent.putExtra("SubredditName", name);
 
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this);
-
-        startActivityForResult(intent, 1, options.toBundle());
+        startActivityForResult(intent, 1);
     }
 
     @Override
