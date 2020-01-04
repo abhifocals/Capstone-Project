@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import com.focals.myreddit.adapter.CommentsAdapter;
 import com.focals.myreddit.data.Comment;
 import com.focals.myreddit.data.RedditParser;
 import com.focals.myreddit.network.NetworkUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -32,6 +34,7 @@ public class CommentsActivity extends BaseActivity {
     TextView postTextView;
     Toolbar toolbar;
     ImageButton imageButton;
+    ImageView iv_postImage;
 
 
     @Override
@@ -42,13 +45,26 @@ public class CommentsActivity extends BaseActivity {
 
         commentsRecyclerView = (RecyclerView) findViewById(R.id.rv_comments);
         postTextView = (TextView) findViewById(R.id.tv_postText);
+        iv_postImage = (ImageView) findViewById(R.id.iv_postImage);
 
 
         String postId = getIntent().getStringExtra("PostId");
         String subredditName = getIntent().getStringExtra("SubredditName");
         String postText = getIntent().getStringExtra("PostText");
+        String postImageUrl = getIntent().getStringExtra("ImageUrl");
 
         postTextView.setText(postText);
+
+        if (postImageUrl != null) {
+            Uri uri = Uri.parse(postImageUrl);
+            new Picasso.Builder(this).build().load(uri).into(iv_postImage);
+        } else {
+            iv_postImage.setVisibility(View.GONE);
+        }
+
+
+
+
 
         String url = "https://api.reddit.com/r/" + subredditName + "/comments/" + postId + "/.json";
 
