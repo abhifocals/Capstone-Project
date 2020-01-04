@@ -53,7 +53,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
             Uri uri = Uri.parse(postsList.get(position).getImageUrl());
             new Picasso.Builder(context).build().load(uri).into(holder.iv_postImage);
         } else {
-            holder.iv_postImage.setVisibility(View.INVISIBLE);
+            holder.iv_postImage.setVisibility(View.GONE);
         }
     }
 
