@@ -24,12 +24,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="7dp"
-        android:textStyle="bold"
-        tools:text="Comments Count"
+        android:layout_marginTop="9dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_postText" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:text="Comments Count" />
 
     <View
         android:id="@+id/divider"
@@ -40,4 +40,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_commentsCount"
         tools:showIn="@layout/single_popular" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_postText"
+        app:srcCompat="@android:drawable/alert_dark_frame"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
