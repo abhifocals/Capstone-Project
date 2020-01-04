@@ -7,13 +7,16 @@ public class Post {
     int score;
     int numComments;
     String id;
+    String imageUrl;
+    String videoUrl;
 
-    public Post(String subredditName, String title, int score, int numComments, String id) {
+    public Post(String subredditName, String title, int score, int numComments, String id, String imageUrl) {
         this.subredditName = subredditName;
         this.title = title;
         this.score = score;
         this.numComments = numComments;
         this.id = id;
+        this.imageUrl = imageUrl;
     }
 
     public String getSubredditName() {

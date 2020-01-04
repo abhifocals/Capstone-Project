@@ -40,7 +40,7 @@ public class RedditParser {
             e.printStackTrace();
         }
 
-        return  subredditsList;
+        return subredditsList;
     }
 
     public static ArrayList<Post> parseRedditPosts(String response) {
@@ -62,8 +62,16 @@ public class RedditParser {
                 int score = postJson.getInt("score");
                 int numComments = postJson.getInt("num_comments");
                 String id = postJson.getString("id");
+                String imageUrl = null;
 
-                Post post = new Post(subRedditName, title, score, numComments, id);
+
+                if (postJson.has("preview")) {
+                    imageUrl = postJson.getJSONObject("preview").getJSONArray("images")
+                            .getJSONObject(0).getJSONObject("source")
+                            .getString("url");
+                }
+
+                Post post = new Post(subRedditName, title, score, numComments, id, imageUrl);
 
                 postsList.add(post);
             }
