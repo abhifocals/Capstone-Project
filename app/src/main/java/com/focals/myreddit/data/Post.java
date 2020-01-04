@@ -38,4 +38,8 @@ public class Post {
     public String getId() {
         return id;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
 }

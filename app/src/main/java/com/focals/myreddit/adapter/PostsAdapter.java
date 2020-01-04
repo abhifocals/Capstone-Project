@@ -1,13 +1,16 @@
 package com.focals.myreddit.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.focals.myreddit.R;
 import com.focals.myreddit.data.Post;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -45,6 +48,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
 
         holder.postsTextView.setText(postText);
         holder.commentsCount.setText("Comments: " + String.valueOf(numComments));
+
+        if (postsList.get(position).getImageUrl() != null) {
+            Uri uri = Uri.parse(postsList.get(position).getImageUrl());
+            new Picasso.Builder(context).build().load(uri).into(holder.iv_postImage);
+        } else {
+            holder.iv_postImage.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -53,13 +63,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
     }
 
     public interface ClickHandler {
-        public void onClick (int position, View view);
+        public void onClick(int position, View view);
     }
 
     class SubredditViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView postsTextView;
         TextView commentsCount;
+        ImageView iv_postImage;
 
 
         public SubredditViewHolder(@NonNull View itemView) {
@@ -67,6 +78,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
 
             postsTextView = (TextView) itemView.findViewById(R.id.tv_postText);
             commentsCount = (TextView) itemView.findViewById(R.id.tv_commentsCount);
+            iv_postImage = (ImageView) itemView.findViewById(R.id.iv_postImage);
 
             itemView.setOnClickListener(this);
         }

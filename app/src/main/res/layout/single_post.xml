@@ -42,7 +42,7 @@
         tools:showIn="@layout/single_popular" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iv_postImage"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="14dp"
