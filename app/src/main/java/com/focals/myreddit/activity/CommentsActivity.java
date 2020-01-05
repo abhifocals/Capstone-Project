@@ -62,12 +62,7 @@ public class CommentsActivity extends BaseActivity {
             iv_postImage.setVisibility(View.GONE);
         }
 
-
-
-
-
         String url = "https://api.reddit.com/r/" + subredditName + "/comments/" + postId + "/.json";
-
 
         CommentsTask commentsTask = new CommentsTask();
         commentsTask.execute(url);
