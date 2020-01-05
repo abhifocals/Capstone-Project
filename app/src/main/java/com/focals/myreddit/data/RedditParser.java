@@ -63,15 +63,20 @@ public class RedditParser {
                 int numComments = postJson.getInt("num_comments");
                 String id = postJson.getString("id");
                 String imageUrl = null;
+                String videoUrl = null;
 
 
-                if (postJson.has("preview")) {
+                if (postJson.getString("post_hint").equals("image")) {
                     imageUrl = postJson.getJSONObject("preview").getJSONArray("images")
                             .getJSONObject(0).getJSONObject("source")
                             .getString("url");
                 }
 
-                Post post = new Post(subRedditName, title, score, numComments, id, imageUrl);
+                if (postJson.getString("post_hint").equals("rich:video")) {
+                    videoUrl = postJson.getJSONObject("secure_media_embed").getString("media_domain_url");
+                }
+
+                Post post = new Post(subRedditName, title, score, numComments, id, imageUrl, videoUrl);
 
                 postsList.add(post);
             }

@@ -10,13 +10,14 @@ public class Post {
     String imageUrl;
     String videoUrl;
 
-    public Post(String subredditName, String title, int score, int numComments, String id, String imageUrl) {
+    public Post(String subredditName, String title, int score, int numComments, String id, String imageUrl, String videoUrl) {
         this.subredditName = subredditName;
         this.title = title;
         this.score = score;
         this.numComments = numComments;
         this.id = id;
         this.imageUrl = imageUrl;
+        this.videoUrl = videoUrl;
     }
 
     public String getSubredditName() {
