@@ -66,14 +66,16 @@ public class RedditParser {
                 String videoUrl = null;
 
 
-                if (postJson.getString("post_hint").equals("image")) {
-                    imageUrl = postJson.getJSONObject("preview").getJSONArray("images")
-                            .getJSONObject(0).getJSONObject("source")
-                            .getString("url");
-                }
+                if (postJson.has("post_hint")) {
+                    if (postJson.getString("post_hint").equals("image")) {
+                        imageUrl = postJson.getJSONObject("preview").getJSONArray("images")
+                                .getJSONObject(0).getJSONObject("source")
+                                .getString("url");
+                    }
 
-                if (postJson.getString("post_hint").equals("rich:video")) {
-                    videoUrl = postJson.getJSONObject("secure_media_embed").getString("media_domain_url");
+                    if (postJson.getString("post_hint").equals("rich:video")) {
+                        videoUrl = postJson.getJSONObject("secure_media_embed").getString("media_domain_url");
+                    }
                 }
 
                 Post post = new Post(subRedditName, title, score, numComments, id, imageUrl, videoUrl);
