@@ -102,6 +102,7 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
             subredditTitle.setOnClickListener(this);
             subredditDesc.setOnClickListener(this);
             addToFavorites.setOnClickListener(this);
+            subredditImage.setOnClickListener(this);
 
         }
 
