@@ -74,7 +74,7 @@ public class RedditParser {
                     }
 
                     if (postJson.getString("post_hint").equals("rich:video")) {
-                        videoUrl = postJson.getString("url");
+                        videoUrl = postJson.getJSONObject("secure_media_embed").getString("media_domain_url");
                     }
                 }
 

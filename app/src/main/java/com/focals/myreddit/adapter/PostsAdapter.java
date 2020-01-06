@@ -67,12 +67,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
 
         if (postsList.get(position).getVideoUrl() != null) {
 
-            String url = "https://www.redditmedia.com/mediaembed/ekk069";
+//            String url = "https://www.redditmedia.com/mediaembed/ekk069";
 
-            Uri uri = Uri.parse(url);
+//            Uri uri = Uri.parse(url);
 
             holder.webView.getSettings().setJavaScriptEnabled(true);
-            holder.webView.loadUrl(url);
+            holder.webView.loadUrl(postsList.get(position).getVideoUrl());
 
             holder.exoPlayerView.setVisibility(View.GONE);
 
