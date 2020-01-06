@@ -67,7 +67,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
 
         if (postsList.get(position).getVideoUrl() != null) {
 
-            String url = "https://youtu.be/KwXeFDroKyI";
+            String url = "https://www.redditmedia.com/mediaembed/ekk069";
 
             Uri uri = Uri.parse(url);
 
