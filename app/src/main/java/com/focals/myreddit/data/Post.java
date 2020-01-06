@@ -43,4 +43,8 @@ public class Post {
     public String getImageUrl() {
         return imageUrl;
     }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
 }
