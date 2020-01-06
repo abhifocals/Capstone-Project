@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -64,10 +66,18 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
 
 
         if (postsList.get(position).getVideoUrl() != null) {
-            Uri uri = Uri.parse(postsList.get(position).getVideoUrl());
 
-            initializePlayer(holder);
-            prepareMediaSource(uri, holder);
+            String url = "https://youtu.be/KwXeFDroKyI";
+
+            Uri uri = Uri.parse(url);
+
+            holder.webView.getSettings().setJavaScriptEnabled(true);
+            holder.webView.loadUrl(url);
+
+            holder.exoPlayerView.setVisibility(View.GONE);
+
+//            initializePlayer(holder);
+//            prepareMediaSource(uri, holder);
         }
 
 
@@ -113,6 +123,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
         TextView commentsCount;
         //        ImageView iv_postImage;
         PlayerView exoPlayerView;
+        WebView webView;
 
 
         public SubredditViewHolder(@NonNull View itemView) {
@@ -122,6 +133,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
             commentsCount = (TextView) itemView.findViewById(R.id.tv_commentsCount);
 //            iv_postImage = (ImageView) itemView.findViewById(R.id.iv_postImage);
             exoPlayerView = (PlayerView) itemView.findViewById(R.id.exoPlayerView);
+            webView = (WebView) itemView.findViewById(R.id.webView);
 
 
             itemView.setOnClickListener(this);
