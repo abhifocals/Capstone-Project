@@ -28,7 +28,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exoPlayerView"
+        app:layout_constraintTop_toBottomOf="@+id/webView"
         tools:text="Comments Count" />
 
     <View
@@ -41,19 +41,11 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_commentsCount"
         tools:showIn="@layout/single_popular" />
 
-    <com.google.android.exoplayer2.ui.PlayerView
-        android:id="@+id/exoPlayerView"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_postText"
-        android:visibility="invisible"></com.google.android.exoplayer2.ui.PlayerView>
-
     <WebView
         android:layout_width="match_parent"
         android:layout_height="250dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exoPlayerView"
+        app:layout_constraintTop_toBottomOf="@+id/tv_postText"
         android:id="@+id/webView"></WebView>
 
 

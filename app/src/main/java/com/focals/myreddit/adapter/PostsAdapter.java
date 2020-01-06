@@ -64,20 +64,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
         holder.postsTextView.setText(postText);
         holder.commentsCount.setText("Comments: " + String.valueOf(numComments));
 
-
         if (postsList.get(position).getVideoUrl() != null) {
-
-//            String url = "https://www.redditmedia.com/mediaembed/ekk069";
-
-//            Uri uri = Uri.parse(url);
-
             holder.webView.getSettings().setJavaScriptEnabled(true);
             holder.webView.loadUrl(postsList.get(position).getVideoUrl());
-
-            holder.exoPlayerView.setVisibility(View.GONE);
-
-//            initializePlayer(holder);
-//            prepareMediaSource(uri, holder);
         }
 
 
@@ -102,8 +91,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
         exoPlayer.addListener(this);
         holder.exoPlayerView.setPlayer(exoPlayer);
     }
-
-
+    
     private void prepareMediaSource(Uri uri, SubredditViewHolder holder) {
 
         mediaSource = new ExtractorMediaSource(uri, new DefaultDataSourceFactory(context, context.getResources().getString(R.string.app_name)),
@@ -132,9 +120,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
             postsTextView = (TextView) itemView.findViewById(R.id.tv_postText);
             commentsCount = (TextView) itemView.findViewById(R.id.tv_commentsCount);
 //            iv_postImage = (ImageView) itemView.findViewById(R.id.iv_postImage);
-            exoPlayerView = (PlayerView) itemView.findViewById(R.id.exoPlayerView);
             webView = (WebView) itemView.findViewById(R.id.webView);
-
 
             itemView.setOnClickListener(this);
         }
