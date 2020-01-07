@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "subreddit")
-public class SubredditEntity {
+public class SubEntity {
 
     String name;
     String bannerUrl;
@@ -16,7 +16,7 @@ public class SubredditEntity {
     @PrimaryKey
     int subId;
 
-    public SubredditEntity(String name, String bannerUrl, String publicDescription, int subscribers, boolean favorite, int subId) {
+    public SubEntity(String name, String bannerUrl, String publicDescription, int subscribers, boolean favorite, int subId) {
         this.name = name;
         this.bannerUrl = bannerUrl;
         this.publicDescription = publicDescription;
