@@ -67,15 +67,16 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
         if (postsList.get(position).getVideoUrl() != null) {
             holder.webView.getSettings().setJavaScriptEnabled(true);
             holder.webView.loadUrl(postsList.get(position).getVideoUrl());
+        } else {
+            holder.webView.setVisibility(View.GONE);
         }
 
-
-//        if (postsList.get(position).getImageUrl() != null) {
-//            Uri uri = Uri.parse(postsList.get(position).getImageUrl());
-//            new Picasso.Builder(context).build().load(uri).into(holder.iv_postImage);
-//        } else {
-//            holder.iv_postImage.setVisibility(View.GONE);
-//        }
+        if (postsList.get(position).getImageUrl() != null) {
+            Uri uri = Uri.parse(postsList.get(position).getImageUrl());
+            new Picasso.Builder(context).build().load(uri).into(holder.iv_postImage);
+        } else {
+            holder.iv_postImage.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -91,7 +92,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
         exoPlayer.addListener(this);
         holder.exoPlayerView.setPlayer(exoPlayer);
     }
-    
+
     private void prepareMediaSource(Uri uri, SubredditViewHolder holder) {
 
         mediaSource = new ExtractorMediaSource(uri, new DefaultDataSourceFactory(context, context.getResources().getString(R.string.app_name)),
@@ -109,7 +110,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
 
         TextView postsTextView;
         TextView commentsCount;
-        //        ImageView iv_postImage;
+        ImageView iv_postImage;
         PlayerView exoPlayerView;
         WebView webView;
 
@@ -119,7 +120,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
 
             postsTextView = (TextView) itemView.findViewById(R.id.tv_postText);
             commentsCount = (TextView) itemView.findViewById(R.id.tv_commentsCount);
-//            iv_postImage = (ImageView) itemView.findViewById(R.id.iv_postImage);
+            iv_postImage = (ImageView) itemView.findViewById(R.id.iv_postImage);
             webView = (WebView) itemView.findViewById(R.id.webView);
 
             itemView.setOnClickListener(this);

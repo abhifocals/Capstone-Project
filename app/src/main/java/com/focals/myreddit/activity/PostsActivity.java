@@ -44,7 +44,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         subredditRecyclerView = (RecyclerView) findViewById(R.id.rv_posts);
 
         // Start task with correct URL here
-        String url = "https://api.reddit.com/r/" + "videos" + "/?raw_json=1";
+        String url = "https://api.reddit.com/r/" + "pics" + "/?raw_json=1";
 
         SubredditTask subredditTask = new SubredditTask();
         subredditTask.execute(url);
