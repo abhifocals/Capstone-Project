@@ -11,6 +11,8 @@ import com.focals.myreddit.R;
 import com.focals.myreddit.adapter.PopularsAdapter;
 import com.focals.myreddit.data.RedditParser;
 import com.focals.myreddit.data.Subreddit;
+import com.focals.myreddit.database.SubDao;
+import com.focals.myreddit.database.SubDatabase;
 import com.focals.myreddit.network.NetworkUtil;
 
 import java.util.ArrayList;
@@ -160,6 +162,9 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
             subredditList = RedditParser.parseReddit(s);
 
+            // Insert subs in Database
+            insertToDatabase();
+
             popularsAdapter = new PopularsAdapter(subredditList, PopularsActivity.this, SHOWING_FAVS);
             layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
 
@@ -168,4 +173,11 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         }
     }
+
+    private void insertToDatabase() {
+        SubDatabase.getInstance(this).subDao().insertSubs(subredditList);
+
+        System.out.println();
+    }
+
 }
