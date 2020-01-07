@@ -19,7 +19,8 @@ public abstract class SubDatabase extends RoomDatabase {
         public static SubDatabase getInstance(Context context) {
             if (instance == null) {
                 synchronized (LOCK) {}
-                instance = Room.databaseBuilder(context.getApplicationContext(), SubDatabase.class, DATABASE_NAME).build();
+                // TODO remove main thread
+                instance = Room.databaseBuilder(context.getApplicationContext(), SubDatabase.class, DATABASE_NAME).allowMainThreadQueries().build();
             }
             return instance;
         }
