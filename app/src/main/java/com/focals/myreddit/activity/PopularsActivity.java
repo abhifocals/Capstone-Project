@@ -29,6 +29,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     Toolbar toolbar;
     GridLayoutManager layoutManager;
     static boolean SHOWING_FAVS;
+    private SubDatabase db;
+    private SubDao dao;
 
     public static ArrayList<Subreddit> FAVORITES = new ArrayList<>();
 
@@ -47,6 +49,9 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
+
+        db = SubDatabase.getInstance(this);
+        dao = db.subDao();
     }
 
     /**
@@ -175,7 +180,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     }
 
     private void insertToDatabase() {
-        SubDatabase.getInstance(this).subDao().insertSubs(subredditList);
+        dao.insertSubs(subredditList);
 
         System.out.println();
     }
