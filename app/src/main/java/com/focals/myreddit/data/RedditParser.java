@@ -29,8 +29,9 @@ public class RedditParser {
                 String publicDescription = subredditJson.getString("public_description");
                 int subscribers = subredditJson.getInt("subscribers");
                 boolean favorite = false;
+                String id = subredditJson.getString("id");
 
-                Subreddit subreddit = new Subreddit(name, bannerlUrl, publicDescription, subscribers, favorite);
+                Subreddit subreddit = new Subreddit(name, bannerlUrl, publicDescription, subscribers, favorite,id);
 
                 subredditsList.add(subreddit);
 
