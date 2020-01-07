@@ -4,7 +4,7 @@ package com.focals.myreddit.database;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "subreddit")
+@Entity(tableName = "sub")
 public class SubEntity {
 
     String name;
