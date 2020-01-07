@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,7 +36,7 @@ public class CommentsActivity extends BaseActivity {
     Toolbar toolbar;
     ImageButton imageButton;
     ImageView iv_postImage;
-
+    WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +47,14 @@ public class CommentsActivity extends BaseActivity {
         commentsRecyclerView = (RecyclerView) findViewById(R.id.rv_comments);
         postTextView = (TextView) findViewById(R.id.tv_postText);
         iv_postImage = (ImageView) findViewById(R.id.iv_postImage);
+        webView = (WebView) findViewById(R.id.webView);
 
 
         String postId = getIntent().getStringExtra("PostId");
         String subredditName = getIntent().getStringExtra("SubredditName");
         String postText = getIntent().getStringExtra("PostText");
         String postImageUrl = getIntent().getStringExtra("ImageUrl");
+        String videoUrl = getIntent().getStringExtra("VideoUrl");
 
         postTextView.setText(postText);
 
@@ -61,6 +64,14 @@ public class CommentsActivity extends BaseActivity {
         } else {
             iv_postImage.setVisibility(View.GONE);
         }
+
+        if (videoUrl != null) {
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.loadUrl(videoUrl);
+        } else {
+            webView.setVisibility(View.GONE);
+        }
+
 
         String url = "https://api.reddit.com/r/" + subredditName + "/comments/" + postId + "/.json";
 

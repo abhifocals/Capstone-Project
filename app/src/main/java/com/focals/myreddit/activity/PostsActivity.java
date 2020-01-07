@@ -44,7 +44,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         subredditRecyclerView = (RecyclerView) findViewById(R.id.rv_posts);
 
         // Start task with correct URL here
-        String url = "https://api.reddit.com/r/" + "pics" + "/?raw_json=1";
+        String url = "https://api.reddit.com/r/" + subredditName + "/?raw_json=1";
 
         SubredditTask subredditTask = new SubredditTask();
         subredditTask.execute(url);
@@ -71,6 +71,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         intent.putExtra("SubredditName", subredditName);
         intent.putExtra("PostText", postsList.get(position).getTitle());
         intent.putExtra("ImageUrl", postsList.get(position).getImageUrl());
+        intent.putExtra("VideoUrl", postsList.get(position).getVideoUrl());
 
         // Start Activity w/Transition
         Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
