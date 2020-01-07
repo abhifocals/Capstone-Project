@@ -1,5 +1,10 @@
 package com.focals.myreddit.data;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "sub")
 public class Subreddit {
 
     String name;
@@ -7,6 +12,9 @@ public class Subreddit {
     String publicDescription;
     int subscribers;
     boolean favorite;
+
+    @NonNull
+    @PrimaryKey
     String id;
 
     public Subreddit(String name, String bannerUrl, String publicDescription, int subscribers, boolean favorite, String id) {
