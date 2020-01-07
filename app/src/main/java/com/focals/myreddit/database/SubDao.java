@@ -7,11 +7,17 @@ import java.util.List;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+
+import static android.icu.text.MessagePattern.ArgType.SELECT;
 
 @Dao
 public interface SubDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void Subs(List<Subreddit> subs);
+    public void insertSubs(List<Subreddit> subs);
+
+    @Query("SELECT * FROM sub where id = :id")
+    public Subreddit getSubById(String id);
 
 }
