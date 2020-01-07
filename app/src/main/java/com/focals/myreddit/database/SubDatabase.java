@@ -24,4 +24,6 @@ public abstract class SubDatabase extends RoomDatabase {
             }
             return instance;
         }
+
+        public abstract SubDao subDao();
 }
