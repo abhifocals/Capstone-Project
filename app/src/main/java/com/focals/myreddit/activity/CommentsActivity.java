@@ -21,6 +21,9 @@ import com.focals.myreddit.R;
 import com.focals.myreddit.adapter.CommentsAdapter;
 import com.focals.myreddit.data.Comment;
 import com.focals.myreddit.data.RedditParser;
+import com.focals.myreddit.data.Subreddit;
+import com.focals.myreddit.database.SubDao;
+import com.focals.myreddit.database.SubDatabase;
 import com.focals.myreddit.network.NetworkUtil;
 import com.squareup.picasso.Picasso;
 
@@ -37,6 +40,10 @@ public class CommentsActivity extends BaseActivity {
     ImageButton imageButton;
     ImageView iv_postImage;
     WebView webView;
+    private SubDatabase db;
+    private SubDao dao;
+    Subreddit sub;
+    String subRedditId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,18 +95,25 @@ public class CommentsActivity extends BaseActivity {
         imageButton.setVisibility(View.VISIBLE);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        db = SubDatabase.getInstance(this);
+        dao = db.subDao();
+
+        sub = dao.getSub(subredditName);
+        subRedditId = sub.getId();
     }
 
     public void addRemoveFavorite(View view) {
 
-        System.out.println();
+        boolean subIsFavorite = dao.isFavorite(subRedditId);
 
-        // Get Sub by Id - Add to DB
-
-        // If Sub is a Fav: Remove from Fav List; Update Sub to be not Fav
-
-        // If Sub is not a Fav: Add sub to Fav List; Update Sub to be Fav
-
+        if (subIsFavorite) {
+            dao.updateFavorite(sub.getId(), false);
+            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));
+        } else {
+            dao.updateFavorite(sub.getId(), true);
+            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
+        }
 
     }
 
