@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.focals.myreddit.R;
 import com.focals.myreddit.data.Subreddit;
+import com.focals.myreddit.database.SubDao;
+import com.focals.myreddit.database.SubDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -23,11 +25,16 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
     ArrayList<Subreddit> subredditList;
     ClickHandler clickHandler;
     boolean showingFavorites;
+    private SubDatabase db;
+    private SubDao dao;
 
     public PopularsAdapter(ArrayList<Subreddit> subredditList, ClickHandler clickHandler, boolean showingFavorites) {
         this.subredditList = subredditList;
         this.clickHandler = clickHandler;
         this.showingFavorites = showingFavorites;
+
+        db = SubDatabase.getInstance(context);
+        dao = db.subDao();
     }
 
     @NonNull
@@ -59,10 +66,12 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
         }
 
         // Display +/- depending on Fav Status
-        if (subredditList.get(position).isFavorite()) {
+
+        boolean subIsFavorite = dao.isFavorite(subredditList.get(position).getId());
+
+        if (subIsFavorite) {
             holder.addToFavorites.setImageDrawable(context.getDrawable(android.R.drawable.ic_delete));
-        }
-        else {
+        } else {
             holder.addToFavorites.setImageDrawable(context.getDrawable(android.R.drawable.ic_input_add));
         }
 

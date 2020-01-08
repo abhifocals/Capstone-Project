@@ -16,9 +16,11 @@ import com.focals.myreddit.database.SubDatabase;
 import com.focals.myreddit.network.NetworkUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -103,12 +105,22 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
     private void setFavoriteState(Subreddit sub) {
 
-        if (sub.isFavorite()) {
-            sub.setFavorite(false);
-            FAVORITES.remove(sub);
+        boolean subIsFavorite = dao.isFavorite(sub.getId());
+
+
+        if (subIsFavorite) {
+
+            dao.updateFavorite(sub.getId(), false);
+
+
+//            sub.setFavorite(false);
+//            FAVORITES.remove(sub);
         } else {
-            sub.setFavorite(true);
-            FAVORITES.add(sub);
+
+            dao.updateFavorite(sub.getId(), true);
+
+//            sub.setFavorite(true);
+//            FAVORITES.add(sub);
         }
         popularsAdapter.notifyDataSetChanged();
     }
@@ -131,7 +143,15 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             // This is used to determine if Fav list or Sub list should be used in getCurrentSub()
             SHOWING_FAVS = true;
 
-            popularsAdapter.setSubredditList(FAVORITES);
+            dao.getFavorites().observe(this, new Observer<List<Subreddit>>() {
+                @Override
+                public void onChanged(List<Subreddit> subreddits) {
+
+                    popularsAdapter.setSubredditList((ArrayList) subreddits);
+                }
+            });
+
+//            popularsAdapter.setSubredditList(FAVORITES);
 
         }
         return super.onOptionsItemSelected(item);

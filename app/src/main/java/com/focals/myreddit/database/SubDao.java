@@ -2,15 +2,14 @@ package com.focals.myreddit.database;
 
 import com.focals.myreddit.data.Subreddit;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
-
-import static android.icu.text.MessagePattern.ArgType.SELECT;
 
 @Dao
 public interface SubDao {
@@ -19,7 +18,7 @@ public interface SubDao {
     public void insertSubs(List<Subreddit> subs);
 
     @Query("SELECT * FROM sub WHERE id = :providedId")
-    public Subreddit getSubById(String providedId);
+    public LiveData<Subreddit> getSubById(String providedId);
 
     @Query("SELECT favorite FROM sub WHERE id =:providedId")
     public boolean isFavorite(String providedId);
@@ -28,5 +27,5 @@ public interface SubDao {
     public void updateFavorite(String providedId, boolean isFavorite);
 
     @Query("SELECT * FROM sub WHERE favorite")
-    public List<Subreddit> getFavorites();
+    public LiveData<List<Subreddit>> getFavorites();
 }
