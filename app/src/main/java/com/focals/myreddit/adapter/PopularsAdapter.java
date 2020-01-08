@@ -74,7 +74,6 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
         } else {
             holder.addToFavorites.setImageDrawable(context.getDrawable(android.R.drawable.ic_input_add));
         }
-
     }
 
     @Override

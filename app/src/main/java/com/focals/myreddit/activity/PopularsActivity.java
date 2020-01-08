@@ -76,7 +76,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         }
     }
 
-
     /**
      * Retreives the current sub from either Fav list or Popular list.
      *
@@ -109,18 +108,9 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
 
         if (subIsFavorite) {
-
             dao.updateFavorite(sub.getId(), false);
-
-
-//            sub.setFavorite(false);
-//            FAVORITES.remove(sub);
         } else {
-
             dao.updateFavorite(sub.getId(), true);
-
-//            sub.setFavorite(true);
-//            FAVORITES.add(sub);
         }
         popularsAdapter.notifyDataSetChanged();
     }
@@ -150,9 +140,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
                     popularsAdapter.setSubredditList((ArrayList) subreddits);
                 }
             });
-
-//            popularsAdapter.setSubredditList(FAVORITES);
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -201,8 +188,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
     private void insertToDatabase() {
         dao.insertSubs(subredditList);
-
-        System.out.println();
     }
 
 }
