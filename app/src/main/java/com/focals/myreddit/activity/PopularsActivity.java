@@ -13,6 +13,7 @@ import com.focals.myreddit.data.RedditParser;
 import com.focals.myreddit.data.Subreddit;
 import com.focals.myreddit.database.SubDao;
 import com.focals.myreddit.database.SubDatabase;
+import com.focals.myreddit.database.SubViewModel;
 import com.focals.myreddit.network.NetworkUtil;
 
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,8 +37,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     private SubDatabase db;
     private SubDao dao;
     private Subreddit currentSub;
-
     public static ArrayList<Subreddit> FAVORITES = new ArrayList<>();
+    SubViewModel subViewModel;
 
 
     @Override
@@ -56,14 +59,17 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         db = SubDatabase.getInstance(this);
         dao = db.subDao();
 
-        dao.getFavorites().observe(this, new Observer<List<Subreddit>>() {
+
+        subViewModel = ViewModelProviders.of(this).get(SubViewModel.class);
+
+        subViewModel.getFavoriteSubs().observe(this, new Observer<List<Subreddit>>() {
             @Override
             public void onChanged(List<Subreddit> subreddits) {
                 FAVORITES = (ArrayList) subreddits;
             }
         });
 
-        dao.getSubs().observe(this, new Observer<List<Subreddit>>() {
+        subViewModel.getSubs().observe(this, new Observer<List<Subreddit>>() {
             @Override
             public void onChanged(List<Subreddit> subreddits) {
                 subredditList = (ArrayList) subreddits;

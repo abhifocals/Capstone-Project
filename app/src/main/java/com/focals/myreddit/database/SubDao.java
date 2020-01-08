@@ -17,8 +17,8 @@ public interface SubDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertSubs(List<Subreddit> subs);
 
-    @Query("SELECT * FROM sub WHERE id = :providedId")
-    public LiveData<Subreddit> getSubById(String providedId);
+//    @Query("SELECT * FROM sub WHERE id = :providedId")
+//    public LiveData<Subreddit> getSubById(String providedId);
 
     @Query("SELECT favorite FROM sub WHERE id =:providedId")
     public boolean isFavorite(String providedId);
