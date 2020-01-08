@@ -62,6 +62,13 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
                 FAVORITES = (ArrayList) subreddits;
             }
         });
+
+        dao.getSubs().observe(this, new Observer<List<Subreddit>>() {
+            @Override
+            public void onChanged(List<Subreddit> subreddits) {
+                subredditList = (ArrayList) subreddits;
+            }
+        });
     }
 
     /**
