@@ -33,6 +33,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     static boolean SHOWING_FAVS;
     private SubDatabase db;
     private SubDao dao;
+    private Subreddit currentSub;
 
     public static ArrayList<Subreddit> FAVORITES = new ArrayList<>();
 
@@ -54,6 +55,13 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         db = SubDatabase.getInstance(this);
         dao = db.subDao();
+
+        dao.getFavorites().observe(this, new Observer<List<Subreddit>>() {
+            @Override
+            public void onChanged(List<Subreddit> subreddits) {
+                FAVORITES = (ArrayList) subreddits;
+            }
+        });
     }
 
     /**
@@ -84,8 +92,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
      * @return
      */
 
-    private Subreddit getCurrentSub(boolean showingFavScreen, int position) {
-        Subreddit sub;
+    private Subreddit getCurrentSub(boolean showingFavScreen, final int position) {
+        Subreddit sub = null;
 
         if (showingFavScreen) {
             sub = FAVORITES.get(position);
@@ -105,7 +113,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     private void setFavoriteState(Subreddit sub) {
 
         boolean subIsFavorite = dao.isFavorite(sub.getId());
-
 
         if (subIsFavorite) {
             dao.updateFavorite(sub.getId(), false);
@@ -183,6 +190,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             mainRecyclerView.setAdapter(popularsAdapter);
             mainRecyclerView.setLayoutManager(layoutManager);
 
+            SHOWING_FAVS = false;
         }
     }
 
