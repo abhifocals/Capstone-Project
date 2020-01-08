@@ -140,6 +140,11 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             // This is used to determine if Fav list or Sub list should be used in getCurrentSub()
             SHOWING_FAVS = true;
 
+
+            /**
+             * Update the adapter with changed fav list.
+             */
+
             dao.getFavorites().observe(this, new Observer<List<Subreddit>>() {
                 @Override
                 public void onChanged(List<Subreddit> subreddits) {
