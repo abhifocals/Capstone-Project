@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.focals.myreddit.R;
 import com.focals.myreddit.adapter.PostsAdapter;
 import com.focals.myreddit.data.Post;
 import com.focals.myreddit.data.RedditParser;
+import com.focals.myreddit.data.Subreddit;
+import com.focals.myreddit.database.SubDao;
+import com.focals.myreddit.database.SubDatabase;
 import com.focals.myreddit.network.NetworkUtil;
 
 import java.util.ArrayList;
@@ -27,10 +31,13 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
     RecyclerView subredditRecyclerView;
     ArrayList<Post> postsList;
     TextView subredditNameView;
-    int subRedditId;
+    String subRedditId;
     String subredditName;
     Toolbar toolbar;
     ImageButton imageButton;
+    private SubDatabase db;
+    private SubDao dao;
+    Subreddit sub;
 
 
     @Override
@@ -59,6 +66,12 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         imageButton.setVisibility(View.VISIBLE);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        db = SubDatabase.getInstance(this);
+        dao = db.subDao();
+
+        sub = dao.getSub(subredditName);
+        subRedditId = sub.getId();
     }
 
     @Override
@@ -80,15 +93,15 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
 
     public void addRemoveFavorite(View view) {
 
-        System.out.println();
+        boolean subIsFavorite = dao.isFavorite(subRedditId);
 
-        // Get Sub by Id - Add to DB
-
-        // If Sub is a Fav: Remove from Fav List; Update Sub to be not Fav
-
-        // If Sub is not a Fav: Add sub to Fav List; Update Sub to be Fav
-
-
+        if (subIsFavorite) {
+            dao.updateFavorite(sub.getId(), false);
+            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));
+        } else {
+            dao.updateFavorite(sub.getId(), true);
+            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
+        }
     }
 
     @Override

@@ -31,4 +31,7 @@ public interface SubDao {
 
     @Query("SELECT * FROM sub")
     public LiveData<List<Subreddit>> getSubs();
+
+    @Query("SELECT * FROM sub where name = :name")
+    public Subreddit getSub(String name);
 }
