@@ -101,6 +101,16 @@ public class CommentsActivity extends BaseActivity {
 
         sub = dao.getSub(subredditName);
         subRedditId = sub.getId();
+
+
+        boolean subIsFavorite = dao.isFavorite(subRedditId);
+
+        if (subIsFavorite) {
+            imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_delete));
+        } else {
+            dao.updateFavorite(sub.getId(), true);
+            imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
+        }
     }
 
     public void addRemoveFavorite(View view) {
@@ -109,10 +119,10 @@ public class CommentsActivity extends BaseActivity {
 
         if (subIsFavorite) {
             dao.updateFavorite(sub.getId(), false);
-            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));
+            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
         } else {
             dao.updateFavorite(sub.getId(), true);
-            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
+            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));
         }
 
     }
