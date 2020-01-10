@@ -4,6 +4,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -22,7 +23,6 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +39,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     private Subreddit currentSub;
     public static ArrayList<Subreddit> FAVORITES = new ArrayList<>();
     SubViewModel subViewModel;
+    private String subViewing;
 
 
     @Override
@@ -65,14 +66,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         subViewModel.getFavoriteSubs().observe(this, new Observer<List<Subreddit>>() {
             @Override
             public void onChanged(List<Subreddit> subreddits) {
+                Log.d("Test", "Favorites: " + subreddits.size());
                 FAVORITES = (ArrayList) subreddits;
-            }
-        });
-
-        subViewModel.getSubs().observe(this, new Observer<List<Subreddit>>() {
-            @Override
-            public void onChanged(List<Subreddit> subreddits) {
-                subredditList = (ArrayList) subreddits;
             }
         });
     }
@@ -137,9 +132,11 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
     private void launchPostsActivity(int position) {
         Intent intent = new Intent(this, PostsActivity.class);
+
         String name = subredditList.get(position).getName();
 
         intent.putExtra("SubredditName", name);
+        subViewing = subredditList.get(position).getId();
 
         // Start Activity w/Transition
         Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
@@ -153,18 +150,10 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             // This is used to determine if Fav list or Sub list should be used in getCurrentSub()
             SHOWING_FAVS = true;
 
-
             /**
              * Update the adapter with changed fav list.
              */
-
-            dao.getFavorites().observe(this, new Observer<List<Subreddit>>() {
-                @Override
-                public void onChanged(List<Subreddit> subreddits) {
-
-                    popularsAdapter.setSubredditList((ArrayList) subreddits);
-                }
-            });
+            popularsAdapter.setSubredditList(FAVORITES);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -183,6 +172,20 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         if (resultCode == 2) {
             SHOWING_FAVS = true;
+
+
+            // Update FAV List TODO: Can avoid this by using ViewModel?
+
+            boolean subIsFavorite = dao.isFavorite(subViewing);
+
+            if (subIsFavorite) {
+                subViewModel.updateFavorite(subViewing, false);
+                FAVORITES.add(dao.getSubById(subViewing));
+            } else {
+                subViewModel.updateFavorite(subViewing, true);
+                FAVORITES.remove(dao.getSubById(subViewing));
+            }
+
             popularsAdapter.setSubredditList(FAVORITES);
         }
     }
