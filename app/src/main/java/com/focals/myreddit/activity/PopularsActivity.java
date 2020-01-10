@@ -140,7 +140,14 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        popularsAdapter.setSubredditList(subreddits);
+
+
+                        if (SHOWING_FAVS) {
+                            popularsAdapter.setSubredditList(FAVORITES);
+                        } else {
+                            popularsAdapter.setSubredditList(subreddits);
+                        }
+
                     }
                 });
             }
