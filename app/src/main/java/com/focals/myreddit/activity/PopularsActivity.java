@@ -175,6 +175,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         if (resultCode == 2) {
             SHOWING_FAVS = true;
+            popularsAdapter.setSubredditList(FAVORITES);
         }
     }
 
