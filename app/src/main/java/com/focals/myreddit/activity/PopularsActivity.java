@@ -68,6 +68,10 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             public void onChanged(List<Subreddit> subreddits) {
                 Log.d("Test", "Favorites: " + subreddits.size());
                 FAVORITES = (ArrayList) subreddits;
+
+                if (SHOWING_FAVS) {
+                    popularsAdapter.setSubredditList(FAVORITES);
+                }
             }
         });
     }
@@ -90,6 +94,9 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         } else {
             launchPostsActivity(position);
         }
+
+        // Notify Adapter so appropriate Icon (+ or x) can be used.
+        popularsAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -127,7 +134,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         } else {
             dao.updateFavorite(sub.getId(), true);
         }
-        popularsAdapter.notifyDataSetChanged();
     }
 
     private void launchPostsActivity(int position) {
@@ -150,9 +156,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             // This is used to determine if Fav list or Sub list should be used in getCurrentSub()
             SHOWING_FAVS = true;
 
-            /**
-             * Update the adapter with changed fav list.
-             */
             popularsAdapter.setSubredditList(FAVORITES);
         }
         return super.onOptionsItemSelected(item);
