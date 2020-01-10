@@ -97,7 +97,23 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         }
 
         // Notify Adapter so appropriate Icon (+ or x) can be used.
-        popularsAdapter.notifyDataSetChanged();
+
+//        SubExecutors.getInstance().getNetworkIO().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                final ArrayList<Subreddit> subreddits = (ArrayList) dao.getSubs();
+//
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        popularsAdapter.setSubredditList(subreddits);
+//                    }
+//                });
+//            }
+//        });
+
+
+//        popularsAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -126,16 +142,30 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
      * @param sub
      */
 
-    private void setFavoriteState(Subreddit sub) {
+    private void setFavoriteState(final Subreddit sub) {
+        
+        SubExecutors.getInstance().getNetworkIO().execute(new Runnable() {
+            @Override
+            public void run() {
 
-        boolean subIsFavorite = false;
+                if (dao.isFavorite(sub.getId())) {
+                    dao.updateFavorite(sub.getId(), false);
+                } else {
+                    dao.updateFavorite(sub.getId(), true);
+                }
 
-        if (subIsFavorite) {
-            dao.updateFavorite(sub.getId(), false);
-        } else {
-            dao.updateFavorite(sub.getId(), true);
-        }
+                final ArrayList<Subreddit> subreddits = (ArrayList) dao.getSubs();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        popularsAdapter.setSubredditList(subreddits);
+                    }
+                });
+            }
+        });
     }
+
 
     private void launchPostsActivity(int position) {
         Intent intent = new Intent(this, PostsActivity.class);
@@ -144,6 +174,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         intent.putExtra("SubredditName", name);
         intent.putExtra("SubId", subredditList.get(position).getId());
+        intent.putExtra("IsFavorite", subredditList.get(position).isFavorite());
         subViewing = subredditList.get(position).getId();
 
         // Start Activity w/Transition

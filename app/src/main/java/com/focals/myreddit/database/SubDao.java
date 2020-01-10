@@ -37,8 +37,8 @@ public interface SubDao {
 //    @Query("SELECT * FROM sub WHERE favorite")
 //    public List<Subreddit> getFavoritess();
 
-//    @Query("SELECT * FROM sub")
-//    public LiveData<List<Subreddit>> getSubs();
+    @Query("SELECT * FROM sub")
+    public List<Subreddit> getSubs();
 
 //    @Update(onConflict = OnConflictStrategy.REPLACE)
 //    public void updateSubs(Subreddit... subs);

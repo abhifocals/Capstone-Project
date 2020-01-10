@@ -12,6 +12,7 @@ import com.focals.myreddit.R;
 import com.focals.myreddit.data.Subreddit;
 import com.focals.myreddit.database.SubDao;
 import com.focals.myreddit.database.SubDatabase;
+import com.focals.myreddit.network.SubExecutors;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
     boolean showingFavorites;
     private SubDatabase db;
     private SubDao dao;
+    private boolean isFav;
 
     public PopularsAdapter(ArrayList<Subreddit> subredditList, ClickHandler clickHandler, boolean showingFavorites) {
         this.subredditList = subredditList;
@@ -55,7 +57,7 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
         String bannerUrl = subredditList.get(position).getBannerUrl();
         String desc = subredditList.get(position).getPublicDescription();
         int subscribers = subredditList.get(position).getSubscribers();
-
+        String subId =  subredditList.get(position).getId();
 
         holder.subredditTitle.setText(title);
         holder.subredditDesc.setText(desc);
@@ -67,9 +69,9 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
 
         // Display +/- depending on Fav Status
 
-        boolean subIsFavorite = dao.isFavorite(subredditList.get(position).getId());
+        isFav = subredditList.get(position).isFavorite();
 
-        if (subIsFavorite) {
+        if (isFav) {
             holder.addToFavorites.setImageDrawable(context.getDrawable(android.R.drawable.ic_delete));
         } else {
             holder.addToFavorites.setImageDrawable(context.getDrawable(android.R.drawable.ic_input_add));
