@@ -7,4 +7,9 @@
         android:title="Favorites"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/menu_popular"
+        android:title="Popular"
+        app:showAsAction="ifRoom" />
+
 </menu>

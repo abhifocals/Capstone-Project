@@ -189,6 +189,16 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
             popularsAdapter.setSubredditList(FAVORITES);
         }
+
+
+        if (item.getItemId() == R.id.menu_popular) {
+            popularsAdapter.setSubredditList(subredditList);
+            tv_noInternet.setVisibility(View.INVISIBLE);
+            SHOWING_FAVS = false;
+        }
+
+
+
         return super.onOptionsItemSelected(item);
     }
 
