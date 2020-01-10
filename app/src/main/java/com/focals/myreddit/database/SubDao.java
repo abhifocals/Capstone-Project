@@ -10,15 +10,14 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 @Dao
 public interface SubDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     public void insertSubs(List<Subreddit> subs);
 
-//    @Query("SELECT * FROM sub WHERE id = :providedId")
-//    public LiveData<Subreddit> getSubById(String providedId);
 
     @Query("SELECT favorite FROM sub WHERE id =:providedId")
     public boolean isFavorite(String providedId);
@@ -26,12 +25,21 @@ public interface SubDao {
     @Query("UPDATE sub SET favorite = :isFavorite WHERE id = :providedId")
     public void updateFavorite(String providedId, boolean isFavorite);
 
-    @Query("SELECT * FROM sub WHERE favorite")
+    @Query("SELECT * FROM sub WHERE favorite = 1")
     public LiveData<List<Subreddit>> getFavorites();
-
-    @Query("SELECT * FROM sub")
-    public LiveData<List<Subreddit>> getSubs();
 
     @Query("SELECT * FROM sub where name = :name")
     public Subreddit getSub(String name);
+
+//    @Query("SELECT * FROM sub WHERE id = :providedId")
+//    public Subreddit getSubById(String providedId);
+
+//    @Query("SELECT * FROM sub WHERE favorite")
+//    public List<Subreddit> getFavoritess();
+
+//    @Query("SELECT * FROM sub")
+//    public LiveData<List<Subreddit>> getSubs();
+
+//    @Update(onConflict = OnConflictStrategy.REPLACE)
+//    public void updateSubs(Subreddit... subs);
 }
