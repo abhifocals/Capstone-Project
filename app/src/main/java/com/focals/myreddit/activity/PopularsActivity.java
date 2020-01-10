@@ -142,6 +142,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         String name = subredditList.get(position).getName();
 
         intent.putExtra("SubredditName", name);
+        intent.putExtra("SubId", subredditList.get(position).getId());
         subViewing = subredditList.get(position).getId();
 
         // Start Activity w/Transition

@@ -37,7 +37,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
     ImageButton imageButton;
     private SubDatabase db;
     private SubDao dao;
-    Subreddit sub;
+    boolean subIsFavorite;
 
 
     @Override
@@ -70,11 +70,9 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         db = SubDatabase.getInstance(this);
         dao = db.subDao();
 
-        sub = dao.getSub(subredditName);
-        subRedditId = sub.getId();
+        subRedditId = getIntent().getStringExtra("SubId");
 
-
-        boolean subIsFavorite = dao.isFavorite(subRedditId);
+        subIsFavorite = dao.isFavorite(subRedditId);
 
         if (subIsFavorite) {
             imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_delete));
@@ -103,13 +101,13 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
 
     public void addRemoveFavorite(View view) {
 
-        boolean subIsFavorite = dao.isFavorite(subRedditId);
+//        boolean subIsFavorite = dao.isFavorite(subRedditId);
 
         if (subIsFavorite) {
-            dao.updateFavorite(sub.getId(), false);
+            dao.updateFavorite(subRedditId, false);
             ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
         } else {
-            dao.updateFavorite(sub.getId(), true);
+            dao.updateFavorite(subRedditId, true);
             ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));
         }
     }
