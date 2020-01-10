@@ -95,25 +95,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         } else {
             launchPostsActivity(position);
         }
-
-        // Notify Adapter so appropriate Icon (+ or x) can be used.
-
-//        SubExecutors.getInstance().getNetworkIO().execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                final ArrayList<Subreddit> subreddits = (ArrayList) dao.getSubs();
-//
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        popularsAdapter.setSubredditList(subreddits);
-//                    }
-//                });
-//            }
-//        });
-
-
-//        popularsAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -143,7 +124,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
      */
 
     private void setFavoriteState(final Subreddit sub) {
-        
+
         SubExecutors.getInstance().getNetworkIO().execute(new Runnable() {
             @Override
             public void run() {
