@@ -44,6 +44,7 @@ public class CommentsActivity extends BaseActivity {
     private SubDao dao;
     Subreddit sub;
     String subRedditId;
+    boolean subIsFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +104,8 @@ public class CommentsActivity extends BaseActivity {
         subRedditId = sub.getId();
 
 
-        boolean subIsFavorite = dao.isFavorite(subRedditId);
+//      subIsFavorite = dao.isFavorite(subRedditId);
+        subIsFavorite = false;
 
         if (subIsFavorite) {
             imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_delete));
@@ -114,13 +116,11 @@ public class CommentsActivity extends BaseActivity {
 
     public void addRemoveFavorite(View view) {
 
-        boolean subIsFavorite = dao.isFavorite(subRedditId);
-
         if (subIsFavorite) {
-            dao.updateFavorite(sub.getId(), false);
+//            dao.updateFavorite(sub.getId(), false);
             ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
         } else {
-            dao.updateFavorite(sub.getId(), true);
+//            dao.updateFavorite(sub.getId(), true);
             ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));
         }
 
