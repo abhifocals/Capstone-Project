@@ -18,10 +18,13 @@ import com.focals.myreddit.database.SubDatabase;
 import com.focals.myreddit.database.SubViewModel;
 import com.focals.myreddit.network.NetworkUtil;
 import com.focals.myreddit.network.SubExecutors;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
@@ -29,7 +32,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PopularsActivity extends BaseActivity implements PopularsAdapter.ClickHandler {
+public class PopularsActivity extends BaseActivity implements PopularsAdapter.ClickHandler, BottomNavigationView.OnNavigationItemSelectedListener {
 
     RecyclerView mainRecyclerView;
     ArrayList<Subreddit> subredditList;
@@ -43,6 +46,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     SubViewModel subViewModel;
     private String subViewing;
     TextView tv_noInternet;
+    BottomNavigationItemView bottom_favorite;
 
 
     @Override
@@ -64,6 +68,10 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         db = SubDatabase.getInstance(this);
         dao = db.subDao();
+
+
+        bottomNav = (BottomNavigationView) findViewById(R.id.bottomNav);
+        bottomNav.setOnNavigationItemSelectedListener(this);
 
 
         subViewModel = ViewModelProviders.of(this).get(SubViewModel.class);
@@ -181,22 +189,21 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         if (item.getItemId() == R.id.menu_favorite) {
 
-            showNoFavoritesMessage();
-
-
-            // This is used to determine if Fav list or Sub list should be used in getCurrentSub()
-            SHOWING_FAVS = true;
-
-            popularsAdapter.setSubredditList(FAVORITES);
+//            showNoFavoritesMessage();
+//
+//
+//            // This is used to determine if Fav list or Sub list should be used in getCurrentSub()
+//            SHOWING_FAVS = true;
+//
+//            popularsAdapter.setSubredditList(FAVORITES);
         }
 
 
         if (item.getItemId() == R.id.menu_popular) {
-            popularsAdapter.setSubredditList(subredditList);
-            tv_noInternet.setVisibility(View.INVISIBLE);
-            SHOWING_FAVS = false;
+//            popularsAdapter.setSubredditList(subredditList);
+//            tv_noInternet.setVisibility(View.INVISIBLE);
+//            SHOWING_FAVS = false;
         }
-
 
 
         return super.onOptionsItemSelected(item);
@@ -226,7 +233,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             showNoFavoritesMessage();
 
 
-
             SHOWING_FAVS = true;
             popularsAdapter.setSubredditList(FAVORITES);
             return;
@@ -244,6 +250,28 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         });
 
         popularsAdapter.setSubredditList(subredditList);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+        if (menuItem.getItemId() == R.id.bottom_favorite) {
+            showNoFavoritesMessage();
+
+
+            // This is used to determine if Fav list or Sub list should be used in getCurrentSub()
+            SHOWING_FAVS = true;
+
+            popularsAdapter.setSubredditList(FAVORITES);
+        }
+
+        if (menuItem.getItemId() == R.id.bottom_popular) {
+            popularsAdapter.setSubredditList(subredditList);
+            tv_noInternet.setVisibility(View.INVISIBLE);
+            SHOWING_FAVS = false;
+        }
+
+        return false;
     }
 
     class RedditAsyncTask extends AsyncTask<String, Void, String> {

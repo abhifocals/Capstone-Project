@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.focals.myreddit.R;
 import com.focals.myreddit.adapter.PopularsAdapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import static com.focals.myreddit.activity.PopularsActivity.FAVORITES;
 
@@ -16,6 +17,7 @@ public class BaseActivity extends AppCompatActivity {
 
 
     PopularsAdapter popularsAdapter;
+    BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
