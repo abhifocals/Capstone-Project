@@ -180,12 +180,23 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.menu_favorite) {
+
+            showNoFavoritesMessage();
+
+
             // This is used to determine if Fav list or Sub list should be used in getCurrentSub()
             SHOWING_FAVS = true;
 
             popularsAdapter.setSubredditList(FAVORITES);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showNoFavoritesMessage() {
+        if (FAVORITES.isEmpty()) {
+            tv_noInternet.setText("Your Favorites List is empty! Add some favorites.");
+            tv_noInternet.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
@@ -201,11 +212,15 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == 2) {
+
+            showNoFavoritesMessage();
+
+
+
             SHOWING_FAVS = true;
             popularsAdapter.setSubredditList(FAVORITES);
             return;
         }
-
 
 
         // Get updated list here
@@ -230,8 +245,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
-            s = null;
 
             if (s == null) {
                 tv_noInternet.setVisibility(View.VISIBLE);
