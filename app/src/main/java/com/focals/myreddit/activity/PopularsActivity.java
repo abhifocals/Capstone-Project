@@ -78,10 +78,10 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     }
 
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//
+    @Override
+    protected void onResume() {
+        super.onResume();
+
 //        if (SHOWING_FAVS) {
 //            popularsAdapter.setSubredditList(FAVORITES);
 //        }
@@ -89,7 +89,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 //        else {
 //            popularsAdapter.setSubredditList(subredditList);
 //        }
-//    }
+    }
 
     /**
      * Gets the current sub (based on what screen user is on) and set its fav state.
@@ -213,7 +213,22 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         if (resultCode == 2) {
             SHOWING_FAVS = true;
             popularsAdapter.setSubredditList(FAVORITES);
+            return;
         }
+
+
+
+        // Get updated list here
+
+        SubExecutors.getInstance().getNetworkIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                final ArrayList<Subreddit> subreddits = (ArrayList) dao.getSubs();
+                subredditList = subreddits;
+            }
+        });
+
+        popularsAdapter.setSubredditList(subredditList);
     }
 
     class RedditAsyncTask extends AsyncTask<String, Void, String> {
