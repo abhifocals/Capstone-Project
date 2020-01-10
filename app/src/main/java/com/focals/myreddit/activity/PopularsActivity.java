@@ -16,6 +16,7 @@ import com.focals.myreddit.database.SubDao;
 import com.focals.myreddit.database.SubDatabase;
 import com.focals.myreddit.database.SubViewModel;
 import com.focals.myreddit.network.NetworkUtil;
+import com.focals.myreddit.network.SubExecutors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,7 +128,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
     private void setFavoriteState(Subreddit sub) {
 
-        boolean subIsFavorite = dao.isFavorite(sub.getId());
+        boolean subIsFavorite = false;
 
         if (subIsFavorite) {
             dao.updateFavorite(sub.getId(), false);
@@ -206,7 +207,12 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     }
 
     private void insertToDatabase() {
-        dao.insertSubs(subredditList);
-    }
 
+        SubExecutors.getInstance().getNetworkIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                dao.insertSubs(subredditList);
+            }
+        });
+    }
 }
