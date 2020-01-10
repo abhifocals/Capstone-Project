@@ -72,6 +72,17 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
 
         sub = dao.getSub(subredditName);
         subRedditId = sub.getId();
+
+
+        boolean subIsFavorite = dao.isFavorite(subRedditId);
+
+        if (subIsFavorite) {
+            imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_delete));
+        } else {
+            dao.updateFavorite(sub.getId(), true);
+            imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
+        }
+
     }
 
     @Override
@@ -88,7 +99,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
 
         // Start Activity w/Transition
         Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
-        startActivityForResult(intent,100, bundle);
+        startActivityForResult(intent, 100, bundle);
     }
 
     public void addRemoveFavorite(View view) {
