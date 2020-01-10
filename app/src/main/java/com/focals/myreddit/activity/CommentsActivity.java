@@ -25,6 +25,7 @@ import com.focals.myreddit.data.Subreddit;
 import com.focals.myreddit.database.SubDao;
 import com.focals.myreddit.database.SubDatabase;
 import com.focals.myreddit.network.NetworkUtil;
+import com.focals.myreddit.network.SubExecutors;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -100,12 +101,8 @@ public class CommentsActivity extends BaseActivity {
         db = SubDatabase.getInstance(this);
         dao = db.subDao();
 
-        sub = dao.getSub(subredditName);
-        subRedditId = sub.getId();
-
-
-//      subIsFavorite = dao.isFavorite(subRedditId);
-        subIsFavorite = false;
+        subRedditId = getIntent().getStringExtra("SubId");
+        subIsFavorite = getIntent().getBooleanExtra("IsFavorite", false);
 
         if (subIsFavorite) {
             imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_delete));
@@ -117,12 +114,21 @@ public class CommentsActivity extends BaseActivity {
     public void addRemoveFavorite(View view) {
 
         if (subIsFavorite) {
-//            dao.updateFavorite(sub.getId(), false);
             ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
         } else {
-//            dao.updateFavorite(sub.getId(), true);
             ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));
         }
+
+        SubExecutors.getInstance().getNetworkIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                if (subIsFavorite) {
+                    dao.updateFavorite(subRedditId, false);
+                } else {
+                    dao.updateFavorite(subRedditId, true);
+                }
+            }
+        });
 
     }
 

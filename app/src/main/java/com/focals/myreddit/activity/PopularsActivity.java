@@ -77,6 +77,20 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         });
     }
 
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        if (SHOWING_FAVS) {
+//            popularsAdapter.setSubredditList(FAVORITES);
+//        }
+//
+//        else {
+//            popularsAdapter.setSubredditList(subredditList);
+//        }
+//    }
+
     /**
      * Gets the current sub (based on what screen user is on) and set its fav state.
      *
