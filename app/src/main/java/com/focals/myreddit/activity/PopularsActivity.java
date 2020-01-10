@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.focals.myreddit.R;
 import com.focals.myreddit.adapter.PopularsAdapter;
@@ -41,6 +42,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     public static ArrayList<Subreddit> FAVORITES = new ArrayList<>();
     SubViewModel subViewModel;
     private String subViewing;
+    TextView tv_noInternet;
 
 
     @Override
@@ -55,6 +57,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         mainRecyclerView = (RecyclerView) findViewById(R.id.rv_populars);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        tv_noInternet = (TextView) findViewById(R.id.tv_noInternet);
 
         setSupportActionBar(toolbar);
 
@@ -75,20 +79,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
                 }
             }
         });
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-//        if (SHOWING_FAVS) {
-//            popularsAdapter.setSubredditList(FAVORITES);
-//        }
-//
-//        else {
-//            popularsAdapter.setSubredditList(subredditList);
-//        }
     }
 
     /**
@@ -240,6 +230,13 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
+            s = null;
+
+            if (s == null) {
+                tv_noInternet.setVisibility(View.VISIBLE);
+                return;
+            }
 
             subredditList = RedditParser.parseReddit(s);
 
