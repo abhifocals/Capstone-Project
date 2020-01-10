@@ -137,6 +137,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
                 final ArrayList<Subreddit> subreddits = (ArrayList) dao.getSubs();
 
+                subredditList = subreddits;
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
