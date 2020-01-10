@@ -19,15 +19,17 @@ import com.focals.myreddit.database.SubDao;
 import com.focals.myreddit.database.SubDatabase;
 import com.focals.myreddit.network.NetworkUtil;
 import com.focals.myreddit.network.SubExecutors;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHandler {
+public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHandler, BottomNavigationView.OnNavigationItemSelectedListener {
 
     RecyclerView subredditRecyclerView;
     ArrayList<Post> postsList;
@@ -79,6 +81,10 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         } else {
             imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
         }
+
+
+        bottomNav = (BottomNavigationView) findViewById(R.id.bottomNav);
+        bottomNav.setOnNavigationItemSelectedListener(this);
 
     }
 
@@ -136,6 +142,12 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         return super.onOptionsItemSelected(item);
     }
 
+
+
+
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -144,6 +156,22 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
             setResult(2);
             finish();
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+        if (menuItem.getItemId() == R.id.bottom_favorite) {
+            setResult(2);
+            finish();
+        }
+
+        if (menuItem.getItemId() == R.id.bottom_popular) {
+            finish();
+        }
+
+
+        return false;
     }
 
     class SubredditTask extends AsyncTask<String, Void, String> {
