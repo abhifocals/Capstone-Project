@@ -175,21 +175,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         if (resultCode == 2) {
             SHOWING_FAVS = true;
-
-
-            // Update FAV List TODO: Can avoid this by using ViewModel?
-
-            boolean subIsFavorite = dao.isFavorite(subViewing);
-
-            if (subIsFavorite) {
-                subViewModel.updateFavorite(subViewing, false);
-                FAVORITES.add(dao.getSubById(subViewing));
-            } else {
-                subViewModel.updateFavorite(subViewing, true);
-                FAVORITES.remove(dao.getSubById(subViewing));
-            }
-
-            popularsAdapter.setSubredditList(FAVORITES);
         }
     }
 

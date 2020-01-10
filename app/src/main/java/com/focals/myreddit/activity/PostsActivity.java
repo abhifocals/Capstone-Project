@@ -97,10 +97,10 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
 
         if (subIsFavorite) {
             dao.updateFavorite(sub.getId(), false);
-            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));
+            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
         } else {
             dao.updateFavorite(sub.getId(), true);
-            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
+            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));
         }
     }
 
