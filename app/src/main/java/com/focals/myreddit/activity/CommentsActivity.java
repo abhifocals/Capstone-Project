@@ -1,5 +1,6 @@
 package com.focals.myreddit.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -26,11 +27,12 @@ import com.focals.myreddit.database.SubDao;
 import com.focals.myreddit.database.SubDatabase;
 import com.focals.myreddit.network.NetworkUtil;
 import com.focals.myreddit.network.SubExecutors;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class CommentsActivity extends BaseActivity {
+public class CommentsActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     RecyclerView commentsRecyclerView;
     ArrayList<Comment> commentsList;
@@ -109,6 +111,9 @@ public class CommentsActivity extends BaseActivity {
         } else {
             imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
         }
+
+        bottomNav = (BottomNavigationView) findViewById(R.id.bottomNav);
+        bottomNav.setOnNavigationItemSelectedListener(this);
     }
 
     public void addRemoveFavorite(View view) {
@@ -142,6 +147,22 @@ public class CommentsActivity extends BaseActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+        if (menuItem.getItemId() == R.id.bottom_favorite) {
+            setResult(2);
+            finish();
+        }
+
+        if (menuItem.getItemId() == R.id.bottom_popular) {
+            finish();
+        }
+
+
+        return false;
     }
 
 

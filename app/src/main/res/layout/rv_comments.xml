@@ -50,4 +50,6 @@
 
     </LinearLayout>
 
+    <include layout="@layout/layout_bottom_navigation"></include>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
