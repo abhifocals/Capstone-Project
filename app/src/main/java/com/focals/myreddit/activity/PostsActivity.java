@@ -63,7 +63,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         setSupportActionBar(toolbar);
 
         // The padding is to support RTL Layouts.
-        getSupportActionBar().setTitle("    " + subredditName);
+        getSupportActionBar().setTitle("  " + subredditName);
 
         imageButton = (ImageButton) findViewById(R.id.ib_addToFavorites);
         imageButton.setVisibility(View.VISIBLE);

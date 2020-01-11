@@ -93,7 +93,9 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
 
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle(subredditName);
+
+        // The padding is to support RTL Layouts.
+        getSupportActionBar().setTitle("   " + subredditName);
 
         imageButton = (ImageButton) findViewById(R.id.ib_addToFavorites);
         imageButton.setVisibility(View.VISIBLE);
