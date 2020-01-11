@@ -132,24 +132,6 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == R.id.menu_favorite) {
-            setResult(2);
-            finish();
-        }
-
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
-
-
-
-
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 

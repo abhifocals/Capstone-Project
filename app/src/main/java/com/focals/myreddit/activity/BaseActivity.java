@@ -23,14 +23,4 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater menuInflater = new MenuInflater(this);
-
-        menuInflater.inflate(R.menu.menu, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
 }

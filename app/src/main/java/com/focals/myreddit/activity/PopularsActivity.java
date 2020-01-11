@@ -184,31 +184,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         startActivityForResult(intent, 1, bundle);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == R.id.menu_favorite) {
-
-//            showNoFavoritesMessage();
-//
-//
-//            // This is used to determine if Fav list or Sub list should be used in getCurrentSub()
-//            SHOWING_FAVS = true;
-//
-//            popularsAdapter.setSubredditList(FAVORITES);
-        }
-
-
-        if (item.getItemId() == R.id.menu_popular) {
-//            popularsAdapter.setSubredditList(subredditList);
-//            tv_noInternet.setVisibility(View.INVISIBLE);
-//            SHOWING_FAVS = false;
-        }
-
-
-        return super.onOptionsItemSelected(item);
-    }
-
     private void showNoFavoritesMessage() {
         if (FAVORITES.isEmpty()) {
             tv_noInternet.setText("Your Favorites List is empty! Add some favorites.");
