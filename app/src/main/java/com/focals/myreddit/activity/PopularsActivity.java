@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.focals.myreddit.R;
@@ -47,6 +48,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     private String subViewing;
     TextView tv_noInternet;
     BottomNavigationItemView bottom_favorite;
+    ProgressBar progressBar;
 
 
     @Override
@@ -59,6 +61,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         new RedditAsyncTask().execute(popularSubreddits);
 
         mainRecyclerView = (RecyclerView) findViewById(R.id.rv_populars);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -87,6 +90,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
                 }
             }
         });
+
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -258,6 +263,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
+            progressBar.setVisibility(View.INVISIBLE);
 
             if (s == null) {
                 tv_noInternet.setVisibility(View.VISIBLE);
