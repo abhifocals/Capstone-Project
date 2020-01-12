@@ -47,8 +47,8 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
     private SubDatabase db;
     private SubDao dao;
     Subreddit sub;
-    String subRedditId;
-    boolean subIsFavorite;
+//    String subRedditId;
+//    boolean subIsFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,33 +123,7 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
     }
 
     public void addRemoveFavorite(final View view) {
-
-        new AsyncTask() {
-
-            @Override
-            protected Object doInBackground(Object[] objects) {
-
-                subIsFavorite = dao.isFavorite(subRedditId);
-
-                if (subIsFavorite) {
-                    dao.updateFavorite(subRedditId, false);
-                } else {
-                    dao.updateFavorite(subRedditId, true);
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Object o) {
-                super.onPostExecute(o);
-
-                if (subIsFavorite) {
-                    ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
-                } else {
-                    ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));
-                }
-            }
-        }.execute();
+        super.addRemoveFavorite(view);
     }
 
     @Override
