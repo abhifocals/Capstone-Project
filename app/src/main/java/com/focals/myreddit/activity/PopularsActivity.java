@@ -90,6 +90,21 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             }
         });
 
+
+        subViewModel.getLiveSubs().observe(this, new Observer<List<Subreddit>>() {
+            @Override
+            public void onChanged(List<Subreddit> subreddits) {
+//                subredditList = subredditList;
+                Log.d("Test", "Subreddits Fetched");
+
+                if (SHOWING_FAVS) {
+                    popularsAdapter.setSubredditList(FAVORITES);
+                } else if (!subreddits.isEmpty()) {
+                    popularsAdapter.setSubredditList((ArrayList) subreddits);
+                }
+            }
+        });
+
         progressBar.setVisibility(View.VISIBLE);
     }
 
@@ -151,23 +166,22 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
                     dao.updateFavorite(sub.getId(), true);
                 }
 
-                final ArrayList<Subreddit> subreddits = (ArrayList) dao.getSubs();
+//                final ArrayList<Subreddit> subreddits = (ArrayList) dao.getSubs();
+//                subredditList = subreddits;
 
-                subredditList = subreddits;
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-
-                        if (SHOWING_FAVS) {
-                            popularsAdapter.setSubredditList(FAVORITES);
-                        } else {
-                            popularsAdapter.setSubredditList(subreddits);
-                        }
-
-                    }
-                });
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//
+//                        if (SHOWING_FAVS) {
+//                            popularsAdapter.setSubredditList(FAVORITES);
+//                        } else {
+//                            popularsAdapter.setSubredditList(subredditList);
+//                        }
+//
+//                    }
+//                });
             }
         });
     }
@@ -213,22 +227,22 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
 
             SHOWING_FAVS = true;
-            popularsAdapter.setSubredditList(FAVORITES);
+//            popularsAdapter.setSubredditList(FAVORITES);
             return;
         }
 
 
         // Get updated list here
 
-        SubExecutors.getInstance().getNetworkIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                final ArrayList<Subreddit> subreddits = (ArrayList) dao.getSubs();
-                subredditList = subreddits;
-            }
-        });
+//        SubExecutors.getInstance().getNetworkIO().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                final ArrayList<Subreddit> subreddits = (ArrayList) dao.getSubs();
+//                subredditList = subreddits;
+//            }
+//        });
 
-        popularsAdapter.setSubredditList(subredditList);
+//        popularsAdapter.setSubredditList(subredditList);
     }
 
     @Override

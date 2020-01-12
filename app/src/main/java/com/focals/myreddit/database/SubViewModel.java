@@ -13,7 +13,7 @@ import androidx.lifecycle.LiveData;
 public class SubViewModel extends AndroidViewModel {
 
     LiveData<List<Subreddit>> favoriteSubs;
-//    LiveData<List<Subreddit>> subs;
+    LiveData<List<Subreddit>> subs;
     SubDatabase db;
     SubDao dao;
     List<Subreddit> favorites;
@@ -25,11 +25,15 @@ public class SubViewModel extends AndroidViewModel {
         dao = db.subDao();
 
         favoriteSubs = dao.getFavorites();
-//        subs = dao.getSubs();
+        subs = dao.getLiveSubs();
     }
 
     public LiveData<List<Subreddit>> getFavoriteSubs() {
         return favoriteSubs;
+    }
+
+    public LiveData<List<Subreddit>> getLiveSubs() {
+        return subs;
     }
 
 

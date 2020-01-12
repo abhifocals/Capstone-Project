@@ -40,6 +40,9 @@ public interface SubDao {
     @Query("SELECT * FROM sub")
     public List<Subreddit> getSubs();
 
+    @Query("SELECT * FROM sub")
+    public LiveData<List<Subreddit>> getLiveSubs();
+
 //    @Update(onConflict = OnConflictStrategy.REPLACE)
 //    public void updateSubs(Subreddit... subs);
 }
