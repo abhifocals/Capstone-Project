@@ -124,9 +124,10 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
 
     public void addRemoveFavorite(final View view) {
 
-        SubExecutors.getInstance().getNetworkIO().execute(new Runnable() {
+        new AsyncTask() {
+
             @Override
-            public void run() {
+            protected Object doInBackground(Object[] objects) {
 
                 subIsFavorite = dao.isFavorite(subRedditId);
 
@@ -135,19 +136,20 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
                 } else {
                     dao.updateFavorite(subRedditId, true);
                 }
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (subIsFavorite) {
-                            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
-                        } else {
-                            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));
-                        }
-                    }
-                });
+                return null;
             }
-        });
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+
+                if (subIsFavorite) {
+                    ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
+                } else {
+                    ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));
+                }
+            }
+        }.execute();
     }
 
     @Override
