@@ -112,10 +112,11 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
     }
 
     public void addRemoveFavorite(final View view) {
+        
+        new AsyncTask() {
 
-        SubExecutors.getInstance().getNetworkIO().execute(new Runnable() {
             @Override
-            public void run() {
+            protected Object doInBackground(Object[] objects) {
 
                 subIsFavorite = dao.isFavorite(subRedditId);
 
@@ -124,19 +125,20 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
                 } else {
                     dao.updateFavorite(subRedditId, true);
                 }
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (subIsFavorite) {
-                            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
-                        } else {
-                            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));
-                        }
-                    }
-                });
+                return null;
             }
-        });
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+
+                if (subIsFavorite) {
+                    ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
+                } else {
+                    ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));
+                }
+            }
+        };
     }
 
     @Override
