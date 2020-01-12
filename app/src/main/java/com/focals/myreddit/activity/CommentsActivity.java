@@ -16,6 +16,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.focals.myreddit.R;
@@ -116,6 +117,9 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
 
         bottomNav = (BottomNavigationView) findViewById(R.id.bottomNav);
         bottomNav.setOnNavigationItemSelectedListener(this);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     public void addRemoveFavorite(View view) {
@@ -167,6 +171,8 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
+            progressBar.setVisibility(View.INVISIBLE);
 
             commentsList = RedditParser.parseComments(s);
 

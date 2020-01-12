@@ -16,4 +16,5 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
     <include layout="@layout/layout_bottom_navigation" />
+    <include layout="@layout/progress_bar" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

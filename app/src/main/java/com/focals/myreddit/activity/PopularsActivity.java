@@ -48,7 +48,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     private String subViewing;
     TextView tv_noInternet;
     BottomNavigationItemView bottom_favorite;
-    ProgressBar progressBar;
 
 
     @Override

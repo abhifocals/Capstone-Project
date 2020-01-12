@@ -51,5 +51,6 @@
     </LinearLayout>
 
     <include layout="@layout/layout_bottom_navigation"></include>
+    <include layout="@layout/progress_bar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

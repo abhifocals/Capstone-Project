@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.focals.myreddit.R;
@@ -87,6 +88,8 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         bottomNav = (BottomNavigationView) findViewById(R.id.bottomNav);
         bottomNav.setOnNavigationItemSelectedListener(this);
 
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -168,6 +171,8 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
+            progressBar.setVisibility(View.INVISIBLE);
 
             postsList = RedditParser.parseRedditPosts(s);
 
