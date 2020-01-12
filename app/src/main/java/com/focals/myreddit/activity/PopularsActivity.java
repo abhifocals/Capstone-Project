@@ -166,17 +166,18 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
     private void setFavoriteState(final Subreddit sub) {
 
-        SubExecutors.getInstance().getNetworkIO().execute(new Runnable() {
-            @Override
-            public void run() {
+        new AsyncTask() {
 
+            @Override
+            protected Object doInBackground(Object[] objects) {
                 if (dao.isFavorite(sub.getId())) {
                     dao.updateFavorite(sub.getId(), false);
                 } else {
                     dao.updateFavorite(sub.getId(), true);
                 }
+                return null;
             }
-        });
+        }.execute();
     }
 
 
@@ -269,11 +270,14 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
     private void insertToDatabase() {
 
-        SubExecutors.getInstance().getNetworkIO().execute(new Runnable() {
+        new AsyncTask() {
+
+
             @Override
-            public void run() {
+            protected Object doInBackground(Object[] objects) {
                 dao.insertSubs(subredditList);
+                return null;
             }
-        });
+        }.execute();
     }
 }
