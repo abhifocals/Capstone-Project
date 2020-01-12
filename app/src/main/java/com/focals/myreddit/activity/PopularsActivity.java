@@ -179,23 +179,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
                 } else {
                     dao.updateFavorite(sub.getId(), true);
                 }
-
-//                final ArrayList<Subreddit> subreddits = (ArrayList) dao.getSubs();
-//                subredditList = subreddits;
-
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//
-//
-//                        if (SHOWING_FAVS) {
-//                            popularsAdapter.setSubredditList(FAVORITES);
-//                        } else {
-//                            popularsAdapter.setSubredditList(subredditList);
-//                        }
-//
-//                    }
-//                });
             }
         });
     }
@@ -236,27 +219,9 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == 2) {
-
-//            showNoFavoritesMessage();
-
-
             SHOWING_FAVS = true;
-//            popularsAdapter.setSubredditList(FAVORITES);
             return;
         }
-
-
-        // Get updated list here
-
-//        SubExecutors.getInstance().getNetworkIO().execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                final ArrayList<Subreddit> subreddits = (ArrayList) dao.getSubs();
-//                subredditList = subreddits;
-//            }
-//        });
-
-//        popularsAdapter.setSubredditList(subredditList);
     }
 
     @Override
@@ -264,7 +229,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         if (menuItem.getItemId() == R.id.bottom_favorite) {
             showNoFavoritesMessage();
-
 
             // This is used to determine if Fav list or Sub list should be used in getCurrentSub()
             SHOWING_FAVS = true;
@@ -305,10 +269,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
             SHOWING_FAVS = false;
         }
-    }
-
-    private void setupAdapter() {
-
     }
 
     private void insertToDatabase() {

@@ -190,5 +190,4 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         }
     }
 
-
 }
