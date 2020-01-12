@@ -75,7 +75,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         bottomNav = (BottomNavigationView) findViewById(R.id.bottomNav);
         bottomNav.setOnNavigationItemSelectedListener(this);
 
-
         subViewModel = ViewModelProviders.of(this).get(SubViewModel.class);
 
         subViewModel.getFavoriteSubs().observe(this, new Observer<List<Subreddit>>() {
@@ -96,6 +95,17 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             public void onChanged(List<Subreddit> subreddits) {
 //                subredditList = subredditList;
                 Log.d("Test", "Subreddits Fetched");
+
+
+
+                if (popularsAdapter == null) {
+                    layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
+                    popularsAdapter = new PopularsAdapter(subredditList, PopularsActivity.this, SHOWING_FAVS);
+                    mainRecyclerView.setAdapter(popularsAdapter);
+                    mainRecyclerView.setLayoutManager(layoutManager);
+                }
+
+
 
                 if (SHOWING_FAVS) {
                     popularsAdapter.setSubredditList(FAVORITES);
@@ -289,14 +299,12 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             // Insert subs in Database
             insertToDatabase();
 
-            popularsAdapter = new PopularsAdapter(subredditList, PopularsActivity.this, SHOWING_FAVS);
-            layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
-
-            mainRecyclerView.setAdapter(popularsAdapter);
-            mainRecyclerView.setLayoutManager(layoutManager);
-
             SHOWING_FAVS = false;
         }
+    }
+
+    private void setupAdapter() {
+
     }
 
     private void insertToDatabase() {
