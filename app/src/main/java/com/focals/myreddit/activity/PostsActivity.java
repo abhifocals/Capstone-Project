@@ -112,7 +112,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
     }
 
     public void addRemoveFavorite(final View view) {
-        
+
         new AsyncTask() {
 
             @Override
@@ -138,7 +138,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
                     ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));
                 }
             }
-        };
+        }.execute();
     }
 
     @Override

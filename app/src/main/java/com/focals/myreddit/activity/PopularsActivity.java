@@ -96,11 +96,9 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         subViewModel.getLiveSubs().observe(this, new Observer<List<Subreddit>>() {
             @Override
             public void onChanged(List<Subreddit> subreddits) {
-//                subredditList = subredditList;
                 Log.d("Test", "Subreddits Fetched");
 
-
-
+                // Ignore this for now. Move out of here.
                 if (popularsAdapter == null) {
                     layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
                     popularsAdapter = new PopularsAdapter(subredditList, PopularsActivity.this, SHOWING_FAVS);
@@ -108,12 +106,10 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
                     mainRecyclerView.setLayoutManager(layoutManager);
                 }
 
-
-
                 if (SHOWING_FAVS) {
                     popularsAdapter.setSubredditList(FAVORITES);
-                } else if (!subreddits.isEmpty()) {
-
+                } else if (!subreddits.isEmpty()) { // Don't think  need the empty check here.
+                    subredditList = (ArrayList) subreddits;
                     popularsAdapter.setSubredditList((ArrayList) subreddits);
                 }
             }
