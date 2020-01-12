@@ -122,25 +122,32 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
         progressBar.setVisibility(View.VISIBLE);
     }
 
-    public void addRemoveFavorite(View view) {
-
-        if (subIsFavorite) {
-            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
-        } else {
-            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));
-        }
+    public void addRemoveFavorite(final View view) {
 
         SubExecutors.getInstance().getNetworkIO().execute(new Runnable() {
             @Override
             public void run() {
+
+                subIsFavorite = dao.isFavorite(subRedditId);
+
                 if (subIsFavorite) {
                     dao.updateFavorite(subRedditId, false);
                 } else {
                     dao.updateFavorite(subRedditId, true);
                 }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (subIsFavorite) {
+                            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
+                        } else {
+                            ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));
+                        }
+                    }
+                });
             }
         });
-
     }
 
     @Override
