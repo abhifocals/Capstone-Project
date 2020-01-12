@@ -84,6 +84,9 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
                 FAVORITES = (ArrayList) subreddits;
 
                 if (SHOWING_FAVS) {
+
+                    showNoFavoritesMessage();
+
                     popularsAdapter.setSubredditList(FAVORITES);
                 }
             }
@@ -234,7 +237,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         if (resultCode == 2) {
 
-            showNoFavoritesMessage();
+//            showNoFavoritesMessage();
 
 
             SHOWING_FAVS = true;
