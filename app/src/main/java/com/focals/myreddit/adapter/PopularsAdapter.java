@@ -80,7 +80,12 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
 
     @Override
     public int getItemCount() {
-        return subredditList.size();
+
+        if (subredditList != null) {
+            return subredditList.size();
+        } else {
+            return 0;
+        }
     }
 
     public void setSubredditList(ArrayList<Subreddit> subredditList) {

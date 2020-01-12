@@ -110,6 +110,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
                 if (SHOWING_FAVS) {
                     popularsAdapter.setSubredditList(FAVORITES);
                 } else if (!subreddits.isEmpty()) {
+
                     popularsAdapter.setSubredditList((ArrayList) subreddits);
                 }
             }
