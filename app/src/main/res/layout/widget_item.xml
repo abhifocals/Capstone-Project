@@ -7,7 +7,7 @@
         android:id="@+id/tv_widgetText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:gravity="center"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 </LinearLayout>
