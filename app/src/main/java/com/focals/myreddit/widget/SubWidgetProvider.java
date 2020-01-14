@@ -18,28 +18,9 @@ public class SubWidgetProvider extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        CharSequence widgetText = "SubWidgetProvider";
-        // Construct the RemoteViews object
-//        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.sub_widget);
-//        views.setTextViewText(R.id.appwidget_text, widgetText);
-
-
         RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.sub_widget);
-        Intent intent = new Intent(context,  SubWidgetService.class);
+        Intent intent = new Intent(context, SubWidgetService.class);
         rv.setRemoteAdapter(R.id.lv_widget, intent);
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, rv);
