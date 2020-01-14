@@ -28,6 +28,9 @@ public interface SubDao {
     @Query("SELECT * FROM sub WHERE favorite = 1")
     public LiveData<List<Subreddit>> getFavorites();
 
+    @Query("SELECT * FROM sub WHERE favorite = 1")
+    public List<Subreddit> getWidgetFavorites();
+
     @Query("SELECT * FROM sub where name = :name")
     public Subreddit getSub(String name);
 

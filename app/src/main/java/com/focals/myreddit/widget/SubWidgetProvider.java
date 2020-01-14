@@ -3,9 +3,12 @@ package com.focals.myreddit.widget;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.focals.myreddit.R;
+import com.focals.myreddit.database.SubDao;
+import com.focals.myreddit.database.SubDatabase;
 
 /**
  * Implementation of App Widget functionality.
@@ -17,11 +20,29 @@ public class SubWidgetProvider extends AppWidgetProvider {
 
         CharSequence widgetText = "SubWidgetProvider";
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.sub_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
+//        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.sub_widget);
+//        views.setTextViewText(R.id.appwidget_text, widgetText);
+
+
+        RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.sub_widget);
+        Intent intent = new Intent(context,  SubWidgetService.class);
+        rv.setRemoteAdapter(R.id.lv_widget, intent);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // Instruct the widget manager to update the widget
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+        appWidgetManager.updateAppWidget(appWidgetId, rv);
     }
 
     @Override
