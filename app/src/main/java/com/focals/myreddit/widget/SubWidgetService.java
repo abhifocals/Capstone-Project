@@ -24,7 +24,6 @@ public class SubWidgetService extends RemoteViewsService {
 class SubWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
     Context context;
-
     SubDatabase db;
     SubDao dao;
     List<Subreddit> favs;
@@ -56,17 +55,25 @@ class SubWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public int getCount() {
+
+        if (favs.isEmpty()) {
+            return 1;
+        }
+
         return favs.size();
     }
 
     @Override
     public RemoteViews getViewAt(int position) {
+        RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.single_widget_item);
+
+        if (favs.isEmpty()) {
+            rv.setTextViewText(R.id.tv_widgetText, "You have no Favorites!");
+            return rv;
+        }
 
         String favSubName = favs.get(position).getName();
-
-        RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_item);
         rv.setTextViewText(R.id.tv_widgetText, favSubName);
-
         return rv;
     }
 
