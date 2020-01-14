@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.focals.myreddit.R;
 import com.focals.myreddit.data.Subreddit;
 import com.focals.myreddit.database.SubDao;
 import com.focals.myreddit.database.SubDatabase;
@@ -61,14 +62,12 @@ class SubWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
     @Override
     public RemoteViews getViewAt(int position) {
 
-        //TODO
+        String favSubName = favs.get(position).getName();
 
+        RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_item);
+        rv.setTextViewText(R.id.tv_widgetText, favSubName);
 
-
-
-
-
-        return null;
+        return rv;
     }
 
     @Override
