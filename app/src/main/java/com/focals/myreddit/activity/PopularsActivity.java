@@ -18,7 +18,6 @@ import com.focals.myreddit.database.SubDao;
 import com.focals.myreddit.database.SubDatabase;
 import com.focals.myreddit.database.SubViewModel;
 import com.focals.myreddit.network.NetworkUtil;
-import com.focals.myreddit.network.SubExecutors;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -35,18 +34,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PopularsActivity extends BaseActivity implements PopularsAdapter.ClickHandler, BottomNavigationView.OnNavigationItemSelectedListener {
 
-    RecyclerView mainRecyclerView;
-    ArrayList<Subreddit> subredditList;
-    Toolbar toolbar;
-    GridLayoutManager layoutManager;
-    static boolean SHOWING_FAVS;
-    private SubDatabase db;
+    private RecyclerView mainRecyclerView;
+    private ArrayList<Subreddit> subredditList;
+    private Toolbar toolbar;
+    private GridLayoutManager layoutManager;
+    private static boolean SHOWING_FAVS;
     private SubDao dao;
     private Subreddit currentSub;
     public static ArrayList<Subreddit> FAVORITES = new ArrayList<>();
-    SubViewModel subViewModel;
-    private String subViewing;
-    TextView tv_noInternet;
+    private SubViewModel subViewModel;
+    private TextView tv_noInternet;
     BottomNavigationItemView bottom_favorite;
 
 
@@ -59,20 +56,20 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         new RedditAsyncTask().execute(popularSubreddits);
 
-        mainRecyclerView = (RecyclerView) findViewById(R.id.rv_populars);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mainRecyclerView = findViewById(R.id.rv_populars);
+        progressBar = findViewById(R.id.progressBar);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
 
-        tv_noInternet = (TextView) findViewById(R.id.tv_noInternet);
+        tv_noInternet = findViewById(R.id.tv_noInternet);
 
         setSupportActionBar(toolbar);
 
-        db = SubDatabase.getInstance(this);
+        SubDatabase db = SubDatabase.getInstance(this);
         dao = db.subDao();
 
 
-        bottomNav = (BottomNavigationView) findViewById(R.id.bottomNav);
+        bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setOnNavigationItemSelectedListener(this);
 
         subViewModel = ViewModelProviders.of(this).get(SubViewModel.class);
@@ -147,7 +144,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
      */
 
     private Subreddit getCurrentSub(boolean showingFavScreen, final int position) {
-        Subreddit sub = null;
+        Subreddit sub;
 
         if (showingFavScreen) {
             sub = FAVORITES.get(position);
@@ -189,7 +186,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         intent.putExtra("SubredditName", name);
         intent.putExtra("SubId", subredditList.get(position).getId());
         intent.putExtra("IsFavorite", subredditList.get(position).isFavorite());
-        subViewing = subredditList.get(position).getId();
+        String subViewing = subredditList.get(position).getId();
 
         // Start Activity w/Transition
         Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
@@ -217,7 +214,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         if (resultCode == 2) {
             SHOWING_FAVS = true;
-            return;
         }
     }
 
