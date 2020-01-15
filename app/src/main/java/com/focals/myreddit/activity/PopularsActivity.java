@@ -81,7 +81,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
                 Log.d("Test", "Favorites: " + subreddits.size());
                 FAVORITES = (ArrayList) subreddits;
                 updateAdapter();
-
             }
         });
 
@@ -90,6 +89,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             @Override
             public void onChanged(List<Subreddit> subreddits) {
                 if (!subreddits.isEmpty()) {
+                    Log.d("Test", "Popular List Fetched");
                     subredditList = (ArrayList) subreddits;
                     updateAdapter();
                 }
@@ -98,7 +98,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     }
 
     /**
-     * Gets the current sub (based on what screen user is on), and set its fav state.
+     * Gets the current sub (based on what screen user is on), and updates database.
      *
      * @param position
      * @param view
