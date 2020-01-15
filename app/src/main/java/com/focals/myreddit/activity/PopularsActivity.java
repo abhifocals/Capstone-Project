@@ -111,11 +111,9 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
     @Override
     public void onClickHandle(int position, View view) {
-
-        int viewId = view.getId();
         Subreddit sub = getCurrentSub(SHOWING_FAVS, position);
 
-        if (viewId == R.id.ib_addToFavorites) {
+        if (view.getId() == R.id.ib_addToFavorites) {
             setFavoriteState(sub);
         } else {
             launchPostsActivity(position);
@@ -143,19 +141,18 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         // Handle Favorite Click
         if (menuItem.getItemId() == R.id.bottom_favorite) {
-            showNoFavoritesMessageIfRequired();
-
-            // Used to decide if user is on Fav screen
             SHOWING_FAVS = true;
+            showNoFavoritesMessageIfRequired();
 
             popularsAdapter.setSubredditList(FAVORITES);
         }
 
         // Handle Popular Click
         if (menuItem.getItemId() == R.id.bottom_popular) {
-            popularsAdapter.setSubredditList(subredditList);
-            tv_noInternet.setVisibility(View.INVISIBLE);
             SHOWING_FAVS = false;
+            tv_noInternet.setVisibility(View.INVISIBLE);
+
+            popularsAdapter.setSubredditList(subredditList);
         }
 
         return false;
@@ -178,7 +175,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
                 return;
             }
 
-            // Parse Response and insert into Databaes
+            // Parse Response and insert into Database
             subredditList = RedditParser.parseReddit(s);
             insertToDatabase();
         }
@@ -208,7 +205,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
     private void setFavoriteState(final Subreddit sub) {
         new AsyncTask() {
-
             @Override
             protected Object doInBackground(Object[] objects) {
                 if (dao.isFavorite(sub.getId())) {
@@ -243,8 +239,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
     private void insertToDatabase() {
         new AsyncTask() {
-
-
             @Override
             protected Object doInBackground(Object[] objects) {
                 dao.insertSubs(subredditList);
