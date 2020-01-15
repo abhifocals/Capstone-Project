@@ -80,11 +80,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             public void onChanged(List<Subreddit> subreddits) {
                 Log.d("Test", "Favorites: " + subreddits.size());
                 FAVORITES = (ArrayList) subreddits;
+                updateAdapter();
 
-                if (SHOWING_FAVS) {
-                    showNoFavoritesMessageIfRequired();
-                    popularsAdapter.setSubredditList(FAVORITES);
-                }
             }
         });
 
@@ -92,11 +89,9 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         subViewModel.getLiveSubs().observe(this, new Observer<List<Subreddit>>() {
             @Override
             public void onChanged(List<Subreddit> subreddits) {
-                if (SHOWING_FAVS) {
-                    popularsAdapter.setSubredditList(FAVORITES);
-                } else if (!subreddits.isEmpty()) { // Don't think  need the empty check here.
+                if (!subreddits.isEmpty()) {
                     subredditList = (ArrayList) subreddits;
-                    popularsAdapter.setSubredditList((ArrayList) subreddits);
+                    updateAdapter();
                 }
             }
         });
@@ -130,7 +125,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     }
 
     /**
-     * BottomNavigationView click handler.
+     * Bottom Navigation View click handler.
      *
      * @param menuItem
      * @return
@@ -142,17 +137,13 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         // Handle Favorite Click
         if (menuItem.getItemId() == R.id.bottom_favorite) {
             SHOWING_FAVS = true;
-            showNoFavoritesMessageIfRequired();
-
-            popularsAdapter.setSubredditList(FAVORITES);
+            updateAdapter();
         }
 
         // Handle Popular Click
         if (menuItem.getItemId() == R.id.bottom_popular) {
             SHOWING_FAVS = false;
-            tv_noInternet.setVisibility(View.INVISIBLE);
-
-            popularsAdapter.setSubredditList(subredditList);
+            updateAdapter();
         }
 
         return false;
@@ -172,12 +163,11 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             // Handle No Internet/Response
             if (s == null) {
                 tv_noInternet.setVisibility(View.VISIBLE);
-                return;
+            } else {
+                // Parse Response and insert into Database
+                subredditList = RedditParser.parseReddit(s);
+                insertToDatabase();
             }
-
-            // Parse Response and insert into Database
-            subredditList = RedditParser.parseReddit(s);
-            insertToDatabase();
         }
     }
 
@@ -234,6 +224,21 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         if (FAVORITES.isEmpty()) {
             tv_noInternet.setText("Your Favorites List is empty! Add some favorites.");
             tv_noInternet.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void hideErrorView() {
+        tv_noInternet.setVisibility(View.INVISIBLE);
+    }
+
+    private void updateAdapter() {
+
+        if (SHOWING_FAVS) {
+            showNoFavoritesMessageIfRequired();
+            popularsAdapter.setSubredditList(FAVORITES);
+        } else {
+            hideErrorView();
+            popularsAdapter.setSubredditList(subredditList);
         }
     }
 
