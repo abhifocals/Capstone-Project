@@ -114,7 +114,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         Subreddit sub = getCurrentSub(SHOWING_FAVS, position);
 
         if (view.getId() == R.id.ib_addToFavorites) {
-            setFavoriteState(sub);
+            updateSubFavStateInDatabase(sub);
         } else {
             launchPostsActivity(position);
         }
@@ -203,7 +203,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         return sub;
     }
 
-    private void setFavoriteState(final Subreddit sub) {
+    private void updateSubFavStateInDatabase(final Subreddit sub) {
         new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
