@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -15,11 +14,9 @@ import com.focals.myreddit.R;
 import com.focals.myreddit.adapter.PostsAdapter;
 import com.focals.myreddit.data.Post;
 import com.focals.myreddit.data.RedditParser;
-import com.focals.myreddit.data.Subreddit;
 import com.focals.myreddit.database.SubDao;
 import com.focals.myreddit.database.SubDatabase;
 import com.focals.myreddit.network.NetworkUtil;
-import com.focals.myreddit.network.SubExecutors;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -35,13 +32,11 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
     RecyclerView subredditRecyclerView;
     ArrayList<Post> postsList;
     TextView subredditNameView;
-//    String subRedditId;
     String subredditName;
     Toolbar toolbar;
     ImageButton imageButton;
     private SubDatabase db;
     private SubDao dao;
-//    boolean subIsFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
