@@ -40,7 +40,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     private static SubDao dao;
     public static ArrayList<Subreddit> FAVORITES = new ArrayList<>();
     private SubViewModel subViewModel;
-    private static TextView tv_noInternet;
+    private static TextView tv_error;
 
 
     @Override
@@ -52,7 +52,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         mainRecyclerView = findViewById(R.id.rv_populars);
         progressBar = findViewById(R.id.progressBar);
         toolbar = findViewById(R.id.toolbar);
-        tv_noInternet = findViewById(R.id.tv_noInternet);
+        tv_error = findViewById(R.id.tv_error);
 
         // Initializing Database, DAO, and ViewModel
         SubDatabase db = SubDatabase.getInstance(this);
@@ -162,7 +162,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
             // Handle No Internet/Response
             if (s == null) {
-                tv_noInternet.setVisibility(View.VISIBLE);
+                tv_error.setVisibility(View.VISIBLE);
             } else {
                 // Parse Response and insert into Database
                 subredditList = RedditParser.parseReddit(s);
@@ -222,13 +222,13 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
     private void showNoFavoritesMessageIfRequired() {
         if (FAVORITES.isEmpty()) {
-            tv_noInternet.setText("Your Favorites List is empty! Add some favorites.");
-            tv_noInternet.setVisibility(View.VISIBLE);
+            tv_error.setVisibility(View.VISIBLE);
+            tv_error.setText("Your Favorites List is empty! Add some favorites.");
         }
     }
 
     private void hideErrorView() {
-        tv_noInternet.setVisibility(View.INVISIBLE);
+        tv_error.setVisibility(View.INVISIBLE);
     }
 
     private void updateAdapter() {
