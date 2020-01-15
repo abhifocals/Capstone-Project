@@ -33,14 +33,14 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PopularsActivity extends BaseActivity implements PopularsAdapter.ClickHandler, BottomNavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView mainRecyclerView;
-    private ArrayList<Subreddit> subredditList;
+    private static ArrayList<Subreddit> subredditList;
     private Toolbar toolbar;
     private GridLayoutManager layoutManager;
     private static boolean SHOWING_FAVS;
-    private SubDao dao;
+    private static SubDao dao;
     public static ArrayList<Subreddit> FAVORITES = new ArrayList<>();
     private SubViewModel subViewModel;
-    private TextView tv_noInternet;
+    private static TextView tv_noInternet;
 
 
     @Override
@@ -149,7 +149,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         return false;
     }
 
-    class RedditAsyncTask extends AsyncTask<String, Void, String> {
+    static class RedditAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... url) {
             return NetworkUtil.getResponseFromUrl(url[0]);
@@ -242,7 +242,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         }
     }
 
-    private void insertToDatabase() {
+    private static void insertToDatabase() {
         new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
