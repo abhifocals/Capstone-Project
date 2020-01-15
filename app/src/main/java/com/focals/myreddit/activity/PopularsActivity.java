@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.focals.myreddit.R;
@@ -40,11 +39,9 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     private GridLayoutManager layoutManager;
     private static boolean SHOWING_FAVS;
     private SubDao dao;
-    private Subreddit currentSub;
     public static ArrayList<Subreddit> FAVORITES = new ArrayList<>();
     private SubViewModel subViewModel;
     private TextView tv_noInternet;
-    BottomNavigationItemView bottom_favorite;
 
 
     @Override
@@ -186,7 +183,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         intent.putExtra("SubredditName", name);
         intent.putExtra("SubId", subredditList.get(position).getId());
         intent.putExtra("IsFavorite", subredditList.get(position).isFavorite());
-        String subViewing = subredditList.get(position).getId();
 
         // Start Activity w/Transition
         Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
