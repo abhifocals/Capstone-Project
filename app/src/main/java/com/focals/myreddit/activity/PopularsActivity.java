@@ -17,7 +17,6 @@ import com.focals.myreddit.database.SubDao;
 import com.focals.myreddit.database.SubDatabase;
 import com.focals.myreddit.database.SubViewModel;
 import com.focals.myreddit.network.NetworkUtil;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -83,7 +82,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
                 FAVORITES = (ArrayList) subreddits;
 
                 if (SHOWING_FAVS) {
-                    showNoFavoritesMessage();
+                    showNoFavoritesMessageIfRequired();
                     popularsAdapter.setSubredditList(FAVORITES);
                 }
             }
@@ -187,7 +186,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         startActivityForResult(intent, 1, bundle);
     }
 
-    private void showNoFavoritesMessage() {
+    private void showNoFavoritesMessageIfRequired() {
         if (FAVORITES.isEmpty()) {
             tv_noInternet.setText("Your Favorites List is empty! Add some favorites.");
             tv_noInternet.setVisibility(View.VISIBLE);
@@ -215,7 +214,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
         if (menuItem.getItemId() == R.id.bottom_favorite) {
-            showNoFavoritesMessage();
+            showNoFavoritesMessageIfRequired();
 
             // This is used to determine if Fav list or Sub list should be used in getCurrentSub()
             SHOWING_FAVS = true;
