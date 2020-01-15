@@ -193,7 +193,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         return sub;
     }
 
-    private void updateSubFavStateInDatabase(final Subreddit sub) {
+    private static void updateSubFavStateInDatabase(final Subreddit sub) {
         new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
