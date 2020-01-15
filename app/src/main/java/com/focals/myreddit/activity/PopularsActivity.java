@@ -102,13 +102,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         });
     }
 
-    private void setupAdapter() {
-        layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
-        popularsAdapter = new PopularsAdapter(subredditList, PopularsActivity.this, SHOWING_FAVS);
-        mainRecyclerView.setAdapter(popularsAdapter);
-        mainRecyclerView.setLayoutManager(layoutManager);
-    }
-
     /**
      * Gets the current sub (based on what screen user is on) and set its fav state.
      *
@@ -128,78 +121,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             launchPostsActivity(position);
         }
     }
-
-    /**
-     * Retreives the current sub from either Fav list or Popular list.
-     *
-     * @param showingFavScreen
-     * @param position
-     * @return
-     */
-
-    private Subreddit getCurrentSub(boolean showingFavScreen, final int position) {
-        Subreddit sub;
-
-        if (showingFavScreen) {
-            sub = FAVORITES.get(position);
-        } else {
-            sub = subredditList.get(position);
-        }
-
-        return sub;
-    }
-
-    /**
-     * Add/Removes sub from Fav List. Sets sub's Fav State. Notifies the adapter.
-     *
-     * @param sub
-     */
-
-    private void setFavoriteState(final Subreddit sub) {
-
-        new AsyncTask() {
-
-            @Override
-            protected Object doInBackground(Object[] objects) {
-                if (dao.isFavorite(sub.getId())) {
-                    dao.updateFavorite(sub.getId(), false);
-                } else {
-                    dao.updateFavorite(sub.getId(), true);
-                }
-                return null;
-            }
-        }.execute();
-    }
-
-
-    private void launchPostsActivity(int position) {
-        Intent intent = new Intent(this, PostsActivity.class);
-
-        String name = subredditList.get(position).getName();
-
-        intent.putExtra("SubredditName", name);
-        intent.putExtra("SubId", subredditList.get(position).getId());
-        intent.putExtra("IsFavorite", subredditList.get(position).isFavorite());
-
-        // Start Activity w/Transition
-        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
-        startActivityForResult(intent, 1, bundle);
-    }
-
-    private void showNoFavoritesMessageIfRequired() {
-        if (FAVORITES.isEmpty()) {
-            tv_noInternet.setText("Your Favorites List is empty! Add some favorites.");
-            tv_noInternet.setVisibility(View.VISIBLE);
-        }
-    }
-
-    /**
-     * This handles callback from PostsActivity when Favorites is selected from Menu.
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -254,6 +175,64 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             insertToDatabase();
 
             SHOWING_FAVS = false;
+        }
+    }
+
+
+    //////////// Helpers ////////////
+
+    private void setupAdapter() {
+        layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
+        popularsAdapter = new PopularsAdapter(subredditList, PopularsActivity.this, SHOWING_FAVS);
+        mainRecyclerView.setAdapter(popularsAdapter);
+        mainRecyclerView.setLayoutManager(layoutManager);
+    }
+
+
+    private Subreddit getCurrentSub(boolean showingFavScreen, final int position) {
+        Subreddit sub;
+
+        if (showingFavScreen) {
+            sub = FAVORITES.get(position);
+        } else {
+            sub = subredditList.get(position);
+        }
+        return sub;
+    }
+
+    private void setFavoriteState(final Subreddit sub) {
+
+        new AsyncTask() {
+
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                if (dao.isFavorite(sub.getId())) {
+                    dao.updateFavorite(sub.getId(), false);
+                } else {
+                    dao.updateFavorite(sub.getId(), true);
+                }
+                return null;
+            }
+        }.execute();
+    }
+
+    private void launchPostsActivity(int position) {
+        Intent intent = new Intent(this, PostsActivity.class);
+        String name = subredditList.get(position).getName();
+
+        intent.putExtra("SubredditName", name);
+        intent.putExtra("SubId", subredditList.get(position).getId());
+        intent.putExtra("IsFavorite", subredditList.get(position).isFavorite());
+
+        // Start Activity w/Transition
+        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+        startActivityForResult(intent, 1, bundle);
+    }
+
+    private void showNoFavoritesMessageIfRequired() {
+        if (FAVORITES.isEmpty()) {
+            tv_noInternet.setText("Your Favorites List is empty! Add some favorites.");
+            tv_noInternet.setVisibility(View.VISIBLE);
         }
     }
 
