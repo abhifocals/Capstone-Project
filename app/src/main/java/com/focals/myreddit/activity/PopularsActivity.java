@@ -49,28 +49,33 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rv_populars);
 
-        String popularSubreddits = "https://api.reddit.com/subreddits/popular/.json";
-
-        new RedditAsyncTask().execute(popularSubreddits);
-
+        // Initializing Views
         mainRecyclerView = findViewById(R.id.rv_populars);
         progressBar = findViewById(R.id.progressBar);
-
         toolbar = findViewById(R.id.toolbar);
-
         tv_noInternet = findViewById(R.id.tv_noInternet);
 
-        setSupportActionBar(toolbar);
-
+        // Initializing Database, DAO, and ViewModel
         SubDatabase db = SubDatabase.getInstance(this);
         dao = db.subDao();
+        subViewModel = ViewModelProviders.of(this).get(SubViewModel.class);
 
+        // Setting Toolbar as the ActionBar
+        setSupportActionBar(toolbar);
 
+        // Setting up BottomNavigationView
         bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setOnNavigationItemSelectedListener(this);
 
-        subViewModel = ViewModelProviders.of(this).get(SubViewModel.class);
+        // Fetching Popular Subreddits
+        String popularSubreddits = "https://api.reddit.com/subreddits/popular/.json";
+        new RedditAsyncTask().execute(popularSubreddits);
+        progressBar.setVisibility(View.VISIBLE);
 
+        // Setting up Adapter
+        setupAdapter();
+
+        // Observing Favorite List
         subViewModel.getFavoriteSubs().observe(this, new Observer<List<Subreddit>>() {
             @Override
             public void onChanged(List<Subreddit> subreddits) {
@@ -78,28 +83,16 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
                 FAVORITES = (ArrayList) subreddits;
 
                 if (SHOWING_FAVS) {
-
                     showNoFavoritesMessage();
-
                     popularsAdapter.setSubredditList(FAVORITES);
                 }
             }
         });
 
-
+        // Observing Popular List
         subViewModel.getLiveSubs().observe(this, new Observer<List<Subreddit>>() {
             @Override
             public void onChanged(List<Subreddit> subreddits) {
-                Log.d("Test", "Subreddits Fetched");
-
-                // Ignore this for now. Move out of here.
-                if (popularsAdapter == null) {
-                    layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
-                    popularsAdapter = new PopularsAdapter(subredditList, PopularsActivity.this, SHOWING_FAVS);
-                    mainRecyclerView.setAdapter(popularsAdapter);
-                    mainRecyclerView.setLayoutManager(layoutManager);
-                }
-
                 if (SHOWING_FAVS) {
                     popularsAdapter.setSubredditList(FAVORITES);
                 } else if (!subreddits.isEmpty()) { // Don't think  need the empty check here.
@@ -108,8 +101,13 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
                 }
             }
         });
+    }
 
-        progressBar.setVisibility(View.VISIBLE);
+    private void setupAdapter() {
+        layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
+        popularsAdapter = new PopularsAdapter(subredditList, PopularsActivity.this, SHOWING_FAVS);
+        mainRecyclerView.setAdapter(popularsAdapter);
+        mainRecyclerView.setLayoutManager(layoutManager);
     }
 
     /**
