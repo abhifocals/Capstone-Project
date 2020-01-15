@@ -103,7 +103,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     }
 
     /**
-     * Gets the current sub (based on what screen user is on) and set its fav state.
+     * Gets the current sub (based on what screen user is on), and set its fav state.
      *
      * @param position
      * @param view
@@ -131,18 +131,27 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         }
     }
 
+    /**
+     * BottomNavigationView click handler.
+     *
+     * @param menuItem
+     * @return
+     */
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
+        // Handle Favorite Click
         if (menuItem.getItemId() == R.id.bottom_favorite) {
             showNoFavoritesMessageIfRequired();
 
-            // This is used to determine if Fav list or Sub list should be used in getCurrentSub()
+            // Used to decide if user is on Fav screen
             SHOWING_FAVS = true;
 
             popularsAdapter.setSubredditList(FAVORITES);
         }
 
+        // Handle Popular Click
         if (menuItem.getItemId() == R.id.bottom_popular) {
             popularsAdapter.setSubredditList(subredditList);
             tv_noInternet.setVisibility(View.INVISIBLE);
@@ -161,20 +170,17 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
             progressBar.setVisibility(View.INVISIBLE);
 
+            // Handle No Internet/Response
             if (s == null) {
                 tv_noInternet.setVisibility(View.VISIBLE);
                 return;
             }
 
+            // Parse Response and insert into Databaes
             subredditList = RedditParser.parseReddit(s);
-
-            // Insert subs in Database
             insertToDatabase();
-
-            SHOWING_FAVS = false;
         }
     }
 
@@ -201,7 +207,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     }
 
     private void setFavoriteState(final Subreddit sub) {
-
         new AsyncTask() {
 
             @Override
@@ -237,7 +242,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     }
 
     private void insertToDatabase() {
-
         new AsyncTask() {
 
 
