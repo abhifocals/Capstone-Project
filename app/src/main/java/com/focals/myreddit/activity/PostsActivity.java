@@ -41,50 +41,47 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.rv_posts);
 
-        subredditName = getIntent().getStringExtra("SubredditName");
-
+        // Initializing Views
         subredditRecyclerView = (RecyclerView) findViewById(R.id.rv_posts);
-
-        // Start task with correct URL here
-        String url = "https://api.reddit.com/r/" + subredditName + "/?raw_json=1";
-
-        SubredditTask subredditTask = new SubredditTask();
-        subredditTask.execute(url);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
-
-        // The padding is to support RTL Layouts.
-        getSupportActionBar().setTitle("  " + subredditName);
-
         imageButton = (ImageButton) findViewById(R.id.ib_addToFavorites);
-        imageButton.setVisibility(View.VISIBLE);
+        bottomNav = (BottomNavigationView) findViewById(R.id.bottomNav);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        // Initializing Database
         db = SubDatabase.getInstance(this);
         dao = db.subDao();
 
+        // Getting info from PopularsActivity
+        subredditName = getIntent().getStringExtra("SubredditName");
         subRedditId = getIntent().getStringExtra("SubId");
-
         subIsFavorite = getIntent().getBooleanExtra("IsFavorite", false);
 
+        // Start task to fetch Posts
+        String url = "https://api.reddit.com/r/" + subredditName + "/?raw_json=1";
+        SubredditTask subredditTask = new SubredditTask();
+        subredditTask.execute(url);
+        progressBar.setVisibility(View.VISIBLE);
+
+        // Set ActionBar and its Title
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("  " + subredditName);
+
+        // Display Back Button in Toolbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // Setup Listener for Bottom Navigation View
+        bottomNav.setOnNavigationItemSelectedListener(this);
+
+        // Set Correct State for Add/Remove Fav Button
+        imageButton.setVisibility(View.VISIBLE);
         if (subIsFavorite) {
             imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_delete));
         } else {
             imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
         }
-
-
-        bottomNav = (BottomNavigationView) findViewById(R.id.bottomNav);
-        bottomNav.setOnNavigationItemSelectedListener(this);
-
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -132,8 +129,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         if (menuItem.getItemId() == R.id.bottom_popular) {
             finish();
         }
-
-
+        
         return false;
     }
 
@@ -147,17 +143,14 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
             progressBar.setVisibility(View.INVISIBLE);
 
             postsList = RedditParser.parseRedditPosts(s);
 
             PostsAdapter postsAdapter = new PostsAdapter(postsList, PostsActivity.this);
             GridLayoutManager layoutManager = new GridLayoutManager(PostsActivity.this, 1);
-
             subredditRecyclerView.setAdapter(postsAdapter);
             subredditRecyclerView.setLayoutManager(layoutManager);
-
         }
     }
 
