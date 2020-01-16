@@ -72,12 +72,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         bottomNav.setOnNavigationItemSelectedListener(this);
 
         // Set Correct State for Add/Remove Fav Button
-        imageButton.setVisibility(View.VISIBLE);
-        if (subIsFavorite) {
-            imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_delete));
-        } else {
-            imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
-        }
+        setFavButtonImage();
     }
 
     @Override
@@ -149,6 +144,17 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
             GridLayoutManager layoutManager = new GridLayoutManager(PostsActivity.this, 1);
             subredditRecyclerView.setAdapter(postsAdapter);
             subredditRecyclerView.setLayoutManager(layoutManager);
+        }
+    }
+
+    //////////// Helpers ////////////
+
+    private void setFavButtonImage() {
+        imageButton.setVisibility(View.VISIBLE);
+        if (subIsFavorite) {
+            imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_delete));
+        } else {
+            imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
         }
     }
 
