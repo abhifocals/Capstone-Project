@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 
 import com.focals.myreddit.R;
 import com.focals.myreddit.adapter.PostsAdapter;
@@ -75,6 +74,13 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         setFavButtonImage(imageButton);
     }
 
+
+    /**
+     * Handles clicks of all views except Favorite Button.
+     *
+     * @param position
+     * @param view
+     */
     @Override
     public void onClick(int position, View view) {
 
