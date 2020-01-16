@@ -89,7 +89,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             @Override
             public void onChanged(List<Subreddit> subreddits) {
                 if (!subreddits.isEmpty()) {
-                    Log.d("Test", "Popular List Fetched");
                     subredditList = (ArrayList) subreddits;
                     updateAdapter();
                 }
