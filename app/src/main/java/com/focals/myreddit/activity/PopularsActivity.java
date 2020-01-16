@@ -98,7 +98,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     }
 
     /**
-     * Gets the current sub (based on what screen user is on), and updates database.
+     * If Fav button is clicked, gets the current sub (based on what screen user is on), and updates database.
+     * Else Starts Posts Activity.
      *
      * @param position
      * @param view
@@ -169,8 +170,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
                 tv_error.setVisibility(View.VISIBLE);
             } else {
                 // Parse Response and insert into Database
-                subredditList = RedditParser.parseReddit(s);
-                insertToDatabase();
+                ArrayList<Subreddit> subs = RedditParser.parseReddit(s);
+                insertToDatabase(subs);
             }
         }
     }
@@ -246,11 +247,11 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         }
     }
 
-    private static void insertToDatabase() {
+    private static void insertToDatabase(final ArrayList<Subreddit> subs) {
         new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
-                dao.insertSubs(subredditList);
+                dao.insertSubs(subs);
                 return null;
             }
         }.execute();
