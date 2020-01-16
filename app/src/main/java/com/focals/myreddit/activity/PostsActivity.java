@@ -72,7 +72,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         bottomNav.setOnNavigationItemSelectedListener(this);
 
         // Setting Image for Favorite Button
-        setFavButtonImage();
+        setFavButtonImage(imageButton);
     }
 
     @Override
@@ -159,16 +159,4 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
             subredditRecyclerView.setLayoutManager(layoutManager);
         }
     }
-
-    //////////// Helpers ////////////
-
-    private void setFavButtonImage() {
-        imageButton.setVisibility(View.VISIBLE);
-        if (subIsFavorite) {
-            imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_delete));
-        } else {
-            imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
-        }
-    }
-
 }

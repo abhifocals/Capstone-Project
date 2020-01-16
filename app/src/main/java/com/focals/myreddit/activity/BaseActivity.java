@@ -1,30 +1,25 @@
 package com.focals.myreddit.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.focals.myreddit.R;
 import com.focals.myreddit.adapter.PopularsAdapter;
 import com.focals.myreddit.database.SubDao;
 import com.focals.myreddit.database.SubDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import static com.focals.myreddit.activity.PopularsActivity.FAVORITES;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity {
 
 
     PopularsAdapter popularsAdapter;
     BottomNavigationView bottomNav;
-    ProgressBar progressBar;
+    static ProgressBar progressBar;
 
     boolean subIsFavorite;
     private SubDatabase db;
@@ -69,4 +64,14 @@ public class BaseActivity extends AppCompatActivity {
             }
         }.execute();
     }
+
+    protected void setFavButtonImage(ImageButton imageButton) {
+        imageButton.setVisibility(View.VISIBLE);
+        if (subIsFavorite) {
+            imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_delete));
+        } else {
+            imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
+        }
+    }
 }
+
