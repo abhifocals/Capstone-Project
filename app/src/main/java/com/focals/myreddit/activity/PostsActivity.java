@@ -76,7 +76,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
 
 
     /**
-     * Handles clicks of all views except Favorite Button.
+     * Launches CommentsActivity.
      *
      * @param position
      * @param view
@@ -107,6 +107,14 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
      */
     public void addRemoveFavorite(final View view) {
         super.addRemoveFavorite(view);
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean("IsFavorite", false);
     }
 
 

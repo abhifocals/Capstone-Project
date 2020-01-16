@@ -37,6 +37,13 @@ public class BaseActivity extends AppCompatActivity {
         dao = db.subDao();
     }
 
+    /**
+     * If already a Favorite, mark it as non-Favorite.
+     * If not a Favorite, mark is a Favorite.
+     *
+     * @param view
+     */
+
     public void addRemoveFavorite(final View view) {
 
         new AsyncTask() {
