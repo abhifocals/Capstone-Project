@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.focals.myreddit.R;
 import com.focals.myreddit.adapter.PostsAdapter;
@@ -29,14 +28,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHandler, BottomNavigationView.OnNavigationItemSelectedListener {
 
-    RecyclerView subredditRecyclerView;
-    ArrayList<Post> postsList;
-    TextView subredditNameView;
-    String subredditName;
-    Toolbar toolbar;
-    ImageButton imageButton;
-    private SubDatabase db;
-    private SubDao dao;
+    private RecyclerView subredditRecyclerView;
+    private ArrayList<Post> postsList;
+    private String subredditName;
+    private Toolbar toolbar;
+    private ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +40,15 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         setContentView(R.layout.rv_posts);
 
         // Initializing Views
-        subredditRecyclerView = (RecyclerView) findViewById(R.id.rv_posts);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        imageButton = (ImageButton) findViewById(R.id.ib_addToFavorites);
-        bottomNav = (BottomNavigationView) findViewById(R.id.bottomNav);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        subredditRecyclerView = findViewById(R.id.rv_posts);
+        toolbar = findViewById(R.id.toolbar);
+        imageButton = findViewById(R.id.ib_addToFavorites);
+        bottomNav = findViewById(R.id.bottomNav);
+        progressBar = findViewById(R.id.progressBar);
 
         // Initializing Database
-        db = SubDatabase.getInstance(this);
-        dao = db.subDao();
+        SubDatabase db = SubDatabase.getInstance(this);
+        SubDao dao = db.subDao();
 
         // Getting info from PopularsActivity
         subredditName = getIntent().getStringExtra("SubredditName");
