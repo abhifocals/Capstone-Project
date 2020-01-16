@@ -55,23 +55,23 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         subRedditId = getIntent().getStringExtra("SubId");
         subIsFavorite = getIntent().getBooleanExtra("IsFavorite", false);
 
-        // Start task to fetch Posts
+        // Fetching Posts
         String url = "https://api.reddit.com/r/" + subredditName + "/?raw_json=1";
         SubredditTask subredditTask = new SubredditTask();
         subredditTask.execute(url);
         progressBar.setVisibility(View.VISIBLE);
 
-        // Set ActionBar and its Title
+        // Setting ActionBar and its Title
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("  " + subredditName);
 
-        // Display Back Button in Toolbar
+        // Displaying Back Button in Toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Setup Listener for Bottom Navigation View
+        // Setting up Listener for Bottom Navigation View
         bottomNav.setOnNavigationItemSelectedListener(this);
 
-        // Set Image for Favorite Button
+        // Setting Image for Favorite Button
         setFavButtonImage();
     }
 
@@ -81,23 +81,36 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         String postId = postsList.get(position).getId();
 
         Intent intent = new Intent(this, CommentsActivity.class);
-        intent.putExtra("PostId", postId);
-        intent.putExtra("SubredditName", subredditName);
-        intent.putExtra("PostText", postsList.get(position).getTitle());
-        intent.putExtra("ImageUrl", postsList.get(position).getImageUrl());
-        intent.putExtra("VideoUrl", postsList.get(position).getVideoUrl());
-        intent.putExtra("SubId", subRedditId);
-        intent.putExtra("IsFavorite", subIsFavorite);
+        intent.putExtra("PostId", postId)
+                .putExtra("SubredditName", subredditName)
+                .putExtra("PostText", postsList.get(position).getTitle())
+                .putExtra("ImageUrl", postsList.get(position).getImageUrl())
+                .putExtra("VideoUrl", postsList.get(position).getVideoUrl())
+                .putExtra("SubId", subRedditId)
+                .putExtra("IsFavorite", subIsFavorite);
 
         // Start Activity w/Transition
         Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
         startActivityForResult(intent, 100, bundle);
     }
 
+    /**
+     * Click action for add/remove favorite button in Toolbar
+     *
+     * @param view
+     */
     public void addRemoveFavorite(final View view) {
         super.addRemoveFavorite(view);
     }
 
+
+    /**
+     * Receive code from FavoritesActivity and send back to Populars to load Favorites
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
