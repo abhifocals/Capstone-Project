@@ -71,7 +71,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         // Setup Listener for Bottom Navigation View
         bottomNav.setOnNavigationItemSelectedListener(this);
 
-        // Set Correct State for Add/Remove Fav Button
+        // Set Image for Favorite Button
         setFavButtonImage();
     }
 
