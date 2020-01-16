@@ -157,8 +157,10 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
             super.onPostExecute(s);
             progressBar.setVisibility(View.INVISIBLE);
 
+            // Parsing response
             postsList = RedditParser.parseRedditPosts(s);
 
+            // Setting up Adapter
             PostsAdapter postsAdapter = new PostsAdapter(postsList, PostsActivity.this);
             GridLayoutManager layoutManager = new GridLayoutManager(PostsActivity.this, 1);
             subredditRecyclerView.setAdapter(postsAdapter);
