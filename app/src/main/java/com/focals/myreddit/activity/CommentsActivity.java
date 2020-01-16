@@ -96,7 +96,7 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
     }
 
     /**
-     * Click action for add/remove favorite button in Toolbar
+     * Upates Database and Image for Favorite Button.
      *
      * @param view
      */

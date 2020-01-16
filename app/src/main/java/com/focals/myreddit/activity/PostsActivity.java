@@ -101,7 +101,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
     }
 
     /**
-     * Click action for add/remove favorite button in Toolbar
+     * Upates Database and Image for Favorite Button.
      *
      * @param view
      */
@@ -111,7 +111,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
 
 
     /**
-     * Receive code from FavoritesActivity and send back to Populars to load Favorites
+     * Receive code from FavoritesActivity and send back to Populars to load Favorites.
      *
      * @param requestCode
      * @param resultCode
