@@ -48,16 +48,21 @@ public class BaseActivity extends AppCompatActivity {
 
         new AsyncTask() {
 
+            boolean isFav;
+
             @Override
             protected Object doInBackground(Object[] objects) {
 
-                subIsFavorite = dao.isFavorite(subRedditId);
+                isFav = dao.isFavorite(subRedditId);
 
-                if (subIsFavorite) {
+                if (isFav) {
                     dao.updateFavorite(subRedditId, false);
                 } else {
                     dao.updateFavorite(subRedditId, true);
                 }
+
+                // Update subIsFav to new state
+                subIsFavorite = !isFav;
 
                 return null;
             }
@@ -66,7 +71,7 @@ public class BaseActivity extends AppCompatActivity {
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
 
-                if (subIsFavorite) {
+                if (isFav) {
                     ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
                 } else {
                     ((ImageView) view).setImageDrawable(getDrawable(android.R.drawable.ic_delete));

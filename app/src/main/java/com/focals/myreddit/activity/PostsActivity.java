@@ -52,7 +52,13 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         // Getting info from PopularsActivity
         subredditName = getIntent().getStringExtra("SubredditName");
         subRedditId = getIntent().getStringExtra("SubId");
-        subIsFavorite = getIntent().getBooleanExtra("IsFavorite", false);
+
+
+        if (savedInstanceState != null) {
+            subIsFavorite = savedInstanceState.getBoolean("IsFavorite");
+        } else {
+            subIsFavorite = getIntent().getBooleanExtra("IsFavorite", false);
+        }
 
         // Fetching Posts
         String url = "https://api.reddit.com/r/" + subredditName + "/?raw_json=1";
@@ -114,7 +120,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putBoolean("IsFavorite", false);
+        outState.putBoolean("IsFavorite", subIsFavorite);
     }
 
 
