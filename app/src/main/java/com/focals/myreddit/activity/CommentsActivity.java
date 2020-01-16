@@ -62,7 +62,12 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
         String postImageUrl = getIntent().getStringExtra("ImageUrl");
         String videoUrl = getIntent().getStringExtra("VideoUrl");
         subRedditId = getIntent().getStringExtra("SubId");
-        subIsFavorite = getIntent().getBooleanExtra("IsFavorite", false);
+
+        if (savedInstanceState != null) {
+            subIsFavorite = savedInstanceState.getBoolean("IsFavorite");
+        } else {
+            subIsFavorite = getIntent().getBooleanExtra("IsFavorite", false);
+        }
 
         // Setting content in views
         postTextView.setText(postText);
@@ -108,6 +113,13 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         return super.onNavigationItemSelected(menuItem);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean("IsFavorite", subIsFavorite);
     }
 
 
