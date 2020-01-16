@@ -18,7 +18,6 @@ public interface SubDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     public void insertSubs(List<Subreddit> subs);
 
-
     @Query("SELECT favorite FROM sub WHERE id =:providedId")
     public boolean isFavorite(String providedId);
 
@@ -34,18 +33,9 @@ public interface SubDao {
     @Query("SELECT * FROM sub where name = :name")
     public Subreddit getSub(String name);
 
-//    @Query("SELECT * FROM sub WHERE id = :providedId")
-//    public Subreddit getSubById(String providedId);
-
-//    @Query("SELECT * FROM sub WHERE favorite")
-//    public List<Subreddit> getFavoritess();
-
     @Query("SELECT * FROM sub")
     public List<Subreddit> getSubs();
 
     @Query("SELECT * FROM sub")
     public LiveData<List<Subreddit>> getLiveSubs();
-
-//    @Update(onConflict = OnConflictStrategy.REPLACE)
-//    public void updateSubs(Subreddit... subs);
 }
