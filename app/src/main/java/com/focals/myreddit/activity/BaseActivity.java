@@ -2,16 +2,19 @@ package com.focals.myreddit.activity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.focals.myreddit.R;
 import com.focals.myreddit.adapter.PopularsAdapter;
 import com.focals.myreddit.database.SubDao;
 import com.focals.myreddit.database.SubDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity {
@@ -72,6 +75,22 @@ public class BaseActivity extends AppCompatActivity {
         } else {
             imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_input_add));
         }
+    }
+
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+        // Set a result code and send back to Populars Activity to Load Favorites
+        if (menuItem.getItemId() == R.id.bottom_favorite) {
+            setResult(2);
+            finish();
+        }
+
+        // Send back to Populars Activity to Load Populars
+        if (menuItem.getItemId() == R.id.bottom_popular) {
+            finish();
+        }
+
+        return true;
     }
 }
 

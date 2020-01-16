@@ -130,19 +130,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-        // Set a result code and send back to Populars Activity to Load Favorites
-        if (menuItem.getItemId() == R.id.bottom_favorite) {
-            setResult(2);
-            finish();
-        }
-
-        // Send back to Populars Activity to Load Populars
-        if (menuItem.getItemId() == R.id.bottom_popular) {
-            finish();
-        }
-
-        return false;
+        return super.onNavigationItemSelected(menuItem);
     }
 
     class SubredditTask extends AsyncTask<String, Void, String> {

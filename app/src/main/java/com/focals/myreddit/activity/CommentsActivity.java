@@ -107,17 +107,7 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-        if (menuItem.getItemId() == R.id.bottom_favorite) {
-            setResult(2);
-            finish();
-        }
-
-        if (menuItem.getItemId() == R.id.bottom_popular) {
-            finish();
-        }
-
-        return false;
+        return super.onNavigationItemSelected(menuItem);
     }
 
 
