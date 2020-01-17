@@ -118,6 +118,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d ("Test", "Back Populars.");
 
         if (resultCode == 2) {
             SHOWING_FAVS = true;
@@ -239,6 +240,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         if (SHOWING_FAVS) {
             showNoFavoritesMessageIfRequired();
+            Log.d ("Test", "Updating Adapter w/Fav. Count: " + FAVORITES.size());
             popularsAdapter.setSubredditList(FAVORITES);
         } else {
             hideErrorView();
