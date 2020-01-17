@@ -27,17 +27,27 @@ public class SubTests {
     @Test
     public void testPopularActivity() {
 
+        // Verify title of first item
+
         onView(withId(R.id.rv_populars)).check(matches(TestHelper.atPosition(0,
                 ViewMatchers.hasDescendant(ViewMatchers.hasDescendant(withText("news"))))));
+
+        // Verify image of first item
 
         onView(withId(R.id.rv_populars)).check(matches(TestHelper.atPosition(0,
                 ViewMatchers.hasDescendant(ViewMatchers.hasDescendant(withId(R.id.iv_subredditImage))))));
 
+        // Verify description of first item
+
         onView(withId(R.id.rv_populars)).check(matches(TestHelper.atPosition(0,
                 ViewMatchers.hasDescendant(ViewMatchers.hasDescendant(withId(R.id.tv_subredditDesc))))));
 
+        // Verify subscriber count of first item
+
         onView(withId(R.id.rv_populars)).check(matches(TestHelper.atPosition(0,
                 ViewMatchers.hasDescendant(ViewMatchers.hasDescendant(withId(R.id.tv_subscriberCount))))));
+
+        // Verify add/remove fav button of first item
 
         onView(withId(R.id.rv_populars)).check(matches(TestHelper.atPosition(0,
                 ViewMatchers.hasDescendant(ViewMatchers.hasDescendant(withId(R.id.ib_addToFavorites))))));
