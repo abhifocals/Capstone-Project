@@ -75,25 +75,10 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         setupAdapter();
 
         // Observing Favorite List
-        subViewModel.getFavoriteSubs().observe(this, new Observer<List<Subreddit>>() {
-            @Override
-            public void onChanged(List<Subreddit> subreddits) {
-                Log.d("Test", "Favorites: " + subreddits.size());
-                FAVORITES = (ArrayList) subreddits;
-                updateAdapter();
-            }
-        });
+        observeFavorites();
 
         // Observing Popular List
-        subViewModel.getLiveSubs().observe(this, new Observer<List<Subreddit>>() {
-            @Override
-            public void onChanged(List<Subreddit> subreddits) {
-                if (!subreddits.isEmpty()) {
-                    subredditList = (ArrayList) subreddits;
-                    updateAdapter();
-                }
-            }
-        });
+        observePopulars();
     }
 
     /**
@@ -118,7 +103,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d ("Test", "Back Populars.");
+        Log.d("Test", "Back Populars.");
 
         if (resultCode == 2) {
             SHOWING_FAVS = true;
@@ -126,7 +111,9 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             SHOWING_FAVS = false;
         }
 
-        updateAdapter();
+        // This is to show no fav screen if no change is made in Posts/Comments,
+        // resulting in  no ViewModel update.
+        observeFavorites();
     }
 
     /**
@@ -178,6 +165,32 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
 
     //////////// Helpers ////////////
+
+    private void observeFavorites() {
+        subViewModel.getFavoriteSubs().observe(this, new Observer<List<Subreddit>>() {
+            @Override
+            public void onChanged(List<Subreddit> subreddits) {
+                Log.d("Test", "Favorites: " + subreddits.size());
+                FAVORITES = (ArrayList) subreddits;
+
+                // Empty Fav message displayed via onNavigationItemSelected and onActivityResult
+                if (subreddits == null || !subreddits.isEmpty())
+                    updateAdapter();
+            }
+        });
+    }
+
+    private void observePopulars() {
+        subViewModel.getLiveSubs().observe(this, new Observer<List<Subreddit>>() {
+            @Override
+            public void onChanged(List<Subreddit> subreddits) {
+                if (!subreddits.isEmpty()) {
+                    subredditList = (ArrayList) subreddits;
+                    updateAdapter();
+                }
+            }
+        });
+    }
 
     private void setupAdapter() {
         layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
@@ -240,7 +253,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         if (SHOWING_FAVS) {
             showNoFavoritesMessageIfRequired();
-            Log.d ("Test", "Updating Adapter w/Fav. Count: " + FAVORITES.size());
+            Log.d("Test", "Updating Adapter w/Fav. Count: " + FAVORITES.size());
             popularsAdapter.setSubredditList(FAVORITES);
         } else {
             hideErrorView();
