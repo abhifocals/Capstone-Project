@@ -58,9 +58,6 @@ public class SubTests {
         // Click on first Sub to get to Posts Activity
         onView(withText("news")).perform(click());
 
-        // Verify same post is displayed in Posts Activity
-        // onView(allOf(withId(R.id.expandedImage), withText("news"))).check(matches(isDisplayed()));
-
         // Verify add/remove fav button
         onView(withId(R.id.ib_addToFavorites)).check(matches(isDisplayed()));
 
@@ -77,9 +74,6 @@ public class SubTests {
 
         // Click on first Post to get to Comments Activity
         onView(withId(R.id.rv_posts)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-
-        // Verify same post is displayed in Posts Activity
-        // onView(allOf(withId(R.id.expandedImage), withText("news"))).check(matches(isDisplayed()));
 
         // Verify add/remove fav button
         onView(withId(R.id.ib_addToFavorites)).check(matches(isDisplayed()));
