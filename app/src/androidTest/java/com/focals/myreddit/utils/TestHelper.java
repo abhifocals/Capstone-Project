@@ -16,7 +16,7 @@ import static androidx.test.espresso.core.internal.deps.dagger.internal.Precondi
  * A custom matcher that checks the hint property of an {@link EditText}. It
  * accepts either a {@link String} or a {@link Matcher}.
  */
-public class RecyclerViewTestHelper {
+public class TestHelper {
 
     public static Matcher<View> atPosition(final int position, @NonNull final Matcher<View> itemMatcher) {
         checkNotNull(itemMatcher);
