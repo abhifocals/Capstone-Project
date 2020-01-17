@@ -20,7 +20,8 @@
             android:layout_marginEnd="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            app:srcCompat="@android:drawable/ic_input_add"
+            android:contentDescription="Add or remove from favorites."/>
 
         <ImageView
             android:id="@+id/iv_subredditImage"
@@ -31,7 +32,8 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_reddit_white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="Subreddit Image"/>
 
         <TextView
             android:id="@+id/tv_subredditDesc"

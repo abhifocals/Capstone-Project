@@ -4,17 +4,20 @@
     <item
         android:id="@+id/bottom_favorite"
         android:icon="@android:drawable/ic_dialog_map"
-        android:title="Favorites" />
+        android:title="Favorites"
+        android:contentDescription="Favorites"/>
 
     <item
         android:id="@+id/bottom_popular"
         android:title="Popular"
-        android:icon="@android:drawable/ic_dialog_map"/>
+        android:icon="@android:drawable/ic_dialog_map"
+        android:contentDescription="Popular"/>
 
     <item
         android:id="@+id/bottom_foo"
         android:title="Foo"
-        android:icon="@android:drawable/ic_dialog_map"/>
+        android:icon="@android:drawable/ic_dialog_map"
+        android:contentDescription="Foo"/>
 
 
 </menu>

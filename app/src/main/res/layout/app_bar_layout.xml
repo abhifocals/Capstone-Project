@@ -20,7 +20,8 @@
             android:background="@drawable/collapsible_bar_background"
             android:scaleType="centerCrop"
             app:layout_collapseMode="parallax"
-            app:layout_collapseParallaxMultiplier="0.7"></ImageView>
+            app:layout_collapseParallaxMultiplier="0.7"
+            android:importantForAccessibility="no"></ImageView>
 
         <ImageButton
             android:id="@+id/ib_addToFavorites"
@@ -34,7 +35,8 @@
             android:visibility="invisible"
             app:srcCompat="@android:drawable/ic_input_add"
             android:clickable="true"
-            android:onClick="addRemoveFavorite"/>
+            android:onClick="addRemoveFavorite"
+            android:contentDescription="Add or remove from favorites."/>
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
