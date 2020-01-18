@@ -17,7 +17,11 @@ import com.focals.myreddit.database.SubDao;
 import com.focals.myreddit.database.SubDatabase;
 import com.focals.myreddit.database.SubViewModel;
 import com.focals.myreddit.network.NetworkUtil;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +45,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     public static ArrayList<Subreddit> FAVORITES = new ArrayList<>();
     private SubViewModel subViewModel;
     private static TextView tv_error;
+    private FirebaseAnalytics firebaseAnalytics;
+    private AdView adView;
 
 
     @Override
@@ -53,6 +59,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         progressBar = findViewById(R.id.progressBar);
         toolbar = findViewById(R.id.toolbar);
         tv_error = findViewById(R.id.tv_error);
+        adView = findViewById(R.id.adView);
 
         // Initializing Database, DAO, and ViewModel
         SubDatabase db = SubDatabase.getInstance(this);
@@ -79,6 +86,13 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         // Observing Popular List
         observePopulars();
+
+        // Initializing Firebase Analytics
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        // Displaying Ad
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
     /**
@@ -236,6 +250,14 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         // Start Activity w/Transition
         Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
         startActivityForResult(intent, 1, bundle);
+
+        // Log event to Firebase Analytics
+        Bundle eventBundle = new Bundle();
+        eventBundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
+        // Initializing Ads SDK:
+        MobileAds.initialize(this, "ca-app-pub-9671217180587470~6356005035");
     }
 
     private void showNoFavoritesMessageIfRequired() {
