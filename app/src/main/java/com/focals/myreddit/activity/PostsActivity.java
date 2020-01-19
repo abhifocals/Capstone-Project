@@ -58,7 +58,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         if (savedInstanceState != null) {
             subIsFavorite = savedInstanceState.getBoolean(getString(R.string.is_favorite));
         } else {
-            subIsFavorite = getIntent().getBooleanExtra(getString(R.string.sub_name), false);
+            subIsFavorite = getIntent().getBooleanExtra(getString(R.string.is_favorite), false);
         }
 
         // Fetching Posts
