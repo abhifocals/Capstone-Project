@@ -18,37 +18,37 @@
             android:id="@+id/tv_postText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="@dimen/margin_top"
             tools:text="Post Text"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
         <ImageView
             android:id="@+id/iv_postImage"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_height="@dimen/image_height"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginEnd="@dimen/margin"
+            android:contentDescription="@string/post_image"
             android:scaleType="centerCrop"
-            app:srcCompat="@android:drawable/alert_dark_frame"
-            android:contentDescription="@string/post_image"/>
+            app:srcCompat="@android:drawable/alert_dark_frame" />
 
         <WebView
             android:id="@+id/webView"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_height="@dimen/image_height"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin"
             android:contentDescription="@string/post_video"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_comments"
             android:layout_width="match_parent"
             android:layout_height="500dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp" />
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="@dimen/margin_top" />
 
     </LinearLayout>
 

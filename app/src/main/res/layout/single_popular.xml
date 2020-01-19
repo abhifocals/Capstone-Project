@@ -6,17 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="16dp">
+    android:paddingTop="@dimen/margin">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="16dp">
+        android:paddingBottom="@dimen/margin">
 
         <ImageButton
             android:id="@+id/ib_addToFavorites"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
+            android:layout_width="@dimen/image_button"
+            android:layout_height="@dimen/image_button"
             android:layout_marginEnd="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -25,9 +25,9 @@
 
         <ImageView
             android:id="@+id/iv_subredditImage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="16dp"
+            android:layout_width="@dimen/sub_image"
+            android:layout_height="@dimen/sub_image"
+            android:layout_marginStart="@dimen/margin"
             android:layout_marginTop="4dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_reddit_white"
@@ -39,9 +39,9 @@
             android:id="@+id/tv_subredditDesc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin"
             tools:text="Subreddit Description"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             app:layout_constraintEnd_toEndOf="parent"
@@ -52,8 +52,8 @@
             android:id="@+id/tv_subscriberCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="@dimen/margin"
             android:text="@string/subscribers_count"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textStyle="bold"
@@ -64,7 +64,7 @@
             android:id="@+id/tv_subredditTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/margin"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="7dp"
             tools:text="Subreddit Title"
