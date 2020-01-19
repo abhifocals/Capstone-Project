@@ -77,7 +77,9 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         // Fetching Popular Subreddits
         String popularSubreddits = "https://api.reddit.com/subreddits/popular/.json";
         new RedditAsyncTask().execute(popularSubreddits);
-        progressBar.setVisibility(View.VISIBLE);
+
+        // Show Progress Bar
+        showProgressBar();
 
         // Setting up Adapter
         setupAdapter();
@@ -97,6 +99,10 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         // Initializing Ads SDK:
         MobileAds.initialize(this, TEST_BANNER_UNIT_ID);
+    }
+
+    private void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -168,7 +174,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            progressBar.setVisibility(View.INVISIBLE);
 
             // Handle No Internet/Response
             if (s == null) {
@@ -181,6 +186,11 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         }
     }
 
+    private void hideProgressBar() {
+        progressBar.setVisibility(View.INVISIBLE);
+        mainRecyclerView.setVisibility(View.VISIBLE);
+    }
+
 
     //////////// Helpers ////////////
 
@@ -188,12 +198,13 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         subViewModel.getFavoriteSubs().observe(this, new Observer<List<Subreddit>>() {
             @Override
             public void onChanged(List<Subreddit> subreddits) {
-                Log.d("Test", "Favorites: " + subreddits.size());
+                Log.d("Test", "Observing Favs: " + subreddits.size());
                 FAVORITES = (ArrayList) subreddits;
 
                 // Empty Fav message displayed via onNavigationItemSelected and onActivityResult
-                if (subreddits == null || !subreddits.isEmpty())
+                if (subreddits == null || !subreddits.isEmpty()) {
                     updateAdapter();
+                }
             }
         });
     }
@@ -203,6 +214,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             @Override
             public void onChanged(List<Subreddit> subreddits) {
                 if (!subreddits.isEmpty()) {
+                    Log.d("Test", "Observing Popular: " + subreddits.size());
                     subredditList = (ArrayList) subreddits;
                     updateAdapter();
                 }
@@ -273,7 +285,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     }
 
     private void updateAdapter() {
-
         if (SHOWING_FAVS) {
             showNoFavoritesMessageIfRequired();
             Log.d("Test", "Updating Adapter w/Fav. Count: " + FAVORITES.size());
@@ -282,6 +293,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             hideErrorView();
             popularsAdapter.setSubredditList(subredditList);
         }
+
+        hideProgressBar();
     }
 
     private static void insertToDatabase(final ArrayList<Subreddit> subs) {
