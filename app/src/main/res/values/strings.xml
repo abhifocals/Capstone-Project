@@ -11,4 +11,11 @@
     <string name="subscribers_count"># Subscribers</string>
     <string name="post_image">Post Image</string>
     <string name="post_video">Post Video</string>
+    <string name="post_id">PostId</string>
+    <string name="sub_name">SubredditName</string>
+    <string name="post_text">PostText</string>
+    <string name="image_url">ImageUrl</string>
+    <string name="video_url">VideoUrl</string>
+    <string name="sub_id">SubId</string>
+    <string name="is_favorite">IsFavorite</string>
 </resources>

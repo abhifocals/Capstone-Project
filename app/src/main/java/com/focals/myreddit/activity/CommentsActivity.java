@@ -1,5 +1,6 @@
 package com.focals.myreddit.activity;
 
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -41,6 +43,7 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
     private SubDatabase db;
     private SubDao dao;
     Subreddit sub;
+    private Resources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,17 +59,18 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         // Fetching from intent
-        String postId = getIntent().getStringExtra("PostId");
-        String subredditName = getIntent().getStringExtra("SubredditName");
-        String postText = getIntent().getStringExtra("PostText");
-        String postImageUrl = getIntent().getStringExtra("ImageUrl");
-        String videoUrl = getIntent().getStringExtra("VideoUrl");
-        subRedditId = getIntent().getStringExtra("SubId");
+        resources = getResources();
+        String postId = getIntent().getStringExtra(resources.getString(R.string.post_id));
+        String subredditName = getIntent().getStringExtra(resources.getString(R.string.sub_name));
+        String postText = getIntent().getStringExtra(resources.getString(R.string.post_text));
+        String postImageUrl = getIntent().getStringExtra(resources.getString(R.string.image_url));
+        String videoUrl = getIntent().getStringExtra(resources.getString(R.string.video_url));
+        subRedditId = getIntent().getStringExtra(resources.getString(R.string.sub_id));
 
         if (savedInstanceState != null) {
-            subIsFavorite = savedInstanceState.getBoolean("IsFavorite");
+            subIsFavorite = savedInstanceState.getBoolean(resources.getString(R.string.is_favorite));
         } else {
-            subIsFavorite = getIntent().getBooleanExtra("IsFavorite", false);
+            subIsFavorite = getIntent().getBooleanExtra(resources.getString(R.string.is_favorite), false);
         }
 
         // Setting content in views
@@ -119,7 +123,7 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putBoolean("IsFavorite", subIsFavorite);
+        outState.putBoolean(resources.getString(R.string.is_favorite), subIsFavorite);
     }
 
 
