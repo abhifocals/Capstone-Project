@@ -9,8 +9,6 @@
     <string name="add_or_remove_from_favorites">Add or remove from favorites.</string>
     <string name="subreddit_image">Subreddit Image</string>
     <string name="subscribers_count"># Subscribers</string>
-    <string name="post_image">Post Image</string>
-    <string name="post_video">Post Video</string>
     <string name="post_id">PostId</string>
     <string name="sub_name">SubredditName</string>
     <string name="post_text">PostText</string>

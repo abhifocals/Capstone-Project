@@ -2,6 +2,7 @@ package com.focals.myreddit.activity;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -32,6 +33,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
     private String subredditName;
     private Toolbar toolbar;
     private ImageButton imageButton;
+    private Resources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +52,15 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         SubDao dao = db.subDao();
 
         // Getting info from PopularsActivity
-        subredditName = getIntent().getStringExtra("SubredditName");
-        subRedditId = getIntent().getStringExtra("SubId");
+        resources = getResources();
+        subredditName = getIntent().getStringExtra(resources.getString(R.string.sub_name));
+        subRedditId = getIntent().getStringExtra(resources.getString(R.string.sub_id));
 
 
         if (savedInstanceState != null) {
-            subIsFavorite = savedInstanceState.getBoolean("IsFavorite");
+            subIsFavorite = savedInstanceState.getBoolean(resources.getString(R.string.is_favorite));
         } else {
-            subIsFavorite = getIntent().getBooleanExtra("IsFavorite", false);
+            subIsFavorite = getIntent().getBooleanExtra(resources.getString(R.string.sub_name), false);
         }
 
         // Fetching Posts
@@ -93,13 +96,13 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         String postId = postsList.get(position).getId();
 
         Intent intent = new Intent(this, CommentsActivity.class);
-        intent.putExtra("PostId", postId)
-                .putExtra("SubredditName", subredditName)
-                .putExtra("PostText", postsList.get(position).getTitle())
-                .putExtra("ImageUrl", postsList.get(position).getImageUrl())
-                .putExtra("VideoUrl", postsList.get(position).getVideoUrl())
-                .putExtra("SubId", subRedditId)
-                .putExtra("IsFavorite", subIsFavorite);
+        intent.putExtra(resources.getString(R.string.post_id), postId)
+                .putExtra(resources.getString(R.string.sub_name), subredditName)
+                .putExtra(resources.getString(R.string.post_text), postsList.get(position).getTitle())
+                .putExtra(resources.getString(R.string.image_url), postsList.get(position).getImageUrl())
+                .putExtra(resources.getString(R.string.video_url), postsList.get(position).getVideoUrl())
+                .putExtra(resources.getString(R.string.sub_id), subRedditId)
+                .putExtra(resources.getString(R.string.is_favorite), subIsFavorite);
 
         // Start Activity w/Transition
         Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
@@ -120,7 +123,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putBoolean("IsFavorite", subIsFavorite);
+        outState.putBoolean(resources.getString(R.string.is_favorite), subIsFavorite);
     }
 
 
