@@ -8,19 +8,20 @@
 
     <include layout="@layout/app_bar_layout" />
 
-    <TextView
-        android:id="@+id/tv_error"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:gravity="center"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-        android:text="@string/noConnectionMessage"
-        android:textColor="@color/colorAccent"
-        android:visibility="invisible"></TextView>
-
     <include layout="@layout/progress_bar" />
 
     <include layout="@layout/layout_bottom_navigation" />
+
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+        android:text="@string/noConnectionMessage"
+        android:textColor="@color/colorAccent"
+        android:gravity="center"
+        android:visibility="invisible"></TextView>
 
     <LinearLayout
         android:layout_width="match_parent"
