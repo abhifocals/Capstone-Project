@@ -137,7 +137,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         // This is to show no fav screen if no change is made in Posts/Comments,
         // resulting in  no ViewModel update.
-        observeFavorites();
+        updateAdapter();
     }
 
     /**
