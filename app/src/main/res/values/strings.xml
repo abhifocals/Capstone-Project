@@ -16,4 +16,5 @@
     <string name="video_url">VideoUrl</string>
     <string name="sub_id">SubId</string>
     <string name="is_favorite">IsFavorite</string>
+    <string name="empty_fav_list_message">Your Favorites List is empty! Add some favorites.</string>
 </resources>

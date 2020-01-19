@@ -43,7 +43,6 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
     private SubDatabase db;
     private SubDao dao;
     Subreddit sub;
-    private Resources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,18 +58,17 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         // Fetching from intent
-        resources = getResources();
-        String postId = getIntent().getStringExtra(resources.getString(R.string.post_id));
-        String subredditName = getIntent().getStringExtra(resources.getString(R.string.sub_name));
-        String postText = getIntent().getStringExtra(resources.getString(R.string.post_text));
-        String postImageUrl = getIntent().getStringExtra(resources.getString(R.string.image_url));
-        String videoUrl = getIntent().getStringExtra(resources.getString(R.string.video_url));
-        subRedditId = getIntent().getStringExtra(resources.getString(R.string.sub_id));
+        String postId = getIntent().getStringExtra(getString(R.string.post_id));
+        String subredditName = getIntent().getStringExtra(getString(R.string.sub_name));
+        String postText = getIntent().getStringExtra(getString(R.string.post_text));
+        String postImageUrl = getIntent().getStringExtra(getString(R.string.image_url));
+        String videoUrl = getIntent().getStringExtra(getString(R.string.video_url));
+        subRedditId = getIntent().getStringExtra(getString(R.string.sub_id));
 
         if (savedInstanceState != null) {
-            subIsFavorite = savedInstanceState.getBoolean(resources.getString(R.string.is_favorite));
+            subIsFavorite = savedInstanceState.getBoolean(getString(R.string.is_favorite));
         } else {
-            subIsFavorite = getIntent().getBooleanExtra(resources.getString(R.string.is_favorite), false);
+            subIsFavorite = getIntent().getBooleanExtra(getString(R.string.is_favorite), false);
         }
 
         // Setting content in views
@@ -123,7 +121,7 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putBoolean(resources.getString(R.string.is_favorite), subIsFavorite);
+        outState.putBoolean(getString(R.string.is_favorite), subIsFavorite);
     }
 
 

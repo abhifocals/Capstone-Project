@@ -47,6 +47,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     private static TextView tv_error;
     private FirebaseAnalytics firebaseAnalytics;
     private AdView adView;
+    private static final String TEST_BANNER_UNIT_ID = "ca-app-pub-9671217180587470~6356005035";
 
 
     @Override
@@ -93,6 +94,9 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         // Displaying Ad
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
+
+        // Initializing Ads SDK:
+        MobileAds.initialize(this, TEST_BANNER_UNIT_ID);
     }
 
     /**
@@ -243,9 +247,9 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         Intent intent = new Intent(this, PostsActivity.class);
         String name = subredditList.get(position).getName();
 
-        intent.putExtra("SubredditName", name);
-        intent.putExtra("SubId", subredditList.get(position).getId());
-        intent.putExtra("IsFavorite", subredditList.get(position).isFavorite());
+        intent.putExtra(getString(R.string.sub_name), name);
+        intent.putExtra(getString(R.string.sub_id), subredditList.get(position).getId());
+        intent.putExtra(getString(R.string.is_favorite), subredditList.get(position).isFavorite());
 
         // Start Activity w/Transition
         Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
@@ -255,15 +259,12 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         Bundle eventBundle = new Bundle();
         eventBundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-
-        // Initializing Ads SDK:
-        MobileAds.initialize(this, "ca-app-pub-9671217180587470~6356005035");
     }
 
     private void showNoFavoritesMessageIfRequired() {
         if (FAVORITES.isEmpty()) {
             tv_error.setVisibility(View.VISIBLE);
-            tv_error.setText("Your Favorites List is empty! Add some favorites.");
+            tv_error.setText(getString(R.string.empty_fav_list_message));
         }
     }
 
