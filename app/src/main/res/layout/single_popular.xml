@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_input_add"
-            android:contentDescription="Add or remove from favorites."/>
+            android:contentDescription="@string/add_or_remove_from_favorites"/>
 
         <ImageView
             android:id="@+id/iv_subredditImage"
@@ -33,7 +33,7 @@
             android:src="@drawable/ic_reddit_white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="Subreddit Image"/>
+            android:contentDescription="@string/subreddit_image"/>
 
         <TextView
             android:id="@+id/tv_subredditDesc"
@@ -42,7 +42,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="Subreddit Description"
+            tools:text="Subreddit Description"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_subredditImage"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="# Subscribers"
+            android:text="@string/subscribers_count"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/iv_subredditImage"
@@ -67,7 +67,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="7dp"
-            android:text="Subreddit Title"
+            tools:text="Subreddit Title"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             app:layout_constraintEnd_toStartOf="@+id/ib_addToFavorites"
             app:layout_constraintHorizontal_bias="0.0"

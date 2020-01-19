@@ -2,4 +2,13 @@
     <string name="app_name">MyReddit</string>
     <string name="appwidget_text">My Reddits</string>
     <string name="add_widget">Add widget</string>
+    <string name="noConnectionMessage">There was a problem. Please try again later.</string>
+    <string name="post_image">Post Image</string>
+    <string name="post_video">Post Video</string>
+    <string name="advertisement">Advertisement</string>
+    <string name="add_or_remove_from_favorites">Add or remove from favorites.</string>
+    <string name="subreddit_image">Subreddit Image</string>
+    <string name="subscribers_count"># Subscribers</string>
+    <string name="post_image">Post Image</string>
+    <string name="post_video">Post Video</string>
 </resources>

@@ -14,7 +14,7 @@
         android:layout_height="5dp"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-        android:text="There was a problem. Please try again later."
+        android:text="@string/noConnectionMessage"
         android:textColor="@color/colorAccent"
         android:visibility="invisible"></TextView>
 
@@ -36,7 +36,8 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"></com.google.android.gms.ads.AdView>
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+            android:contentDescription="@string/advertisement"></com.google.android.gms.ads.AdView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_populars"
