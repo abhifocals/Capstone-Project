@@ -324,28 +324,28 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         }.execute();
     }
 
-    private void showNoFavoritesMessageIfRequired() {
-        if (FAVORITES.isEmpty()) {
-            tv_error.setVisibility(View.VISIBLE);
-            tv_error.setText(getString(R.string.empty_fav_list_message));
-        }
-    }
-
     private void hideErrorView() {
         tv_error.setVisibility(View.INVISIBLE);
     }
 
     private void updateAdapter() {
         if (SHOWING_FAVS) {
+            popularsAdapter.setSubredditList(FAVORITES);
             showNoFavoritesMessageIfRequired();
             Log.d("Test", "Updating Adapter w/Fav. Count: " + FAVORITES.size());
-            popularsAdapter.setSubredditList(FAVORITES);
         } else {
             hideErrorView();
             popularsAdapter.setSubredditList(subredditList);
         }
 
         hideProgressBar();
+    }
+
+    private void showNoFavoritesMessageIfRequired() {
+        if (FAVORITES.isEmpty()) {
+            tv_error.setVisibility(View.VISIBLE);
+            tv_error.setText(getString(R.string.empty_fav_list_message));
+        }
     }
 
     private static void insertToDatabase(final ArrayList<Subreddit> subs) {
