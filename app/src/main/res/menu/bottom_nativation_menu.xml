@@ -3,21 +3,20 @@
 
     <item
         android:id="@+id/bottom_favorite"
-        android:icon="@android:drawable/ic_dialog_map"
+        android:icon="@drawable/ic_favorite"
         android:title="Favorites"
         android:contentDescription="Favorites"/>
 
     <item
         android:id="@+id/bottom_popular"
         android:title="Popular"
-        android:icon="@android:drawable/ic_dialog_map"
+        android:icon="@drawable/ic_popular"
         android:contentDescription="Popular"/>
 
     <item
-        android:id="@+id/bottom_foo"
-        android:title="Foo"
-        android:icon="@android:drawable/ic_dialog_map"
-        android:contentDescription="Foo"/>
-
+        android:id="@+id/bottom_news"
+        android:title="News"
+        android:icon="@drawable/ic_news"
+        android:contentDescription="News"/>
 
 </menu>
