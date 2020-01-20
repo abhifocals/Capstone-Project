@@ -9,5 +9,6 @@
     android:background="@color/colorPrimary"
     app:itemIconTint="@android:color/white"
     app:itemTextColor="@android:color/white"
+    android:backgroundTint="@color/colorPrimary"
     app:menu="@menu/bottom_nativation_menu"
     tools:showIn="@layout/rv_populars"></com.google.android.material.bottomnavigation.BottomNavigationView>
