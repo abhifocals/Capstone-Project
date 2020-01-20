@@ -19,7 +19,7 @@
         android:layout_gravity="center"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         android:text="@string/noConnectionMessage"
-        android:textColor="@color/colorText"
+        android:textColor="@color/colorPrimary"
         android:gravity="center"
         android:visibility="invisible"></TextView>
 
