@@ -102,6 +102,11 @@ public class BaseActivity extends AppCompatActivity {
             finish();
         }
 
+        if (menuItem.getItemId() == R.id.bottom_news) {
+            setResult(3);
+            finish();
+        }
+
         return true;
     }
 }

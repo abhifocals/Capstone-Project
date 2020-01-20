@@ -129,11 +129,20 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("Test", "Back Populars.");
 
+        // Show Favorites
         if (resultCode == 2) {
             SHOWING_FAVS = true;
-        } else {
+        }
+        // Launch PostActivity with news sub
+        else if (resultCode == 3) {
+            launchNews();
             SHOWING_FAVS = false;
         }
+        // Show Popular
+        else {
+            SHOWING_FAVS = false;
+        }
+
 
         // This is to show no fav screen if no change is made in Posts/Comments,
         // resulting in  no ViewModel update.
@@ -160,6 +169,12 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         if (menuItem.getItemId() == R.id.bottom_popular) {
             SHOWING_FAVS = false;
             updateAdapter();
+        }
+
+        // Handle News Click
+        if (menuItem.getItemId() == R.id.bottom_news) {
+            SHOWING_FAVS = false;
+            launchNews();
         }
 
         return false;
@@ -271,6 +286,44 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         Bundle eventBundle = new Bundle();
         eventBundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+    }
+
+    private void launchNews() {
+
+        final String sub = "news";
+        final String id = "2qh3l";
+
+
+        new AsyncTask() {
+            boolean isFav;
+
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                isFav = dao.isFavorite(id);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+
+                Intent intent = new Intent(PopularsActivity.this, PostsActivity.class);
+
+                intent.putExtra(getString(R.string.sub_name), sub);
+                intent.putExtra(getString(R.string.sub_id), id);
+                intent.putExtra(getString(R.string.is_favorite), isFav);
+
+                // Start Activity w/Transition
+                Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(PopularsActivity.this).toBundle();
+                startActivityForResult(intent, 1, bundle);
+
+                // Log event to Firebase Analytics
+                Bundle eventBundle = new Bundle();
+                eventBundle.putString(FirebaseAnalytics.Param.ITEM_NAME, sub);
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
+            }
+        }.execute();
     }
 
     private void showNoFavoritesMessageIfRequired() {
