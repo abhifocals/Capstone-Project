@@ -101,10 +101,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         MobileAds.initialize(this, TEST_BANNER_UNIT_ID);
     }
 
-    private void showProgressBar() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
     /**
      * If Fav button is clicked, gets the current sub (based on what screen user is on), and updates database.
      * Else Starts Posts Activity.
@@ -201,13 +197,23 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         }
     }
 
+    //////////// Helpers ////////////
+
+    private void setupAdapter() {
+        layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
+        popularsAdapter = new PopularsAdapter(subredditList, PopularsActivity.this, SHOWING_FAVS);
+        mainRecyclerView.setAdapter(popularsAdapter);
+        mainRecyclerView.setLayoutManager(layoutManager);
+    }
+
+    private void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
     private void hideProgressBar() {
         progressBar.setVisibility(View.INVISIBLE);
         mainRecyclerView.setVisibility(View.VISIBLE);
     }
-
-
-    //////////// Helpers ////////////
 
     private void observeFavorites() {
         subViewModel.getFavoriteSubs().observe(this, new Observer<List<Subreddit>>() {
@@ -236,14 +242,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             }
         });
     }
-
-    private void setupAdapter() {
-        layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
-        popularsAdapter = new PopularsAdapter(subredditList, PopularsActivity.this, SHOWING_FAVS);
-        mainRecyclerView.setAdapter(popularsAdapter);
-        mainRecyclerView.setLayoutManager(layoutManager);
-    }
-
 
     private Subreddit getCurrentSub(boolean showingFavScreen, final int position) {
         Subreddit sub;
