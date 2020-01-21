@@ -1,5 +1,6 @@
 package com.focals.myreddit.data;
 
+import android.text.Html;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -31,7 +32,7 @@ public class RedditParser {
                 boolean favorite = false;
                 String id = subredditJson.getString("id");
 
-                Subreddit subreddit = new Subreddit(name, bannerlUrl, publicDescription, subscribers, favorite,id);
+                Subreddit subreddit = new Subreddit(name, bannerlUrl, publicDescription, subscribers, favorite, id);
 
                 subredditsList.add(subreddit);
 
@@ -109,7 +110,13 @@ public class RedditParser {
 
                 JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
 
-                String commentBody = commentJson.getString("body");
+                String commentBody = commentJson.getString("body_html");
+
+                // String commentBody = "&lt;div class=\\\"md\\\"&gt;&lt;p&gt;&lt;strong&gt;OP sent the following text as an explanation on why this is unexpected:&lt;/strong&gt;&lt;/p&gt;\\n\\n&lt;p&gt;&lt;span class=\\\"md-spoiler-text\\\"&gt;Not one, but two cars join in to the bad driving dance&lt;/span&gt;&lt;/p&gt;\\n\\n&lt;hr/&gt;\\n\\n&lt;p&gt;&lt;strong&gt;Is this an unexpected post with a fitting description?&lt;/strong&gt;\\n&lt;strong&gt;Then upvote this comment, otherwise downvote it.&lt;/strong&gt;&lt;/p&gt;\\n\\n&lt;hr/&gt;\\n\\n&lt;p&gt;&lt;a href=\\\"https://github.com/Artraxon/unexBot\\\"&gt;&lt;em&gt;Look at my source code on Github&lt;/em&gt;&lt;/a&gt; &lt;a href=\\\"https://www.reddit.com/r/Unexpected/comments/dnuaju/introducing_unexbot_a_new_bot_to_improve_the/\\\"&gt;&lt;em&gt;What is this for?&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;\\n&lt;/div&gt;";
+                // String commentBody = "**OP sent the following text as an explanation on why this is unexpected:**\\n\\n&gt;!Not one, but two cars join in to the bad driving dance!&lt;\\n\\n*****\\n**Is this an unexpected post with a fitting description?**\\n**Then upvote this comment, otherwise downvote it.**\\n\\n*****\\n[*Look at my source code on Github*](https://github.com/Artraxon/unexBot) [*What is this for?*](https://www.reddit.com/r/Unexpected/comments/dnuaju/introducing_unexbot_a_new_bot_to_improve_the/)";
+
+                commentBody = Html.fromHtml(commentBody, Html.FROM_HTML_MODE_COMPACT).toString().replaceAll("\\\\n", "");
+
                 int[] replies = new int[1];
                 Comment comment = new Comment(subRedditName, title, commentBody, replies);
                 commentsList.add(comment);

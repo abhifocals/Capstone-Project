@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.webkit.WebView;
 
 import com.focals.myreddit.R;
 import com.focals.myreddit.data.Comment;
@@ -39,9 +39,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
-
-        holder.commentsTextView.setText(commentsList.get(position).getCommentBody());
-
+        holder.commentsWebView.loadData(commentsList.get(position).getCommentBody(), "text/html", "UTF-8");
     }
 
 
@@ -52,12 +50,12 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
 
     class CommentViewHolder extends RecyclerView.ViewHolder {
-        TextView commentsTextView;
+        WebView commentsWebView;
 
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            commentsTextView = (TextView) itemView.findViewById(R.id.tv_comment);
+            commentsWebView = (WebView) itemView.findViewById(R.id.tv_comment);
         }
     }
 
