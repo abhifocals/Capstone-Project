@@ -123,7 +123,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("Test", "Back Populars.");
 
         // Show Favorites
         if (resultCode == 2) {
@@ -219,7 +218,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         subViewModel.getFavoriteSubs().observe(this, new Observer<List<Subreddit>>() {
             @Override
             public void onChanged(List<Subreddit> subreddits) {
-                Log.d("Test", "Observing Favs: " + subreddits.size());
                 FAVORITES = (ArrayList) subreddits;
 
                 // Empty Fav message displayed via onNavigationItemSelected and onActivityResult
@@ -235,7 +233,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             @Override
             public void onChanged(List<Subreddit> subreddits) {
                 if (!subreddits.isEmpty()) {
-                    Log.d("Test", "Observing Popular: " + subreddits.size());
                     subredditList = (ArrayList) subreddits;
                     updateAdapter();
                 }
@@ -329,10 +326,11 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     }
 
     private void updateAdapter() {
+        int favCount = FAVORITES.size();
+
         if (SHOWING_FAVS) {
             popularsAdapter.setSubredditList(FAVORITES);
             showNoFavoritesMessageIfRequired();
-            Log.d("Test", "Updating Adapter w/Fav. Count: " + FAVORITES.size());
         } else {
             hideErrorView();
             popularsAdapter.setSubredditList(subredditList);
@@ -341,10 +339,12 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         hideProgressBar();
     }
 
-    private void showNoFavoritesMessageIfRequired() {
+    private void showNoFavoritesMessageIfRequired() { //rename
         if (FAVORITES.isEmpty()) {
             tv_error.setVisibility(View.VISIBLE);
             tv_error.setText(getString(R.string.empty_fav_list_message));
+        } else {
+            tv_error.setVisibility(View.INVISIBLE);
         }
     }
 
