@@ -6,5 +6,5 @@
     android:layout_gravity="center"
     android:visibility="invisible"
     android:id="@+id/progressBar"
-    android:background="@color/colorPrimary"
+    android:backgroundTint="@color/colorPrimary"
     tools:showIn="@layout/rv_populars"></ProgressBar>
