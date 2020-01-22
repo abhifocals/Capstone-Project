@@ -11,6 +11,33 @@ import java.util.ArrayList;
 
 public class RedditParser {
 
+
+    static String reducedJson = "{\n" +
+            "  \"replies\": {\n" +
+            "    \"data\": {\n" +
+            "      \"children\": [\n" +
+            "        {\n" +
+            "          \"data\": {\n" +
+            "            \"replies\": {\n" +
+            "              \"data\": {\n" +
+            "                \"children\": [\n" +
+            "                  {\n" +
+            "                    \"data\": {\n" +
+            "                      \"body_html\": \"<div class=\\\"md\\\"><p>Just start asking for free dances, you&#39;ll get shown out pretty quick.</p>\\n</div>\"\n" +
+            "                    }\n" +
+            "                  }\n" +
+            "                ]\n" +
+            "              }\n" +
+            "            },\n" +
+            "            \"body_html\": \"<div class=\\\"md\\\"><p>I guess a guy could do worse, but once you&#39;re out of singles, they&#39;ll come help you find the door and even push you OUT through it.  (been there-done that)</p>\\n</div>\"\n" +
+            "          }\n" +
+            "        }\n" +
+            "      ]\n" +
+            "    }\n" +
+            "  },\n" +
+            "  \"body_html\": \"<div class=\\\"md\\\"><p>My friend got stuck at a strip club because he was drunk, the place was too dark and he couldn&#39;t find the exit.</p>\\n</div>\"\n" +
+            "}";
+
     public static ArrayList<Subreddit> parseReddit(String response) {
         JSONObject jsonObject = null;
         ArrayList<Subreddit> subredditsList = new ArrayList<>();
@@ -108,7 +135,7 @@ public class RedditParser {
 
             for (int i = 0; i < commentsArray.length() - 1; i++) {
 
-                JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
+/*                JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
 
                 String commentBody = commentJson.getString("body_html");
 
@@ -116,7 +143,25 @@ public class RedditParser {
                 commentBody = Html.fromHtml(commentBody, Html.FROM_HTML_MODE_COMPACT).toString();
 
                 // This is to read from above html
+                commentBody = Html.fromHtml(commentBody, Html.FROM_HTML_MODE_COMPACT).toString();*/
+
+
+
+
+
+
+
+                JSONObject commentJson = new JSONObject(reducedJson);
+                String commentBody = commentJson.getString("body_html");
                 commentBody = Html.fromHtml(commentBody, Html.FROM_HTML_MODE_COMPACT).toString();
+
+
+
+
+
+
+
+
 
                 int[] replies = new int[1];
                 Comment comment = new Comment(subRedditName, title, commentBody, replies);
