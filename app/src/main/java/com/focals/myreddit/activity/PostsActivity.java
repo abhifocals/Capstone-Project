@@ -62,7 +62,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
         }
 
         // Fetching Posts
-        String url = "https://api.reddit.com/r/" + subredditName + "/?raw_json=1&size=25";
+        String url = "https://api.reddit.com/r/" + subredditName + "/?raw_json=1";
         SubredditTask subredditTask = new SubredditTask();
         subredditTask.execute(url);
         progressBar.setVisibility(View.VISIBLE);

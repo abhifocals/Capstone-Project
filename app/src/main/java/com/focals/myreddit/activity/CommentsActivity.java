@@ -77,7 +77,7 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
         setVideo(videoUrl);
 
         // Fetching Comments
-        String url = "https://api.reddit.com/r/" + subredditName + "/comments/" + postId + "/.json&size=25";
+        String url = "https://api.reddit.com/r/" + subredditName + "/comments/" + postId + "/.json";
         CommentsTask commentsTask = new CommentsTask();
         commentsTask.execute(url);
         progressBar.setVisibility(View.VISIBLE);
