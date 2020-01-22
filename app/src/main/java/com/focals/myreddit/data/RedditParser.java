@@ -1,5 +1,6 @@
 package com.focals.myreddit.data;
 
+import android.text.Html;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -31,7 +32,7 @@ public class RedditParser {
                 boolean favorite = false;
                 String id = subredditJson.getString("id");
 
-                Subreddit subreddit = new Subreddit(name, bannerlUrl, publicDescription, subscribers, favorite,id);
+                Subreddit subreddit = new Subreddit(name, bannerlUrl, publicDescription, subscribers, favorite, id);
 
                 subredditsList.add(subreddit);
 
@@ -109,7 +110,14 @@ public class RedditParser {
 
                 JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
 
-                String commentBody = commentJson.getString("body");
+                String commentBody = commentJson.getString("body_html");
+
+                // This is to escape to html
+                commentBody = Html.fromHtml(commentBody, Html.FROM_HTML_MODE_COMPACT).toString();
+
+                // This is to read from above html
+                commentBody = Html.fromHtml(commentBody, Html.FROM_HTML_MODE_COMPACT).toString();
+
                 int[] replies = new int[1];
                 Comment comment = new Comment(subRedditName, title, commentBody, replies);
                 commentsList.add(comment);
