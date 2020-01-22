@@ -75,7 +75,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         bottomNav.setOnNavigationItemSelectedListener(this);
 
         // Fetching Popular Subreddits
-        String popularSubreddits = "https://api.reddit.com/subreddits/popular/.json";
+        String popularSubreddits = "https://api.reddit.com/subreddits/popular/.json&size=25";
         new RedditAsyncTask().execute(popularSubreddits);
 
         // Show Progress Bar
