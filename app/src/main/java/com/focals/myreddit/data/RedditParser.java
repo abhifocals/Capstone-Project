@@ -146,8 +146,19 @@ public class RedditParser {
 
 
     public static void parseComments(String response) throws JSONException {
-        JSONObject commentJson = new JSONObject(reducedJson);
-        ArrayList<String> commentsList = new ArrayList<>();
+
+        JSONArray jsonArray = new JSONArray(response);
+        JSONArray commentsArray = jsonArray.getJSONObject(1).getJSONObject("data").getJSONArray("children");
+
+
+        JSONObject commentJson = commentsArray.getJSONObject(0).getJSONObject("data");
+
+
+
+
+
+
+
 
         String mainComment = commentJson.getString("body_html");
         commentsList.add(getStringFromHtml(mainComment));
@@ -169,7 +180,7 @@ public class RedditParser {
         } else {
             addAllReplies(input);
 
-            for (int i = 0; i < input.getJSONObject("replies").getJSONObject("data").getJSONArray("children").length(); i++) {
+            for (int i = 0; i < input.getJSONObject("replies").getJSONObject("data").getJSONArray("children").length()-1; i++) {
                 addReplies(input.getJSONObject("replies").getJSONObject("data").getJSONArray("children").getJSONObject(i).getJSONObject("data"));
             }
         }
@@ -184,7 +195,7 @@ public class RedditParser {
             commentsList = new ArrayList<>();
         }
 
-        for (int i = 0; i < replies.length(); i++) {
+        for (int i = 0; i < replies.length()-1; i++) {
             String reply = replies.getJSONObject(i).getJSONObject("data").getString("body_html");
 
             commentsList.add(getStringFromHtml(reply));
@@ -193,8 +204,17 @@ public class RedditParser {
     }
 
 
-    private static boolean repliesExist(JSONObject input) throws JSONException {
-        return input.has("replies");
+    private static boolean repliesExist(JSONObject input) {
+        try {
+            if (input.getJSONObject("replies") != null) {
+                return true;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     private static String getStringFromHtml(String input) {
