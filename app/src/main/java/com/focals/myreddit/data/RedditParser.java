@@ -8,9 +8,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 public class RedditParser {
 
+    static HashMap<Integer, ArrayList<String>> commentsMap = new HashMap<>();
+    static String logTag = "Testing";
+    static int n = 1;
 
     static String reducedJson = "{\n" +
             "  \"replies\": {\n" +
@@ -23,19 +28,40 @@ public class RedditParser {
             "                \"children\": [\n" +
             "                  {\n" +
             "                    \"data\": {\n" +
-            "                      \"body_html\": \"<div class=\\\"md\\\"><p>Just start asking for free dances, you&#39;ll get shown out pretty quick.</p>\\n</div>\"\n" +
+            "                      \"depth\": 2,\n" +
+            "                      \"body_html\": \"C-1.1.1\"\n" +
             "                    }\n" +
             "                  }\n" +
             "                ]\n" +
             "              }\n" +
             "            },\n" +
-            "            \"body_html\": \"<div class=\\\"md\\\"><p>I guess a guy could do worse, but once you&#39;re out of singles, they&#39;ll come help you find the door and even push you OUT through it.  (been there-done that)</p>\\n</div>\"\n" +
+            "            \"depth\": 1,\n" +
+            "            \"body_html\": \"C-1.1\"\n" +
+            "          }\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"data\": {\n" +
+            "            \"replies\": {\n" +
+            "              \"data\": {\n" +
+            "                \"children\": [\n" +
+            "                  {\n" +
+            "                    \"data\": {\n" +
+            "                      \"depth\": 2,\n" +
+            "                      \"body_html\": \"C-1.2.1\"\n" +
+            "                    }\n" +
+            "                  }\n" +
+            "                ]\n" +
+            "              }\n" +
+            "            },\n" +
+            "            \"depth\": 1,\n" +
+            "            \"body_html\": \"C-1.2\"\n" +
             "          }\n" +
             "        }\n" +
             "      ]\n" +
             "    }\n" +
             "  },\n" +
-            "  \"body_html\": \"<div class=\\\"md\\\"><p>My friend got stuck at a strip club because he was drunk, the place was too dark and he couldn&#39;t find the exit.</p>\\n</div>\"\n" +
+            "  \"depth\": 0,\n" +
+            "  \"body_html\": \"C-0\"\n" +
             "}";
 
     public static ArrayList<Subreddit> parseReddit(String response) {
@@ -118,96 +144,57 @@ public class RedditParser {
         return postsList;
     }
 
-    public static ArrayList<Comment> parseComments(String response) {
 
-        JSONArray jsonArray = null;
-        ArrayList<Comment> commentsList = new ArrayList<>();
-
-        try {
-            jsonArray = new JSONArray(response);
-
-            JSONArray subredditArray = jsonArray.getJSONObject(0).getJSONObject("data").getJSONArray("children");
-            JSONArray commentsArray = jsonArray.getJSONObject(1).getJSONObject("data").getJSONArray("children");
-
-            JSONObject subredditJson = subredditArray.getJSONObject(0).getJSONObject("data");
-            String subRedditName = subredditJson.getString("subreddit");
-            String title = subredditJson.getString("title");
-
-            for (int i = 0; i < commentsArray.length() - 1; i++) {
-
-/*                JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
-
-                String commentBody = commentJson.getString("body_html");
-
-                // This is to escape to html
-                commentBody = Html.fromHtml(commentBody, Html.FROM_HTML_MODE_COMPACT).toString();
-
-                // This is to read from above html
-                commentBody = Html.fromHtml(commentBody, Html.FROM_HTML_MODE_COMPACT).toString();*/
+    public static void parseComments(String response) throws JSONException {
+        JSONObject commentJson = new JSONObject(reducedJson);
 
 
+        HashMap<Integer, ArrayList<String>> commentsMap = new HashMap<>();
+        String mainComment = commentJson.getString("body_html");
+
+        ArrayList<String> comments = new ArrayList<>();
+        comments.add(mainComment);
+        commentsMap.put(0, comments);
 
 
-
-
-
-                JSONObject commentJson = new JSONObject(reducedJson);
-                String commentBody = commentJson.getString("body_html");
-                commentBody = Html.fromHtml(commentBody, Html.FROM_HTML_MODE_COMPACT).toString();
-
-
-
-
-
-
-
-
-
-                int[] replies = new int[1];
-                Comment comment = new Comment(subRedditName, title, commentBody, replies);
-                commentsList.add(comment);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return commentsList;
-    }
-
-    public static void recurseComments(JSONObject commentJson) {
-
-        try {
-
-            if (commentJson.getJSONObject("replies") == null) {
-                return;
-            }
-
-            if (commentJson.getJSONObject("replies") != null) {
-
-                JSONArray childrenArray = commentJson.getJSONObject("replies").getJSONObject("data").getJSONArray("children");
-
-                for (int i = 0; i < childrenArray.length() - 1; i++) {
-                    JSONObject childJson = childrenArray.getJSONObject(i).getJSONObject("data");
-
-                    String body = childJson.getString("body");
-
-                    Log.d(RedditParser.class.getSimpleName(), body);
-
-                    recurseComments(childJson);
-
-                }
-            }
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        addReplies(commentJson);
 
         System.out.println();
 
+    }
 
+
+    private static void addReplies(JSONObject input) throws JSONException {
+        Log.d(logTag, "Input:              " + input.getString("body_html") + "; Depth: " + input.getString("depth"));
+
+        if (!repliesExist(input)) {
+            Log.d(logTag, "No Children for: " + input.get("body_html"));
+            return;
+
+        } else {
+            addAllReplies(input);
+
+            for (int i = 0; i < input.getJSONObject("replies").getJSONObject("data").getJSONArray("children").length(); i++) {
+                addReplies(input.getJSONObject("replies").getJSONObject("data").getJSONArray("children").getJSONObject(i).getJSONObject("data"));
+            }
+        }
+    }
+
+
+    private static boolean repliesExist(JSONObject input) throws JSONException {
+        return input.has("replies");
+    }
+
+    private static void addAllReplies(JSONObject input) throws JSONException {
+        JSONArray replies = input.getJSONObject("replies").getJSONObject("data").getJSONArray("children");
+
+        for (int i = 0; i < replies.length(); i++) {
+            String reply = replies.getJSONObject(i).getJSONObject("data").getString("body_html");
+            Log.d(logTag, "Adding to List: " + reply + "; Depth: " + replies.getJSONObject(i).getJSONObject("data").getString("depth"));
+        }
     }
 
 }
+
+
+
