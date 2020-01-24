@@ -15,6 +15,7 @@ public class RedditParser {
 
     static HashMap<Integer, ArrayList<String>> commentsMap = new HashMap<>();
     static String logTag = "Testing";
+    static ArrayList<String> commentsList = new ArrayList<>();
 
     static String reducedJson = "{\n" +
             "  \"replies\": {\n" +
@@ -199,15 +200,17 @@ public class RedditParser {
     }
 
     private static void addAllReplies(JSONObject input) throws JSONException {
-        ArrayList<String> commentsList = new ArrayList<>();
         JSONArray replies = input.getJSONObject("replies").getJSONObject("data").getJSONArray("children");
+
+        // Create new list only if no existing comments at that depth
+        int depth = replies.getJSONObject(0).getJSONObject("data").getInt("depth");
+        if (commentsMap.get(depth) == null) {
+            commentsList = new ArrayList<>();
+        }
 
         for (int i = 0; i < replies.length(); i++) {
             String reply = replies.getJSONObject(i).getJSONObject("data").getString("body_html");
-            int depth = replies.getJSONObject(i).getJSONObject("data").getInt("depth");
-
-            Log.d(logTag, "Adding to List: " + reply + "; Depth: " + replies.getJSONObject(i).getJSONObject("data").getString("depth"));
-
+            
             commentsList.add(reply);
             commentsMap.put(depth, commentsList);
         }
