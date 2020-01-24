@@ -15,7 +15,6 @@ public class RedditParser {
 
     static HashMap<Integer, ArrayList<String>> commentsMap = new HashMap<>();
     static String logTag = "Testing";
-    static int n = 1;
 
     static String reducedJson = "{\n" +
             "  \"replies\": {\n" +
@@ -62,7 +61,7 @@ public class RedditParser {
             "  },\n" +
             "  \"depth\": 0,\n" +
             "  \"body_html\": \"C-0\"\n" +
-            "}";
+            "}\n";
 
     public static ArrayList<Subreddit> parseReddit(String response) {
         JSONObject jsonObject = null;
@@ -145,30 +144,49 @@ public class RedditParser {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static void parseComments(String response) throws JSONException {
         JSONObject commentJson = new JSONObject(reducedJson);
+        ArrayList<String> commentsList = new ArrayList<>();
 
-
-        HashMap<Integer, ArrayList<String>> commentsMap = new HashMap<>();
         String mainComment = commentJson.getString("body_html");
+        commentsList.add(mainComment);
+        Log.d(logTag, "Adding to List: " + mainComment + "; Depth: " + commentJson.getString("depth"));
 
-        ArrayList<String> comments = new ArrayList<>();
-        comments.add(mainComment);
-        commentsMap.put(0, comments);
+        // Add main comment to the map
+        commentsMap.put(0,commentsList);
 
-
+        // Add replies (and their replies)
         addReplies(commentJson);
 
         System.out.println();
-
     }
 
 
     private static void addReplies(JSONObject input) throws JSONException {
-        Log.d(logTag, "Input:              " + input.getString("body_html") + "; Depth: " + input.getString("depth"));
-
         if (!repliesExist(input)) {
-            Log.d(logTag, "No Children for: " + input.get("body_html"));
             return;
 
         } else {
@@ -180,18 +198,51 @@ public class RedditParser {
         }
     }
 
-
-    private static boolean repliesExist(JSONObject input) throws JSONException {
-        return input.has("replies");
-    }
-
     private static void addAllReplies(JSONObject input) throws JSONException {
+        ArrayList<String> commentsList = new ArrayList<>();
         JSONArray replies = input.getJSONObject("replies").getJSONObject("data").getJSONArray("children");
 
         for (int i = 0; i < replies.length(); i++) {
             String reply = replies.getJSONObject(i).getJSONObject("data").getString("body_html");
+            int depth = replies.getJSONObject(i).getJSONObject("data").getInt("depth");
+
             Log.d(logTag, "Adding to List: " + reply + "; Depth: " + replies.getJSONObject(i).getJSONObject("data").getString("depth"));
+
+            commentsList.add(reply);
+            commentsMap.put(depth, commentsList);
         }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private static boolean repliesExist(JSONObject input) throws JSONException {
+        return input.has("replies");
     }
 
 }

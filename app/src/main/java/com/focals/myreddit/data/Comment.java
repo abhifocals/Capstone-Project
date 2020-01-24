@@ -1,25 +1,20 @@
 package com.focals.myreddit.data;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Comment {
 
     String subredditName;
     String postText;
     String commentBody;
-    int[] replies;
-    Comment[] replyToComments;
+    HashMap<Integer, ArrayList<String>> repliesMap;
 
-    public Comment(String subredditName, String postText, String commentBody, int[] replies) {
+    public Comment(String subredditName, String postText, String commentBody, HashMap<Integer, ArrayList<String>> repliesMap) {
         this.subredditName = subredditName;
         this.postText = postText;
         this.commentBody = commentBody;
-        this.replies = replies;
-    }
-
-    public Comment(String subredditName, String postText, String commentBody, Comment[] replyToComments) {
-        this.subredditName = subredditName;
-        this.postText = postText;
-        this.commentBody = commentBody;
-        this.replyToComments = replyToComments;
+        this.repliesMap = repliesMap;
     }
 
     public String getSubredditName() {
@@ -34,7 +29,7 @@ public class Comment {
         return commentBody;
     }
 
-    public int[] getReplies() {
-        return replies;
+    public HashMap<Integer, ArrayList<String>> getRepliesMap() {
+        return repliesMap;
     }
 }
