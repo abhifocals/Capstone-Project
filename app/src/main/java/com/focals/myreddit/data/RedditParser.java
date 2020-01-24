@@ -145,39 +145,15 @@ public class RedditParser {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public static void parseComments(String response) throws JSONException {
         JSONObject commentJson = new JSONObject(reducedJson);
         ArrayList<String> commentsList = new ArrayList<>();
 
         String mainComment = commentJson.getString("body_html");
-        commentsList.add(mainComment);
-        Log.d(logTag, "Adding to List: " + mainComment + "; Depth: " + commentJson.getString("depth"));
+        commentsList.add(getStringFromHtml(mainComment));
 
         // Add main comment to the map
-        commentsMap.put(0,commentsList);
+        commentsMap.put(0, commentsList);
 
         // Add replies (and their replies)
         addReplies(commentJson);
@@ -210,44 +186,26 @@ public class RedditParser {
 
         for (int i = 0; i < replies.length(); i++) {
             String reply = replies.getJSONObject(i).getJSONObject("data").getString("body_html");
-            
-            commentsList.add(reply);
+
+            commentsList.add(getStringFromHtml(reply));
             commentsMap.put(depth, commentsList);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     private static boolean repliesExist(JSONObject input) throws JSONException {
         return input.has("replies");
     }
 
+    private static String getStringFromHtml(String input) {
+        // This is to escape to html
+        input = Html.fromHtml(input, Html.FROM_HTML_MODE_COMPACT).toString();
+
+        // This is to read from above html
+        input = Html.fromHtml(input, Html.FROM_HTML_MODE_COMPACT).toString();
+
+        return input;
+    }
 }
 
 
