@@ -189,21 +189,21 @@ public class RedditParser {
 
 
         // Input to Parse
-//        JSONObject commentJson = commentsArray.getJSONObject(0).getJSONObject("data");
-        JSONObject commentJson = new JSONObject(reducedJson);
+        JSONObject commentJson = commentsArray.getJSONObject(0).getJSONObject("data");
+//        JSONObject commentJson = new JSONObject(reducedJson);
 
 
         // Building First Comment Object
         String mainComment = commentJson.getString("body_html");
         mainComment = getStringFromHtml(mainComment);
-        String parentId = commentJson.getString("parent_id");
+        String id = commentJson.getString("id");
         int depth = commentJson.getInt("depth");
-        comment = new Comment(parentId, depth);
+        comment = new Comment(id, mainComment, depth);
 
 
         // Add main comment to the map
         commentsList.add(comment);
-        commentsMap.put(parentId, commentsList);
+        commentsMap.put(null, commentsList);
 
         // Add replies (and their replies)
         addReplies(commentJson);
@@ -239,8 +239,9 @@ public class RedditParser {
             parentId = replies.getJSONObject(i).getJSONObject("data").getString("parent_id");
             reply = getStringFromHtml(reply);
             int depth = replies.getJSONObject(i).getJSONObject("data").getInt("depth");
+            String id = replies.getJSONObject(i).getJSONObject("data").getString("id");
 
-            Comment comment = new Comment(reply,depth);
+            Comment comment = new Comment(id, reply,depth);
             commentsList.add(comment);
             commentsMap.put(parentId, commentsList);
         }
