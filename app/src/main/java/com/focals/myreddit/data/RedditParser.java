@@ -13,9 +13,11 @@ import java.util.TreeMap;
 
 public class RedditParser {
 
-    static HashMap<String, ArrayList<Comment>> commentsMap = new HashMap<>();
+    static HashMap<String, ArrayList<Comment>> commentsMap;
+    static ArrayList<HashMap<String, ArrayList<Comment>>> listOfCommentsMap = new ArrayList<>();
+
     static String logTag = "Testing";
-    static ArrayList<Comment> commentsList = new ArrayList<>();
+    static ArrayList<Comment> commentsList;
 
     static String reducedJson = "{\n" +
             "  \"replies\": {\n" +
@@ -186,29 +188,38 @@ public class RedditParser {
         JSONArray jsonArray = new JSONArray(response);
         JSONArray commentsArray = jsonArray.getJSONObject(1).getJSONObject("data").getJSONArray("children");
         Comment comment = null;
+        String parentId = null;
 
 
-        // Input to Parse
-        JSONObject commentJson = commentsArray.getJSONObject(0).getJSONObject("data");
+
+
+        for (int i=0; i<commentsArray.length(); i++) {
+            commentsMap = new HashMap<>();
+            commentsList = new ArrayList<>();
+            JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
 //        JSONObject commentJson = new JSONObject(reducedJson);
 
+            // Building First Comment Object
+            String mainComment = commentJson.getString("body_html");
+            mainComment = getStringFromHtml(mainComment);
+            parentId = commentJson.getString("parent_id");
+            String id = commentJson.getString("id");
+            int depth = commentJson.getInt("depth");
+            comment = new Comment(id, mainComment, depth);
 
-        // Building First Comment Object
-        String mainComment = commentJson.getString("body_html");
-        mainComment = getStringFromHtml(mainComment);
-        String id = commentJson.getString("id");
-        int depth = commentJson.getInt("depth");
-        comment = new Comment(id, mainComment, depth);
 
+            // Add main comment to the map
+            commentsList.add(comment);
+            commentsMap.put(parentId, commentsList);
 
-        // Add main comment to the map
-        commentsList.add(comment);
-        commentsMap.put(null, commentsList);
+            // Add replies (and their replies)
+            addReplies(commentJson);
 
-        // Add replies (and their replies)
-        addReplies(commentJson);
+            listOfCommentsMap.add(commentsMap);
 
-        System.out.println();
+            System.out.println();
+        }
+
     }
 
 
