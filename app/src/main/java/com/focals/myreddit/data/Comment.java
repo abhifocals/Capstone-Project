@@ -45,4 +45,17 @@ public class Comment {
     public HashMap<Integer, ArrayList<String>> getRepliesMap() {
         return repliesMap;
     }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public int getDepth() {
+        return depth;
+    }
 }
