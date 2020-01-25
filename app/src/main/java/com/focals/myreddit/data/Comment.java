@@ -7,11 +7,12 @@ public class Comment {
 
     String id; // this should be parentId
     String text;
+    int depth;
 
 
-    public Comment(String id, String text) {
-        this.id = id;
+    public Comment(String text, int depth) {
         this.text = text;
+        this.depth = depth;
     }
 
 
