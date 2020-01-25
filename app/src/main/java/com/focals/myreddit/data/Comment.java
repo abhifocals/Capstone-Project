@@ -5,6 +5,17 @@ import java.util.HashMap;
 
 public class Comment {
 
+    String id; // this should be parentId
+    String text;
+
+
+    public Comment(String id, String text) {
+        this.id = id;
+        this.text = text;
+    }
+
+
+
     String subredditName;
     String postText;
     String commentBody;
