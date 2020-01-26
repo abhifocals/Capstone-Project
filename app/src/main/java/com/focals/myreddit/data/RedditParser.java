@@ -18,6 +18,7 @@ public class RedditParser {
 
     static String logTag = "Testing";
     static ArrayList<Comment> commentsList;
+    public static final String TOP = "TOP";
 
     static String reducedJson = "{\n" +
             "  \"replies\": {\n" +
@@ -193,7 +194,7 @@ public class RedditParser {
 
 
 
-        for (int i=0; i<commentsArray.length(); i++) {
+        for (int i=0; i<1; i++) {
             commentsMap = new HashMap<>();
             commentsList = new ArrayList<>();
 //            JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
@@ -202,7 +203,7 @@ public class RedditParser {
             // Building First Comment Object
             String mainComment = commentJson.getString("body_html");
             mainComment = getStringFromHtml(mainComment);
-            parentId = commentJson.getString("parent_id");
+//            parentId = commentJson.getString("parent_id");
             String id = commentJson.getString("id");
             int depth = commentJson.getInt("depth");
             comment = new Comment(id, mainComment, depth);
@@ -210,7 +211,7 @@ public class RedditParser {
 
             // Add main comment to the map
             commentsList.add(comment);
-            commentsMap.put(parentId, commentsList);
+            commentsMap.put(TOP, commentsList);
 
             // Add replies (and their replies)
             addReplies(commentJson);
