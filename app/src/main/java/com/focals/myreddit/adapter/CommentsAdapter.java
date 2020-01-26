@@ -28,6 +28,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     static ArrayList<Comment> childrenList;
     static HashMap<String, ArrayList<Comment>> commentMap;
     static String logTag = "Testing";
+    static StringBuilder stringBuilder;
 
 
     public CommentsAdapter(ArrayList<Comment> commentsList) {
@@ -50,6 +51,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
 
+        stringBuilder = new StringBuilder();
 
         // Get 1st item from static listOfCommentsMap
         commentMap = RedditParser.listOfCommentsMap.get(0);
@@ -58,16 +60,16 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         // Get parent comment
         String parentCommentText = commentMap.get("mainParent").get(0).getText();
         String parentId = commentMap.get("mainParent").get(0).getId();
-        Log.d(logTag, parentCommentText);
-
-
+        stringBuilder.append(parentCommentText + "\n");
 
         // Get children of parent
         ArrayList<Comment> childrenList = commentMap.get(parentId);
 
         for (int i=0; i < childrenList.size(); i++) {
-            Log.d(logTag,  "  " + childrenList.get(i).getText());
+            stringBuilder.append("\n");
+            stringBuilder.append("  " + childrenList.get(i).getText() + "\n");
             getChildren(childrenList.get(i));
+            stringBuilder.append("\n");
         }
 
 
@@ -75,54 +77,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
 
 
-        //  Print Text of each comment.  Add tab multiple of each comment.
+        Log.d(logTag, stringBuilder.toString());
 
         System.out.println();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        holder.commentsTextView.setText(commentsList.get(position).getCommentBody());
+        holder.commentsTextView.setText(stringBuilder.toString());
 
     }
 
@@ -144,9 +103,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
 
         for (int i = 0; i < children.size(); i++) {
-
-            Log.d(logTag,  "    " + children.get(i).getText());
-
+            stringBuilder.append("    " + children.get(i).getText() + "\n");
         }
     }
 
