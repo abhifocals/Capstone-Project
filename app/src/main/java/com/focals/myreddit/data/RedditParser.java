@@ -14,7 +14,7 @@ import java.util.TreeMap;
 public class RedditParser {
 
     static HashMap<String, ArrayList<Comment>> commentsMap;
-    static ArrayList<HashMap<String, ArrayList<Comment>>> listOfCommentsMap = new ArrayList<>();
+    public static ArrayList<HashMap<String, ArrayList<Comment>>> listOfCommentsMap = new ArrayList<>();
 
     static String logTag = "Testing";
     static ArrayList<Comment> commentsList;
@@ -70,9 +70,9 @@ public class RedditParser {
             "      ]\n" +
             "    }\n" +
             "  },\n" +
-            "  \"body_html\": \"Comment\",\n" +
+            "  \"body_html\": \"Main Comment\",\n" +
             "  \"id\": \"C0\",\n" +
-            "  \"parent_id\": \"main\",\n" +
+            "  \"parent_id\": \"mainParent\",\n" +
             "  \"depth\": 0\n" +
             "}";
 
@@ -196,8 +196,8 @@ public class RedditParser {
         for (int i=0; i<commentsArray.length(); i++) {
             commentsMap = new HashMap<>();
             commentsList = new ArrayList<>();
-            JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
-//        JSONObject commentJson = new JSONObject(reducedJson);
+//            JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
+        JSONObject commentJson = new JSONObject(reducedJson);
 
             // Building First Comment Object
             String mainComment = commentJson.getString("body_html");
