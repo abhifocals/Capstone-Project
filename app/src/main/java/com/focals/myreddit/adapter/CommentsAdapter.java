@@ -62,17 +62,15 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         Comment topComment  = commentMap.get(RedditParser.TOP).get(0);
         String parentCommentText = topComment.getText();
         String parentId = topComment.getId();
-        stringBuilder.append(" <font color='black'>");
-        stringBuilder.append(parentCommentText + "<br>");
-        stringBuilder.append("</font>");
+        stringBuilder.append(parentCommentText + "\n");
 
         // Get children of parent
         ArrayList<Comment> childrenList = commentMap.get("t1_" + parentId);
 
         for (int i=0; i < childrenList.size(); i++) {
-            stringBuilder.append("> > > " + childrenList.get(i).getText() + "<br>");
+            stringBuilder.append("> > > " + childrenList.get(i).getText());
             getChildren(childrenList.get(i));
-            stringBuilder.append("<br>");
+            stringBuilder.append("\n");
         }
         
 
@@ -80,7 +78,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
         System.out.println();
 
-        holder.commentsTextView.setText(Html.fromHtml(stringBuilder.toString(), Html.FROM_HTML_MODE_COMPACT));
+        holder.commentsTextView.setText(stringBuilder.toString());
 
     }
 
@@ -102,7 +100,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
 
         for (int i = 0; i < children.size(); i++) {
-            stringBuilder.append(">  >  >  > " + children.get(i).getText() + "<br>");
+            stringBuilder.append(">  >  >  > " + children.get(i).getText() + "\n");
         }
     }
 
