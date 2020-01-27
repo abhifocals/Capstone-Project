@@ -61,21 +61,17 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         Comment topComment  = commentMap.get(RedditParser.TOP).get(0);
         String parentCommentText = topComment.getText();
         String parentId = topComment.getId();
-        stringBuilder.append(parentCommentText + "\n\n");
+        stringBuilder.append(parentCommentText + "\n");
 
         // Get children of parent
-        ArrayList<Comment> childrenList = commentMap.get(parentId);
+        ArrayList<Comment> childrenList = commentMap.get("t1_" + parentId);
 
         for (int i=0; i < childrenList.size(); i++) {
-            stringBuilder.append("  " + childrenList.get(i).getText() + "\n");
+            stringBuilder.append("    " + childrenList.get(i).getText() + "\n");
             getChildren(childrenList.get(i));
             stringBuilder.append("\n");
         }
-
-
-
-
-
+        
 
         Log.d(logTag, stringBuilder.toString());
 
@@ -92,24 +88,24 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         } else {
             getAllChildren(comment);
 
-            for (int i = 0; i < commentMap.get(comment.getId()).size(); i++) {
-                getChildren(commentMap.get(comment.getId()).get(i));
+            for (int i = 0; i < commentMap.get("t1_" + comment.getId()).size(); i++) {
+                getChildren(commentMap.get("t1_" + comment.getId()).get(i));
             }
         }
     }
 
     private static void getAllChildren(Comment comment) {
-        ArrayList<Comment> children = commentMap.get(comment.getId());
+        ArrayList<Comment> children = commentMap.get("t1_"  + comment.getId());
 
 
         for (int i = 0; i < children.size(); i++) {
-            stringBuilder.append("    " + children.get(i).getText() + "\n");
+            stringBuilder.append("        " + children.get(i).getText() + "\n");
         }
     }
 
 
     private static boolean childrenExist(Comment comment) {
-        return commentMap.get(comment.getId()) != null;
+        return commentMap.get("t1_" + comment.getId()) != null;
     }
 
 
