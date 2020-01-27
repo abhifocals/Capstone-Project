@@ -1,6 +1,7 @@
 package com.focals.myreddit.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,15 +62,17 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         Comment topComment  = commentMap.get(RedditParser.TOP).get(0);
         String parentCommentText = topComment.getText();
         String parentId = topComment.getId();
-        stringBuilder.append(parentCommentText + "\n");
+        stringBuilder.append(" <font color='red'>");
+        stringBuilder.append(parentCommentText + "<br>");
+        stringBuilder.append("</font>");
 
         // Get children of parent
         ArrayList<Comment> childrenList = commentMap.get("t1_" + parentId);
 
         for (int i=0; i < childrenList.size(); i++) {
-            stringBuilder.append("------" + childrenList.get(i).getText() + "\n");
+            stringBuilder.append("------" + childrenList.get(i).getText() + "<br>");
             getChildren(childrenList.get(i));
-            stringBuilder.append("\n");
+            stringBuilder.append("<br>");
         }
         
 
@@ -77,7 +80,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
         System.out.println();
 
-        holder.commentsTextView.setText(stringBuilder.toString());
+        holder.commentsTextView.setText(Html.fromHtml(stringBuilder.toString(), Html.FROM_HTML_MODE_COMPACT));
 
     }
 
@@ -99,7 +102,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
 
         for (int i = 0; i < children.size(); i++) {
-            stringBuilder.append("------------" + children.get(i).getText() + "\n");
+            stringBuilder.append("------------" + children.get(i).getText() + "<br>");
         }
     }
 
