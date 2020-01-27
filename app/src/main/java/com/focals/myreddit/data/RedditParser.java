@@ -32,16 +32,19 @@ public class RedditParser {
             "                  {\n" +
             "                    \"data\": {\n" +
             "                      \"body_html\": \"Reply1.1\",\n" +
-            "                      \"parent_id\": \"R1\",\n" +
+            "                      \"parent_id\": \"t1_R1\",\n" +
             "                      \"id\": \"R1.1\",\n" +
             "                      \"depth\": 2\n" +
             "                    }\n" +
+            "                  },\n" +
+            "                  {\n" +
+            "                    \"dummy\": {}\n" +
             "                  }\n" +
             "                ]\n" +
             "              }\n" +
             "            },\n" +
             "            \"body_html\": \"Reply1\",\n" +
-            "            \"parent_id\": \"C0\",\n" +
+            "            \"parent_id\": \"t1_C0\",\n" +
             "            \"id\": \"R1\",\n" +
             "            \"depth\": 1\n" +
             "          }\n" +
@@ -54,19 +57,25 @@ public class RedditParser {
             "                  {\n" +
             "                    \"data\": {\n" +
             "                      \"depth\": 2,\n" +
-            "                      \"parent_id\": \"R2\",\n" +
+            "                      \"parent_id\": \"t1_R2\",\n" +
             "                      \"id\": \"R2.1\",\n" +
             "                      \"body_html\": \"Reply2.1\"\n" +
             "                    }\n" +
+            "                  },\n" +
+            "                  {\n" +
+            "                    \"data\": {}\n" +
             "                  }\n" +
             "                ]\n" +
             "              }\n" +
             "            },\n" +
-            "            \"parent_id\": \"C0\",\n" +
+            "            \"parent_id\": \"t1_C0\",\n" +
             "            \"id\": \"R2\",\n" +
             "            \"body_html\": \"Reply2\",\n" +
             "            \"depth\": 1\n" +
             "          }\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"data\": {}\n" +
             "        }\n" +
             "      ]\n" +
             "    }\n" +
@@ -197,8 +206,8 @@ public class RedditParser {
         for (int i=0; i<1; i++) {
             commentsMap = new HashMap<>();
             commentsList = new ArrayList<>();
-            JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
-//        JSONObject commentJson = new JSONObject(reducedJson);
+//            JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
+        JSONObject commentJson = new JSONObject(reducedJson);
 
             // Building First Comment Object
             String mainComment = commentJson.getString("body_html");
