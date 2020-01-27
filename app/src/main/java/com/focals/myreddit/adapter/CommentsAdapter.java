@@ -67,7 +67,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         ArrayList<Comment> childrenList = commentMap.get("t1_" + parentId);
 
         for (int i=0; i < childrenList.size(); i++) {
-            stringBuilder.append("      " + childrenList.get(i).getText() + "\n");
+            stringBuilder.append("------" + childrenList.get(i).getText() + "\n");
             getChildren(childrenList.get(i));
             stringBuilder.append("\n");
         }
@@ -99,7 +99,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
 
         for (int i = 0; i < children.size(); i++) {
-            stringBuilder.append("            " + children.get(i).getText() + "\n");
+            stringBuilder.append("------------" + children.get(i).getText() + "\n");
         }
     }
 
