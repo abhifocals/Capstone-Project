@@ -55,7 +55,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         stringBuilder = new StringBuilder();
 
         // Get 1st item from static listOfCommentsMap
-        commentMap = RedditParser.listOfCommentsMap.get(0);
+        commentMap = RedditParser.listOfCommentsMap.get(position);
 
 
         // Get parent comment
