@@ -138,9 +138,9 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
 
         if (resultCode == 2) {
             setResult(2);
+        } else if (resultCode == 3 || resultCode == 4) {
+            finish();
         }
-
-        finish();
     }
 
     @Override

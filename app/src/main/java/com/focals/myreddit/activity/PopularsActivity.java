@@ -134,7 +134,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             SHOWING_FAVS = false;
         }
         // Show Popular
-        else {
+        else if (resultCode == 4) {
             SHOWING_FAVS = false;
         }
 

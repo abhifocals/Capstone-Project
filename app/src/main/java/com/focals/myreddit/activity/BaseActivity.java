@@ -99,6 +99,7 @@ public class BaseActivity extends AppCompatActivity {
 
         // Send back to Populars Activity to Load Populars
         if (menuItem.getItemId() == R.id.bottom_popular) {
+            setResult(4);
             finish();
         }
 
