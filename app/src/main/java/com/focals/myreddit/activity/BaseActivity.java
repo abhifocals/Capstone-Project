@@ -97,14 +97,14 @@ public class BaseActivity extends AppCompatActivity {
             finish();
         }
 
-        // Send back to Populars Activity to Load Populars
-        if (menuItem.getItemId() == R.id.bottom_popular) {
-            setResult(4);
+        if (menuItem.getItemId() == R.id.bottom_news) {
+            setResult(3);
             finish();
         }
 
-        if (menuItem.getItemId() == R.id.bottom_news) {
-            setResult(3);
+        // Send back to Populars Activity to Load Populars
+        if (menuItem.getItemId() == R.id.bottom_popular) {
+            setResult(4);
             finish();
         }
 
