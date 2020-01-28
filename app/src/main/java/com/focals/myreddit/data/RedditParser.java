@@ -198,22 +198,26 @@ public class RedditParser {
 //        JSONObject commentJson = new JSONObject(reducedJson);
 
             // Building First Comment Object
-            String mainComment = commentJson.getString("body_html");
-            mainComment = getStringFromHtml(mainComment);
+
+            if (commentJson.has("body_html") && commentJson.getString("body_html") != null) {
+                String mainComment = commentJson.getString("body_html");
+                mainComment = getStringFromHtml(mainComment);
 //            parentId = commentJson.getString("parent_id");
-            String id = commentJson.getString("id");
-            int depth = commentJson.getInt("depth");
-            comment = new Comment(id, mainComment, depth);
+                String id = commentJson.getString("id");
+                int depth = commentJson.getInt("depth");
+                comment = new Comment(id, mainComment, depth);
 
 
-            // Add main comment to the map
-            commentsList.add(comment);
-            commentsMap.put(TOP, commentsList);
+                // Add main comment to the map
+                commentsList.add(comment);
+                commentsMap.put(TOP, commentsList);
 
-            // Add replies (and their replies)
-            addReplies(commentJson);
+                // Add replies (and their replies)
+                addReplies(commentJson);
 
-            listOfCommentsMap.add(commentsMap);
+                listOfCommentsMap.add(commentsMap);
+            }
+
 
         }
         System.out.println();
@@ -244,15 +248,20 @@ public class RedditParser {
         }
 
         for (int i = 0; i < replies.length()-1; i++) {
-            String reply = replies.getJSONObject(i).getJSONObject("data").getString("body_html");
-            parentId = replies.getJSONObject(i).getJSONObject("data").getString("parent_id");
-            reply = getStringFromHtml(reply);
-            int depth = replies.getJSONObject(i).getJSONObject("data").getInt("depth");
-            String id = replies.getJSONObject(i).getJSONObject("data").getString("id");
 
-            Comment comment = new Comment(id, reply,depth);
-            commentsList.add(comment);
-            commentsMap.put(parentId, commentsList);
+            if (replies.getJSONObject(i).getJSONObject("data").has("body_html") && replies.getJSONObject(i).getJSONObject("data").getString("body_html") != null) {
+                String reply = replies.getJSONObject(i).getJSONObject("data").getString("body_html");
+                parentId = replies.getJSONObject(i).getJSONObject("data").getString("parent_id");
+                reply = getStringFromHtml(reply);
+                int depth = replies.getJSONObject(i).getJSONObject("data").getInt("depth");
+                String id = replies.getJSONObject(i).getJSONObject("data").getString("id");
+
+                Comment comment = new Comment(id, reply,depth);
+                commentsList.add(comment);
+                commentsMap.put(parentId, commentsList);
+            }
+
+
         }
     }
 
