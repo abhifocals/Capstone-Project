@@ -4,7 +4,6 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -348,7 +347,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
         if (SHOWING_FAVS) {
             popularsAdapter.setSubredditList(FAVORITES);
-            showNoFavoritesMessageIfRequired();
+            showNoFavoritesMessageIfNoFavorites();
         } else {
             hideErrorView();
             popularsAdapter.setSubredditList(subredditList);
@@ -357,7 +356,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         hideProgressBar();
     }
 
-    private void showNoFavoritesMessageIfRequired() { //rename
+    private void showNoFavoritesMessageIfNoFavorites() {
         if (FAVORITES.isEmpty()) {
             tv_error.setVisibility(View.VISIBLE);
             tv_error.setText(getString(R.string.empty_fav_list_message));
