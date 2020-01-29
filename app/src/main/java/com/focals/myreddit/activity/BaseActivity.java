@@ -25,7 +25,6 @@ public class BaseActivity extends AppCompatActivity {
     static ProgressBar progressBar;
 
     boolean subIsFavorite;
-    private SubDatabase db;
     private SubDao dao;
     String subRedditId;
 
@@ -33,7 +32,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        db = SubDatabase.getInstance(this);
+        SubDatabase db = SubDatabase.getInstance(this);
         dao = db.subDao();
     }
 

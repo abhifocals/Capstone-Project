@@ -23,15 +23,14 @@ public class SubWidgetService extends RemoteViewsService {
 
 class SubWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
-    private Context context;
-    private SubDatabase db;
-    private SubDao dao;
+    private final Context context;
+    private final SubDao dao;
     private List<Subreddit> favs;
 
     public SubWidgetFactory(Context context) {
         this.context = context;
 
-        db = SubDatabase.getInstance(context);
+        SubDatabase db = SubDatabase.getInstance(context);
         dao = db.subDao();
     }
 

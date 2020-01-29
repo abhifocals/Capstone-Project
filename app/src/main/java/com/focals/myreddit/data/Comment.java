@@ -5,15 +5,13 @@ import java.util.HashMap;
 
 public class Comment {
 
-    private String id;
-    private String text;
-    private int depth;
+    private final String id;
+    private final String text;
 
 
     public Comment(String id, String text, int depth) {
         this.id = id;
         this.text = text;
-        this.depth = depth;
     }
 
 

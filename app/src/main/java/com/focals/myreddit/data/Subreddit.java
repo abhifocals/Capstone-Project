@@ -7,15 +7,15 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "sub")
 public class Subreddit {
 
-    private String name;
-    private String bannerUrl;
-    private String publicDescription;
-    private int subscribers;
+    private final String name;
+    private final String bannerUrl;
+    private final String publicDescription;
+    private final int subscribers;
     private boolean favorite;
 
     @NonNull
     @PrimaryKey
-    private
+    private final
     String id;
 
     public Subreddit(String name, String bannerUrl, String publicDescription, int subscribers, boolean favorite, String id) {

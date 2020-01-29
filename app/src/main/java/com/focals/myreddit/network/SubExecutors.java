@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 
 public class SubExecutors {
 
-    private static Object LOCK = new Object();
+    private static final Object LOCK = new Object();
     private static SubExecutors instance;
     private final Executor networkIO;
 

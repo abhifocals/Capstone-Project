@@ -32,9 +32,6 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
 
     private RecyclerView commentsRecyclerView;
     private ArrayList<Comment> commentsList;
-    private TextView postTextView;
-    private Toolbar toolbar;
-    private ImageButton imageButton;
     private ImageView iv_postImage;
     private WebView webView;
     Subreddit sub;
@@ -46,10 +43,10 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
 
         // Initializing Views
         commentsRecyclerView = findViewById(R.id.rv_comments);
-        postTextView = findViewById(R.id.tv_postText);
+        TextView postTextView = findViewById(R.id.tv_postText);
         iv_postImage = findViewById(R.id.iv_postImage);
         webView = findViewById(R.id.webView);
-        imageButton = findViewById(R.id.ib_addToFavorites);
+        ImageButton imageButton = findViewById(R.id.ib_addToFavorites);
         progressBar = findViewById(R.id.progressBar);
 
         // Fetching from intent
@@ -78,7 +75,7 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
         progressBar.setVisibility(View.VISIBLE);
 
         // Setting Toolbar as ActionBar and its text [Padding is for RTL layouts]
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("   " + subredditName);
 

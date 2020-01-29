@@ -22,12 +22,10 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
     private Context context;
     private ArrayList<Subreddit> subredditList;
     private final ClickHandler clickHandler;
-    private final boolean showingFavorites;
 
     public PopularsAdapter(ArrayList<Subreddit> subredditList, ClickHandler clickHandler, boolean showingFavorites) {
         this.subredditList = subredditList;
         this.clickHandler = clickHandler;
-        this.showingFavorites = showingFavorites;
     }
 
     @NonNull
@@ -52,7 +50,7 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
 
         holder.subredditTitle.setText(title);
         holder.subredditDesc.setText(desc);
-        holder.numSubscribers.setText("Subscribers: " + subscribers);
+        holder.numSubscribers.setText(context.getResources().getString(R.string.subscriber_count_label) + subscribers);
 
         if (!bannerUrl.isEmpty()) {
             new Picasso.Builder(context).build().load(bannerUrl).into(holder.subredditImage);

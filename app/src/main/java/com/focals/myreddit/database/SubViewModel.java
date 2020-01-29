@@ -12,17 +12,15 @@ import androidx.lifecycle.LiveData;
 
 public class SubViewModel extends AndroidViewModel {
 
-    private LiveData<List<Subreddit>> favoriteSubs;
-    private LiveData<List<Subreddit>> subs;
-    private SubDatabase db;
-    private SubDao dao;
+    private final LiveData<List<Subreddit>> favoriteSubs;
+    private final LiveData<List<Subreddit>> subs;
     List<Subreddit> favorites;
 
     public SubViewModel(@NonNull Application application) {
         super(application);
 
-        db = SubDatabase.getInstance(application.getApplicationContext());
-        dao = db.subDao();
+        SubDatabase db = SubDatabase.getInstance(application.getApplicationContext());
+        SubDao dao = db.subDao();
 
         favoriteSubs = dao.getFavorites();
         subs = dao.getLiveSubs();

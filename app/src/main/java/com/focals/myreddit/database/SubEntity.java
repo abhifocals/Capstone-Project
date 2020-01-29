@@ -7,14 +7,14 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "sub")
 class SubEntity {
 
-    private String name;
-    private String bannerUrl;
-    private String publicDescription;
-    private int subscribers;
-    private boolean favorite;
+    private final String name;
+    private final String bannerUrl;
+    private final String publicDescription;
+    private final int subscribers;
+    private final boolean favorite;
 
     @PrimaryKey
-    private
+    private final
     int subId;
 
     public SubEntity(String name, String bannerUrl, String publicDescription, int subscribers, boolean favorite, int subId) {

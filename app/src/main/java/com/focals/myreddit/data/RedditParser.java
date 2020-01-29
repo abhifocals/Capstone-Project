@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class RedditParser {
 
     private static HashMap<String, ArrayList<Comment>> commentsMap;
-    public static ArrayList<HashMap<String, ArrayList<Comment>>> listOfCommentsMap = new ArrayList<>();
+    public static final ArrayList<HashMap<String, ArrayList<Comment>>> listOfCommentsMap = new ArrayList<>();
 
     static String logTag = "Testing";
     private static ArrayList<Comment> commentsList;
@@ -72,7 +72,7 @@ public class RedditParser {
             "  ]";
 
     public static ArrayList<Subreddit> parseReddit(String response) {
-        JSONObject jsonObject = null;
+        JSONObject jsonObject;
         ArrayList<Subreddit> subredditsList = new ArrayList<>();
 
         try {
@@ -107,7 +107,7 @@ public class RedditParser {
 
     public static ArrayList<Post> parseRedditPosts(String response) {
 
-        JSONObject jsonObject = null;
+        JSONObject jsonObject;
         ArrayList<Post> postsList = new ArrayList<>();
 
         try {
@@ -157,7 +157,7 @@ public class RedditParser {
         JSONArray jsonArray = new JSONArray(response);
         JSONArray commentsArray = jsonArray.getJSONObject(1).getJSONObject("data").getJSONArray("children");
         // JSONArray commentsArray = new JSONArray(reducedJson);
-        Comment comment = null;
+        Comment comment;
         String parentId = null;
 
 

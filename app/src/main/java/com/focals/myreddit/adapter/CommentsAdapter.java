@@ -19,22 +19,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentViewHolder> {
 
-    private Context context;
-    private final ArrayList<Comment> commentsList;
     static ArrayList<Comment> childrenList;
     private static HashMap<String, ArrayList<Comment>> commentMap;
     static String logTag = "Testing";
     private static StringBuilder stringBuilder;
 
     public CommentsAdapter(ArrayList<Comment> commentsList) {
-        this.commentsList = commentsList;
     }
 
     @NonNull
     @Override
     public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        context = parent.getContext();
+        Context context = parent.getContext();
 
         LayoutInflater inflater = LayoutInflater.from(context);
 
