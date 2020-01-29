@@ -37,15 +37,12 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
     private RecyclerView mainRecyclerView;
     private static ArrayList<Subreddit> subredditList;
-    private Toolbar toolbar;
-    private GridLayoutManager layoutManager;
     private static boolean SHOWING_FAVS;
     private static SubDao dao;
-    public static ArrayList<Subreddit> FAVORITES = new ArrayList<>();
+    private static ArrayList<Subreddit> FAVORITES = new ArrayList<>();
     private SubViewModel subViewModel;
     private static TextView tv_error;
     private FirebaseAnalytics firebaseAnalytics;
-    private AdView adView;
     private static final String TEST_BANNER_UNIT_ID = "ca-app-pub-9671217180587470~6356005035";
 
 
@@ -57,9 +54,9 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
         // Initializing Views
         mainRecyclerView = findViewById(R.id.rv_populars);
         progressBar = findViewById(R.id.progressBar);
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         tv_error = findViewById(R.id.tv_error);
-        adView = findViewById(R.id.adView);
+        AdView adView = findViewById(R.id.adView);
 
         // Initializing Database, DAO, and ViewModel
         SubDatabase db = SubDatabase.getInstance(this);
@@ -104,8 +101,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
      * If Fav button is clicked, gets the current sub (based on what screen user is on), and updates database.
      * Else Starts Posts Activity.
      *
-     * @param position
-     * @param view
+     * @param position Position of the view.
+     * @param view View clicked.
      */
 
     @Override
@@ -146,8 +143,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     /**
      * Bottom Navigation View click handler.
      *
-     * @param menuItem
-     * @return
+     * @param menuItem Menu item clicked.
+     * @return Display the selected item or not.
      */
 
     @Override
@@ -198,7 +195,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     //////////// Helpers ////////////
 
     private void setupAdapter() {
-        layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
+        GridLayoutManager layoutManager = new GridLayoutManager(PopularsActivity.this, 1);
         popularsAdapter = new PopularsAdapter(subredditList, PopularsActivity.this, SHOWING_FAVS);
         mainRecyclerView.setAdapter(popularsAdapter);
         mainRecyclerView.setLayoutManager(layoutManager);
@@ -343,8 +340,6 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
     }
 
     private void updateAdapter() {
-        int favCount = FAVORITES.size();
-
         if (SHOWING_FAVS) {
             popularsAdapter.setSubredditList(FAVORITES);
             showNoFavoritesMessageIfNoFavorites();
