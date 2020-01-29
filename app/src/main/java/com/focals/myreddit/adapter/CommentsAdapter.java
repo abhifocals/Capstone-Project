@@ -31,7 +31,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     static String logTag = "Testing";
     static StringBuilder stringBuilder;
 
-
     public CommentsAdapter(ArrayList<Comment> commentsList) {
         this.commentsList = commentsList;
     }
@@ -57,9 +56,8 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         // Get 1st item from static listOfCommentsMap
         commentMap = RedditParser.listOfCommentsMap.get(position);
 
-
         // Get parent comment
-        Comment topComment  = commentMap.get(RedditParser.TOP).get(0);
+        Comment topComment = commentMap.get(RedditParser.TOP).get(0);
         String parentCommentText = topComment.getText();
         String parentId = topComment.getId();
         stringBuilder.append("<b>");
@@ -69,19 +67,13 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         // Get children of parent
         ArrayList<Comment> childrenList = commentMap.get("t1_" + parentId);
 
-        for (int i=0; i < childrenList.size(); i++) {
+        for (int i = 0; i < childrenList.size(); i++) {
             stringBuilder.append("> > > " + childrenList.get(i).getText());
             getChildren(childrenList.get(i));
             stringBuilder.append("<br>");
         }
-        
-
-        Log.d(logTag, stringBuilder.toString());
-
-        System.out.println();
 
         holder.commentsTextView.setText(Html.fromHtml(stringBuilder.toString().replaceAll("\n", "<br>"), Html.FROM_HTML_MODE_COMPACT));
-
     }
 
     private static void getChildren(Comment comment) {
@@ -98,7 +90,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     }
 
     private static void getAllChildren(Comment comment) {
-        ArrayList<Comment> children = commentMap.get("t1_"  + comment.getId());
+        ArrayList<Comment> children = commentMap.get("t1_" + comment.getId());
 
 
         for (int i = 0; i < children.size(); i++) {
@@ -106,21 +98,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         }
     }
 
-
     private static boolean childrenExist(Comment comment) {
         return commentMap.get("t1_" + comment.getId()) != null;
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     @Override
