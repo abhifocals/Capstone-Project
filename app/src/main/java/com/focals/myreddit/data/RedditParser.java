@@ -154,59 +154,28 @@ public class RedditParser {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public static void parseComments(String response) throws JSONException {
 
         JSONArray jsonArray = new JSONArray(response);
         JSONArray commentsArray = jsonArray.getJSONObject(1).getJSONObject("data").getJSONArray("children");
-//        JSONArray commentsArray = new JSONArray(reducedJson);
+        // JSONArray commentsArray = new JSONArray(reducedJson);
         Comment comment = null;
         String parentId = null;
 
 
-
-
-        for (int i=0; i<commentsArray.length(); i++) {
+        for (int i = 0; i < commentsArray.length(); i++) {
             commentsMap = new HashMap<>();
             commentsList = new ArrayList<>();
             JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
-//        JSONObject commentJson = new JSONObject(reducedJson);
+            // JSONObject commentJson = new JSONObject(reducedJson);
 
             // Building First Comment Object
-
             if (commentJson.has("body_html") && commentJson.getString("body_html") != null) {
                 String mainComment = commentJson.getString("body_html");
                 mainComment = getStringFromHtml(mainComment);
-//            parentId = commentJson.getString("parent_id");
                 String id = commentJson.getString("id");
                 int depth = commentJson.getInt("depth");
                 comment = new Comment(id, mainComment, depth);
-
 
                 // Add main comment to the map
                 commentsList.add(comment);
@@ -217,14 +186,15 @@ public class RedditParser {
 
                 listOfCommentsMap.add(commentsMap);
             }
-
-
         }
-        System.out.println();
-
     }
 
-
+    /**
+     * Main recursive function to parse comment hierarchy.
+     *
+     * @param input Json to parse
+     * @throws JSONException
+     */
     private static void addReplies(JSONObject input) throws JSONException {
         if (!repliesExist(input)) {
             return;
@@ -232,11 +202,18 @@ public class RedditParser {
         } else {
             addAllReplies(input);
 
-            for (int i = 0; i < input.getJSONObject("replies").getJSONObject("data").getJSONArray("children").length()-1; i++) {
+            for (int i = 0; i < input.getJSONObject("replies").getJSONObject("data").getJSONArray("children").length() - 1; i++) {
                 addReplies(input.getJSONObject("replies").getJSONObject("data").getJSONArray("children").getJSONObject(i).getJSONObject("data"));
             }
         }
     }
+
+    /**
+     * Helper for addReplies().
+     *
+     * @param input
+     * @throws JSONException
+     */
 
     private static void addAllReplies(JSONObject input) throws JSONException {
         JSONArray replies = input.getJSONObject("replies").getJSONObject("data").getJSONArray("children");
@@ -247,7 +224,7 @@ public class RedditParser {
             commentsList = new ArrayList<>();
         }
 
-        for (int i = 0; i < replies.length()-1; i++) {
+        for (int i = 0; i < replies.length() - 1; i++) {
 
             if (replies.getJSONObject(i).getJSONObject("data").has("body_html") && replies.getJSONObject(i).getJSONObject("data").getString("body_html") != null) {
                 String reply = replies.getJSONObject(i).getJSONObject("data").getString("body_html");
@@ -256,43 +233,19 @@ public class RedditParser {
                 int depth = replies.getJSONObject(i).getJSONObject("data").getInt("depth");
                 String id = replies.getJSONObject(i).getJSONObject("data").getString("id");
 
-                Comment comment = new Comment(id, reply,depth);
+                Comment comment = new Comment(id, reply, depth);
                 commentsList.add(comment);
                 commentsMap.put(parentId, commentsList);
             }
-
-
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * Helper for addReplies().
+     *
+     * @param input
+     * @return
+     */
     private static boolean repliesExist(JSONObject input) {
         try {
             if (input.getJSONObject("replies") != null) {
@@ -306,6 +259,12 @@ public class RedditParser {
         return false;
     }
 
+    /**
+     * Helper for addReplies().
+     *
+     * @param input
+     * @return
+     */
     private static String getStringFromHtml(String input) {
         // This is to escape to html
         input = Html.fromHtml(input, Html.FROM_HTML_MODE_COMPACT).toString();
