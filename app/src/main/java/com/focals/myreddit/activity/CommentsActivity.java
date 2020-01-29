@@ -1,6 +1,5 @@
 package com.focals.myreddit.activity;
 
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -33,15 +31,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CommentsActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    RecyclerView commentsRecyclerView;
-    ArrayList<Comment> commentsList;
-    TextView postTextView;
-    Toolbar toolbar;
-    ImageButton imageButton;
-    ImageView iv_postImage;
-    WebView webView;
-    private SubDatabase db;
-    private SubDao dao;
+    private RecyclerView commentsRecyclerView;
+    private ArrayList<Comment> commentsList;
+    private TextView postTextView;
+    private Toolbar toolbar;
+    private ImageButton imageButton;
+    private ImageView iv_postImage;
+    private WebView webView;
     Subreddit sub;
 
     @Override
@@ -50,12 +46,12 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
         setContentView(R.layout.rv_comments);
 
         // Initializing Views
-        commentsRecyclerView = (RecyclerView) findViewById(R.id.rv_comments);
-        postTextView = (TextView) findViewById(R.id.tv_postText);
-        iv_postImage = (ImageView) findViewById(R.id.iv_postImage);
-        webView = (WebView) findViewById(R.id.webView);
-        imageButton = (ImageButton) findViewById(R.id.ib_addToFavorites);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        commentsRecyclerView = findViewById(R.id.rv_comments);
+        postTextView = findViewById(R.id.tv_postText);
+        iv_postImage = findViewById(R.id.iv_postImage);
+        webView = findViewById(R.id.webView);
+        imageButton = findViewById(R.id.ib_addToFavorites);
+        progressBar = findViewById(R.id.progressBar);
 
         // Fetching from intent
         String postId = getIntent().getStringExtra(getString(R.string.post_id));
@@ -83,7 +79,7 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
         progressBar.setVisibility(View.VISIBLE);
 
         // Setting Toolbar as ActionBar and its text [Padding is for RTL layouts]
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("   " + subredditName);
 
@@ -91,21 +87,21 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Initializing Database
-        db = SubDatabase.getInstance(this);
-        dao = db.subDao();
+        SubDatabase db = SubDatabase.getInstance(this);
+        SubDao dao = db.subDao();
 
         // Setting Image for Favorite Button
         setFavButtonImage(imageButton);
 
         // Setting up Bottom Navigation View
-        bottomNav = (BottomNavigationView) findViewById(R.id.bottomNav);
+        bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setOnNavigationItemSelectedListener(this);
     }
 
     /**
      * Upates Database and Image for Favorite Button.
      *
-     * @param view
+     * @param view View clicked.
      */
     public void addRemoveFavorite(final View view) {
         super.addRemoveFavorite(view);
