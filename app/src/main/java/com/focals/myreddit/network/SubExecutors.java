@@ -10,7 +10,7 @@ public class SubExecutors {
     private final Executor networkIO;
 
 
-    public SubExecutors(Executor networkIO) {
+    private SubExecutors(Executor networkIO) {
         this.networkIO = networkIO;
     }
 

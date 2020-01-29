@@ -2,13 +2,13 @@ package com.focals.myreddit.data;
 
 public class Post {
 
-    String subredditName;
-    String title;
-    int score;
-    int numComments;
-    String id;
-    String imageUrl;
-    String videoUrl;
+    private String subredditName;
+    private String title;
+    private int score;
+    private int numComments;
+    private String id;
+    private String imageUrl;
+    private String videoUrl;
 
     public Post(String subredditName, String title, int score, int numComments, String id, String imageUrl, String videoUrl) {
         this.subredditName = subredditName;

@@ -5,15 +5,16 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "sub")
-public class SubEntity {
+class SubEntity {
 
-    String name;
-    String bannerUrl;
-    String publicDescription;
-    int subscribers;
-    boolean favorite;
+    private String name;
+    private String bannerUrl;
+    private String publicDescription;
+    private int subscribers;
+    private boolean favorite;
 
     @PrimaryKey
+    private
     int subId;
 
     public SubEntity(String name, String bannerUrl, String publicDescription, int subscribers, boolean favorite, int subId) {

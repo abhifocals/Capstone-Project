@@ -4,19 +4,19 @@
     <item
         android:id="@+id/bottom_favorite"
         android:icon="@drawable/ic_favorite"
-        android:title="Favorites"
-        android:contentDescription="Favorites"/>
+        android:title="@string/favorites"
+        android:contentDescription="@string/favorites"/>
 
     <item
         android:id="@+id/bottom_popular"
-        android:title="Popular"
+        android:title="@string/popular"
         android:icon="@drawable/ic_popular"
-        android:contentDescription="Popular"/>
+        android:contentDescription="@string/popular"/>
 
     <item
         android:id="@+id/bottom_news"
-        android:title="News"
+        android:title="@string/news"
         android:icon="@drawable/ic_news"
-        android:contentDescription="News"/>
+        android:contentDescription="@string/news"/>
 
 </menu>

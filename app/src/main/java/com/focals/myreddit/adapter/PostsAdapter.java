@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.focals.myreddit.R;
 import com.focals.myreddit.data.Post;
 import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.source.MediaSource;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

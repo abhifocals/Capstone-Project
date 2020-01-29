@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.focals.myreddit.R;
 import com.focals.myreddit.data.Subreddit;
-import com.focals.myreddit.database.SubDao;
-import com.focals.myreddit.database.SubDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

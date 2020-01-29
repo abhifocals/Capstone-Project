@@ -44,7 +44,7 @@ public class BaseActivity extends AppCompatActivity {
      * @param view
      */
 
-    public void addRemoveFavorite(final View view) {
+    void addRemoveFavorite(final View view) {
 
         new AsyncTask() {
 
@@ -80,7 +80,7 @@ public class BaseActivity extends AppCompatActivity {
         }.execute();
     }
 
-    protected void setFavButtonImage(ImageButton imageButton) {
+    void setFavButtonImage(ImageButton imageButton) {
         imageButton.setVisibility(View.VISIBLE);
         if (subIsFavorite) {
             imageButton.setImageDrawable(getDrawable(android.R.drawable.ic_delete));
@@ -89,7 +89,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+    boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
         // Set a result code and send back to Populars Activity to Load Favorites
         if (menuItem.getItemId() == R.id.bottom_favorite) {

@@ -18,4 +18,8 @@
     <string name="is_favorite">IsFavorite</string>
     <string name="empty_fav_list_message">Your Favorites List is empty! Add some favorites.</string>
     <string name="commentCountLabel">Comments:</string>
+    <string name="add_or_remove_favs">Add or remove from favorites.</string>
+    <string name="favorites">Favorites</string>
+    <string name="popular">Popular</string>
+    <string name="news">News</string>
 </resources>

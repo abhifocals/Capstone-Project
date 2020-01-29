@@ -5,9 +5,9 @@ import java.util.HashMap;
 
 public class Comment {
 
-    String id;
-    String text;
-    int depth;
+    private String id;
+    private String text;
+    private int depth;
 
 
     public Comment(String id, String text, int depth) {
@@ -18,33 +18,10 @@ public class Comment {
 
 
 
-    String subredditName;
-    String postText;
-    String commentBody;
-    HashMap<Integer, ArrayList<String>> repliesMap;
-
-    public Comment(String subredditName, String postText, String commentBody, HashMap<Integer, ArrayList<String>> repliesMap) {
-        this.subredditName = subredditName;
-        this.postText = postText;
-        this.commentBody = commentBody;
-        this.repliesMap = repliesMap;
-    }
-
-    public String getSubredditName() {
-        return subredditName;
-    }
-
-    public String getPostText() {
-        return postText;
-    }
-
-    public String getCommentBody() {
-        return commentBody;
-    }
-
-    public HashMap<Integer, ArrayList<String>> getRepliesMap() {
-        return repliesMap;
-    }
+    private String subredditName;
+    private String postText;
+    private String commentBody;
+    private HashMap<Integer, ArrayList<String>> repliesMap;
 
 
     public String getId() {
@@ -55,7 +32,4 @@ public class Comment {
         return text;
     }
 
-    public int getDepth() {
-        return depth;
-    }
 }

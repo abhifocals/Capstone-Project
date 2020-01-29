@@ -1,7 +1,6 @@
 package com.focals.myreddit.data;
 
 import android.text.Html;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,15 +8,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.TreeMap;
 
 public class RedditParser {
 
-    static HashMap<String, ArrayList<Comment>> commentsMap;
+    private static HashMap<String, ArrayList<Comment>> commentsMap;
     public static ArrayList<HashMap<String, ArrayList<Comment>>> listOfCommentsMap = new ArrayList<>();
 
     static String logTag = "Testing";
-    static ArrayList<Comment> commentsList;
+    private static ArrayList<Comment> commentsList;
     public static final String TOP = "TOP";
 
     static String reducedJson = "[\n" +

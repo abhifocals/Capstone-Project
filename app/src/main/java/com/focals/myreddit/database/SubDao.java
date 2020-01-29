@@ -2,7 +2,6 @@ package com.focals.myreddit.database;
 
 import com.focals.myreddit.data.Subreddit;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
@@ -10,7 +9,6 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
 @Dao
 public interface SubDao {
