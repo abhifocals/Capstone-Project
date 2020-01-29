@@ -207,6 +207,7 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
     private void showProgressBar() {
         progressBar.setVisibility(View.VISIBLE);
+        mainRecyclerView.setVisibility(View.INVISIBLE);
     }
 
     private void hideProgressBar() {
@@ -267,11 +268,24 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
     private void launchPostsActivity(int position) {
         Intent intent = new Intent(this, PostsActivity.class);
-        String name = subredditList.get(position).getName();
+        String name = null;
+        String id = null;
+        boolean favorite = false;
+
+        if (SHOWING_FAVS) {
+            name = FAVORITES.get(position).getName();
+            id = FAVORITES.get(position).getId();
+            favorite = FAVORITES.get(position).isFavorite();
+
+        } else {
+            name = subredditList.get(position).getName();
+            id = subredditList.get(position).getId();
+            favorite = subredditList.get(position).isFavorite();
+        }
 
         intent.putExtra(getString(R.string.sub_name), name);
-        intent.putExtra(getString(R.string.sub_id), subredditList.get(position).getId());
-        intent.putExtra(getString(R.string.is_favorite), subredditList.get(position).isFavorite());
+        intent.putExtra(getString(R.string.sub_id), id);
+        intent.putExtra(getString(R.string.is_favorite), favorite);
 
         // Start Activity w/Transition
         Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
@@ -302,6 +316,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
 
+                showProgressBar();
+
                 Intent intent = new Intent(PopularsActivity.this, PostsActivity.class);
 
                 intent.putExtra(getString(R.string.sub_name), sub);
@@ -311,6 +327,8 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
                 // Start Activity w/Transition
                 Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(PopularsActivity.this).toBundle();
                 startActivityForResult(intent, 1, bundle);
+
+                hideProgressBar();
 
                 // Log event to Firebase Analytics
                 Bundle eventBundle = new Bundle();
