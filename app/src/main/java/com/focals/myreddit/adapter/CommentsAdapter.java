@@ -2,7 +2,6 @@ package com.focals.myreddit.adapter;
 
 import android.content.Context;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,6 @@ import com.focals.myreddit.R;
 import com.focals.myreddit.data.Comment;
 import com.focals.myreddit.data.RedditParser;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -24,12 +19,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentViewHolder> {
 
-    Context context;
-    ArrayList<Comment> commentsList;
+    private Context context;
+    private final ArrayList<Comment> commentsList;
     static ArrayList<Comment> childrenList;
-    static HashMap<String, ArrayList<Comment>> commentMap;
+    private static HashMap<String, ArrayList<Comment>> commentMap;
     static String logTag = "Testing";
-    static StringBuilder stringBuilder;
+    private static StringBuilder stringBuilder;
 
     public CommentsAdapter(ArrayList<Comment> commentsList) {
         this.commentsList = commentsList;
@@ -110,12 +105,12 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
 
     class CommentViewHolder extends RecyclerView.ViewHolder {
-        TextView commentsTextView;
+        final TextView commentsTextView;
 
-        public CommentViewHolder(@NonNull View itemView) {
+        CommentViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            commentsTextView = (TextView) itemView.findViewById(R.id.tv_comment);
+            commentsTextView = itemView.findViewById(R.id.tv_comment);
         }
     }
 
