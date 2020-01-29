@@ -264,9 +264,9 @@ public class PopularsActivity extends BaseActivity implements PopularsAdapter.Cl
 
     private void launchPostsActivity(int position) {
         Intent intent = new Intent(this, PostsActivity.class);
-        String name = null;
-        String id = null;
-        boolean favorite = false;
+        String name;
+        String id;
+        boolean favorite;
 
         if (SHOWING_FAVS) {
             name = FAVORITES.get(position).getName();
