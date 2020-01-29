@@ -12,7 +12,6 @@ import com.focals.myreddit.R;
 import com.focals.myreddit.data.Subreddit;
 import com.focals.myreddit.database.SubDao;
 import com.focals.myreddit.database.SubDatabase;
-import com.focals.myreddit.network.SubExecutors;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,21 +21,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainViewHolder> {
 
-    Context context;
-    ArrayList<Subreddit> subredditList;
-    ClickHandler clickHandler;
-    boolean showingFavorites;
-    private SubDatabase db;
-    private SubDao dao;
-    private boolean isFav;
+    private Context context;
+    private ArrayList<Subreddit> subredditList;
+    private final ClickHandler clickHandler;
+    private final boolean showingFavorites;
 
     public PopularsAdapter(ArrayList<Subreddit> subredditList, ClickHandler clickHandler, boolean showingFavorites) {
         this.subredditList = subredditList;
         this.clickHandler = clickHandler;
         this.showingFavorites = showingFavorites;
-
-        db = SubDatabase.getInstance(context);
-        dao = db.subDao();
     }
 
     @NonNull
@@ -57,11 +50,11 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
         String bannerUrl = subredditList.get(position).getBannerUrl();
         String desc = subredditList.get(position).getPublicDescription();
         int subscribers = subredditList.get(position).getSubscribers();
-        String subId =  subredditList.get(position).getId();
+        String subId = subredditList.get(position).getId();
 
         holder.subredditTitle.setText(title);
         holder.subredditDesc.setText(desc);
-        holder.numSubscribers.setText("Subscribers: " + String.valueOf(subscribers));
+        holder.numSubscribers.setText("Subscribers: " + subscribers);
 
         if (!bannerUrl.isEmpty()) {
             new Picasso.Builder(context).build().load(bannerUrl).into(holder.subredditImage);
@@ -69,7 +62,7 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
 
         // Display +/- depending on Fav Status
 
-        isFav = subredditList.get(position).isFavorite();
+        boolean isFav = subredditList.get(position).isFavorite();
 
         if (isFav) {
             holder.addToFavorites.setImageDrawable(context.getDrawable(android.R.drawable.ic_delete));
@@ -99,20 +92,20 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
 
 
     class MainViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView subredditImage;
-        TextView subredditTitle;
-        TextView subredditDesc;
-        TextView numSubscribers;
-        ImageButton addToFavorites;
+        final ImageView subredditImage;
+        final TextView subredditTitle;
+        final TextView subredditDesc;
+        final TextView numSubscribers;
+        final ImageButton addToFavorites;
 
-        public MainViewHolder(@NonNull View itemView) {
+        MainViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            subredditImage = (ImageView) itemView.findViewById(R.id.iv_subredditImage);
-            subredditTitle = (TextView) itemView.findViewById(R.id.tv_subredditTitle);
-            subredditDesc = (TextView) itemView.findViewById(R.id.tv_subredditDesc);
-            numSubscribers = (TextView) itemView.findViewById(R.id.tv_subscriberCount);
-            addToFavorites = (ImageButton) itemView.findViewById(R.id.ib_addToFavorites);
+            subredditImage = itemView.findViewById(R.id.iv_subredditImage);
+            subredditTitle = itemView.findViewById(R.id.tv_subredditTitle);
+            subredditDesc = itemView.findViewById(R.id.tv_subredditDesc);
+            numSubscribers = itemView.findViewById(R.id.tv_subscriberCount);
+            addToFavorites = itemView.findViewById(R.id.ib_addToFavorites);
 
             subredditTitle.setOnClickListener(this);
             subredditDesc.setOnClickListener(this);
@@ -126,7 +119,6 @@ public class PopularsAdapter extends RecyclerView.Adapter<PopularsAdapter.MainVi
             clickHandler.onClickHandle(getAdapterPosition(), v);
         }
     }
-
 }
 
 
