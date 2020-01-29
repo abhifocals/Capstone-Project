@@ -2,7 +2,6 @@ package com.focals.myreddit.activity;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,8 +12,6 @@ import com.focals.myreddit.R;
 import com.focals.myreddit.adapter.PostsAdapter;
 import com.focals.myreddit.data.Post;
 import com.focals.myreddit.data.RedditParser;
-import com.focals.myreddit.database.SubDao;
-import com.focals.myreddit.database.SubDatabase;
 import com.focals.myreddit.network.NetworkUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -31,8 +28,6 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
     private RecyclerView subredditRecyclerView;
     private ArrayList<Post> postsList;
     private String subredditName;
-    private Toolbar toolbar;
-    private ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +36,10 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
 
         // Initializing Views
         subredditRecyclerView = findViewById(R.id.rv_posts);
-        toolbar = findViewById(R.id.toolbar);
-        imageButton = findViewById(R.id.ib_addToFavorites);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        ImageButton imageButton = findViewById(R.id.ib_addToFavorites);
         bottomNav = findViewById(R.id.bottomNav);
         progressBar = findViewById(R.id.progressBar);
-
-        // Initializing Database
-        SubDatabase db = SubDatabase.getInstance(this);
-        SubDao dao = db.subDao();
 
         // Getting info from PopularsActivity
         subredditName = getIntent().getStringExtra(getString(R.string.sub_name));
@@ -69,7 +60,10 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
 
         // Setting ActionBar and its Title
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("  " + subredditName);
+
+        if (subredditName != null) {
+            getSupportActionBar().setTitle("  " + subredditName);
+        }
 
         // Displaying Back Button in Toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -85,8 +79,8 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
     /**
      * Launches CommentsActivity.
      *
-     * @param position
-     * @param view
+     * @param position Position of the view clicked.
+     * @param view     View clicked.
      */
     @Override
     public void onClick(int position, View view) {
@@ -110,7 +104,7 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
     /**
      * Upates Database and Image for Favorite Button.
      *
-     * @param view
+     * @param view View clicked.
      */
     public void addRemoveFavorite(final View view) {
         super.addRemoveFavorite(view);
@@ -128,9 +122,9 @@ public class PostsActivity extends BaseActivity implements PostsAdapter.ClickHan
     /**
      * Receive code from FavoritesActivity and send back to Populars to load Favorites.
      *
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * @param requestCode Code requested.
+     * @param resultCode  Result code sent back.
+     * @param data        Data sent back.
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
