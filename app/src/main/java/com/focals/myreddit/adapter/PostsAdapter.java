@@ -5,23 +5,14 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.focals.myreddit.R;
 import com.focals.myreddit.data.Post;
-import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
-import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.ui.PlayerView;
-import com.google.android.exoplayer2.upstream.DefaultDataSource;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -31,11 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditViewHolder> implements ExoPlayer.EventListener {
 
-    ArrayList<Post> postsList;
-    Context context;
-    ClickHandler clickHandler;
-    ExoPlayer exoPlayer;
-    MediaSource mediaSource;
+    private final ArrayList<Post> postsList;
+    private Context context;
+    private final ClickHandler clickHandler;
 
     public PostsAdapter(ArrayList<Post> posts, ClickHandler clickHandler) {
         this.postsList = posts;
@@ -49,7 +38,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View view = null;
+        View view;
         view = inflater.inflate(R.layout.single_post, parent, false);
 
         return new SubredditViewHolder(view);
@@ -62,7 +51,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
         int numComments = postsList.get(position).getNumComments();
 
         holder.postsTextView.setText(postText);
-        holder.commentsCount.setText("Comments: " + String.valueOf(numComments));
+        holder.commentsCount.setText(context.getResources().getString(R.string.commentCountLabel) + numComments);
 
         if (postsList.get(position).getVideoUrl() != null) {
             holder.webView.getSettings().setJavaScriptEnabled(true);
@@ -84,44 +73,25 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
         return postsList.size();
     }
 
-
-    private void initializePlayer(SubredditViewHolder holder) {
-
-        exoPlayer = ExoPlayerFactory.newSimpleInstance(context, new DefaultTrackSelector(), new DefaultLoadControl());
-
-        exoPlayer.addListener(this);
-        holder.exoPlayerView.setPlayer(exoPlayer);
-    }
-
-    private void prepareMediaSource(Uri uri, SubredditViewHolder holder) {
-
-        mediaSource = new ExtractorMediaSource(uri, new DefaultDataSourceFactory(context, context.getResources().getString(R.string.app_name)),
-                new DefaultExtractorsFactory(), null, null);
-
-        exoPlayer.prepare(mediaSource);
-        exoPlayer.setPlayWhenReady(true);
-    }
-
     public interface ClickHandler {
-        public void onClick(int position, View view);
+        void onClick(int position, View view);
     }
 
     class SubredditViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView postsTextView;
-        TextView commentsCount;
-        ImageView iv_postImage;
-        PlayerView exoPlayerView;
-        WebView webView;
+        final TextView postsTextView;
+        final TextView commentsCount;
+        final ImageView iv_postImage;
+        final WebView webView;
 
 
-        public SubredditViewHolder(@NonNull View itemView) {
+        SubredditViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            postsTextView = (TextView) itemView.findViewById(R.id.tv_postText);
-            commentsCount = (TextView) itemView.findViewById(R.id.tv_commentsCount);
-            iv_postImage = (ImageView) itemView.findViewById(R.id.iv_postImage);
-            webView = (WebView) itemView.findViewById(R.id.webView);
+            postsTextView = itemView.findViewById(R.id.tv_postText);
+            commentsCount = itemView.findViewById(R.id.tv_commentsCount);
+            iv_postImage = itemView.findViewById(R.id.iv_postImage);
+            webView = itemView.findViewById(R.id.webView);
 
             itemView.setOnClickListener(this);
         }
@@ -131,6 +101,4 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.SubredditVie
             clickHandler.onClick(getAdapterPosition(), v);
         }
     }
-
-
 }
