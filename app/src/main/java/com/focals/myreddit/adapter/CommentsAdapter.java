@@ -2,6 +2,7 @@ package com.focals.myreddit.adapter;
 
 import android.content.Context;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import com.focals.myreddit.R;
 import com.focals.myreddit.data.Comment;
 import com.focals.myreddit.data.RedditParser;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,6 +66,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         for (int i = 0; i < childrenList.size(); i++) {
             indentation = "> > > ";
 
+            Log.d(logTag, childrenList.get(i).getText());
             stringBuilder.append(indentation + childrenList.get(i).getText());
             getChildren(childrenList.get(i));
             stringBuilder.append("<br>");
@@ -79,9 +83,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
             indentation = indentation + "> ";
             getAllChildren(comment);
 
-            for (int i = 0; i < commentMap.get("t1_" + comment.getId()).size(); i++) {
-                getChildren(commentMap.get("t1_" + comment.getId()).get(i));
-            }
+//            for (int i = 0; i < commentMap.get("t1_" + comment.getId()).size(); i++) {
+//                getChildren(commentMap.get("t1_" + comment.getId()).get(i));
+//            }
         }
     }
 
@@ -91,6 +95,13 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         for (int i = 0; i < children.size(); i++) {
             stringBuilder.append(indentation);
             stringBuilder.append(children.get(i).getText() + "<br>");
+
+
+            // Log kid
+            Log.d(logTag, children.get(i).getText());
+
+            // Log all kids of that kid
+            getChildren(children.get(i));
         }
     }
 
