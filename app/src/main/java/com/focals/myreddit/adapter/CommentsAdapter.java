@@ -82,10 +82,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         } else {
             indentation = indentation + "> ";
             getAllChildren(comment);
-
-//            for (int i = 0; i < commentMap.get("t1_" + comment.getId()).size(); i++) {
-//                getChildren(commentMap.get("t1_" + comment.getId()).get(i));
-//            }
         }
     }
 
@@ -96,11 +92,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
             stringBuilder.append(indentation);
             stringBuilder.append(children.get(i).getText() + "<br>");
 
-
-            // Log kid
-            Log.d(logTag, children.get(i).getText());
-
-            // Log all kids of that kid
+            // Get all children of this comment
             getChildren(children.get(i));
         }
     }
