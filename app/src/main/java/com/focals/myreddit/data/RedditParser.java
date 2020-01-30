@@ -18,58 +18,76 @@ public class RedditParser {
     private static ArrayList<Comment> commentsList;
     public static final String TOP = "TOP";
 
-    static String reducedJson = "[\n" +
-            "    {\n" +
-            "      \"data\": {\n" +
-            "        \"replies\": {\n" +
+    static String reducedJson = "{\n" +
+            "  \"replies\": {\n" +
+            "    \"data\": {\n" +
+            "      \"children\": [\n" +
+            "        {\n" +
             "          \"data\": {\n" +
-            "            \"children\": [\n" +
-            "              {\n" +
-            "                \"data\": {\n" +
-            "                  \"body_html\": \"R1\",\n" +
-            "                  \"parent_id\": \"t1_C0\",\n" +
-            "                  \"id\": \"R1\",\n" +
-            "                  \"depth\": 1\n" +
-            "                }\n" +
-            "              },\n" +
-            "              {\n" +
-            "                \"dummy\": {}\n" +
+            "            \"replies\": {\n" +
+            "              \"data\": {\n" +
+            "                \"children\": [\n" +
+            "                  {\n" +
+            "                    \"data\": {\n" +
+            "                      \"body_html\": \"R1.1\",\n" +
+            "                      \"parent_id\": \"t1_R1\",\n" +
+            "                      \"id\": \"R1.1\",\n" +
+            "                      \"depth\": 2\n" +
+            "                    }\n" +
+            "                  }\n" +
+            "                ]\n" +
             "              }\n" +
-            "            ]\n" +
+            "            },\n" +
+            "            \"body_html\": \"R1\",\n" +
+            "            \"parent_id\": \"t1_C0\",\n" +
+            "            \"id\": \"R1\",\n" +
+            "            \"depth\": 1\n" +
             "          }\n" +
             "        },\n" +
-            "        \"body_html\": \"C0\",\n" +
-            "        \"parent_id\": \"main\",\n" +
-            "        \"id\": \"C0\",\n" +
-            "        \"depth\": 0\n" +
-            "      }\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"data\": {\n" +
-            "        \"replies\": {\n" +
+            "        {\n" +
             "          \"data\": {\n" +
-            "            \"children\": [\n" +
-            "              {\n" +
-            "                \"data\": {\n" +
-            "                  \"depth\": 1,\n" +
-            "                  \"parent_id\": \"t1_C1\",\n" +
-            "                  \"id\": \"R2\",\n" +
-            "                  \"body_html\": \"R2\"\n" +
-            "                }\n" +
-            "              },\n" +
-            "              {\n" +
-            "                \"dummy\": {}\n" +
+            "            \"replies\": {\n" +
+            "              \"data\": {\n" +
+            "                \"children\": [\n" +
+            "                  {\n" +
+            "                    \"data\": {\n" +
+            "                      \"depth\": 2,\n" +
+            "                      \"parent_id\": \"t1_R2\",\n" +
+            "                      \"id\": \"R2.1\",\n" +
+            "                      \"body_html\": \"R2.1\",\n" +
+            "                      \"replies\": {\n" +
+            "                        \"data\": {\n" +
+            "                          \"children\": [\n" +
+            "                            {\n" +
+            "                              \"data\": {\n" +
+            "                                \"body_html\": \"R2.1.1\",\n" +
+            "                                \"parent_id\": \"t1_R2.1\",\n" +
+            "                                \"id\": \"R2.1.1\",\n" +
+            "                                \"depth\": 3\n" +
+            "                              }\n" +
+            "                            }\n" +
+            "                          ]\n" +
+            "                        }\n" +
+            "                      }\n" +
+            "                    }\n" +
+            "                  }\n" +
+            "                ]\n" +
             "              }\n" +
-            "            ]\n" +
+            "            },\n" +
+            "            \"parent_id\": \"t1_C0\",\n" +
+            "            \"id\": \"R2\",\n" +
+            "            \"body_html\": \"R2\",\n" +
+            "            \"depth\": 1\n" +
             "          }\n" +
-            "        },\n" +
-            "        \"parent_id\": \"main\",\n" +
-            "        \"id\": \"C1\",\n" +
-            "        \"body_html\": \"C1\",\n" +
-            "        \"depth\": 0\n" +
-            "      }\n" +
+            "        }\n" +
+            "      ]\n" +
             "    }\n" +
-            "  ]";
+            "  },\n" +
+            "  \"body_html\": \"C0\",\n" +
+            "  \"id\": \"C0\",\n" +
+            "  \"parent_id\": \"mainParent\",\n" +
+            "  \"depth\": 0\n" +
+            "}";
 
     public static ArrayList<Subreddit> parseReddit(String response) {
         JSONObject jsonObject;
@@ -163,7 +181,7 @@ public class RedditParser {
             commentsMap = new HashMap<>();
             commentsList = new ArrayList<>();
             JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
-            // JSONObject commentJson = new JSONObject(reducedJson);
+//             JSONObject commentJson = new JSONObject(reducedJson);
 
             // Building First Comment Object
             if (commentJson.has("body_html") && commentJson.getString("body_html") != null) {
