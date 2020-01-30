@@ -156,9 +156,7 @@ public class RedditParser {
 
         JSONArray jsonArray = new JSONArray(response);
         JSONArray commentsArray = jsonArray.getJSONObject(1).getJSONObject("data").getJSONArray("children");
-        // JSONArray commentsArray = new JSONArray(reducedJson);
         Comment comment;
-        String parentId = null;
 
 
         for (int i = 0; i < commentsArray.length(); i++) {
@@ -200,7 +198,7 @@ public class RedditParser {
         } else {
             addAllReplies(input);
 
-            for (int i = 0; i < input.getJSONObject("replies").getJSONObject("data").getJSONArray("children").length() - 1; i++) {
+            for (int i = 0; i < input.getJSONObject("replies").getJSONObject("data").getJSONArray("children").length(); i++) {
                 addReplies(input.getJSONObject("replies").getJSONObject("data").getJSONArray("children").getJSONObject(i).getJSONObject("data"));
             }
         }
@@ -222,7 +220,7 @@ public class RedditParser {
             commentsList = new ArrayList<>();
         }
 
-        for (int i = 0; i < replies.length() - 1; i++) {
+        for (int i = 0; i < replies.length(); i++) {
 
             if (replies.getJSONObject(i).getJSONObject("data").has("body_html") && replies.getJSONObject(i).getJSONObject("data").getString("body_html") != null) {
                 String reply = replies.getJSONObject(i).getJSONObject("data").getString("body_html");
