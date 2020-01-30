@@ -23,6 +23,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     private static HashMap<String, ArrayList<Comment>> commentMap;
     static String logTag = "Testing";
     private static StringBuilder stringBuilder;
+    private static String indentation;
 
     public CommentsAdapter(ArrayList<Comment> commentsList) {
     }
@@ -60,7 +61,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         ArrayList<Comment> childrenList = commentMap.get("t1_" + parentId);
 
         for (int i = 0; i < childrenList.size(); i++) {
-            stringBuilder.append("> > > " + childrenList.get(i).getText());
+            indentation = "> > > ";
+
+            stringBuilder.append(indentation + childrenList.get(i).getText());
             getChildren(childrenList.get(i));
             stringBuilder.append("<br>");
         }
@@ -73,6 +76,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
             return;
 
         } else {
+            indentation = indentation + "> ";
             getAllChildren(comment);
 
             for (int i = 0; i < commentMap.get("t1_" + comment.getId()).size(); i++) {
@@ -84,9 +88,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     private static void getAllChildren(Comment comment) {
         ArrayList<Comment> children = commentMap.get("t1_" + comment.getId());
 
-
         for (int i = 0; i < children.size(); i++) {
-            stringBuilder.append(">  >  >  > " + children.get(i).getText() + "<br>");
+            stringBuilder.append(indentation);
+            stringBuilder.append(children.get(i).getText() + "<br>");
         }
     }
 
