@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="75dp"
     android:layout_gravity="center"
-    android:visibility="invisible"
+    android:indeterminateTint="@color/colorPrimary"
     android:id="@+id/progressBar"
-    android:backgroundTint="@color/colorPrimary"
     tools:showIn="@layout/rv_populars"></ProgressBar>
