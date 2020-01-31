@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class RedditParser {
 
     private static HashMap<String, ArrayList<Comment>> commentsMap;
-    public static final ArrayList<HashMap<String, ArrayList<Comment>>> listOfCommentsMap = new ArrayList<>();
+    public static ArrayList<HashMap<String, ArrayList<Comment>>> listOfCommentsMap = new ArrayList<>();
 
     static String logTag = "Testing";
     private static ArrayList<Comment> commentsList;
@@ -161,13 +161,14 @@ public class RedditParser {
         JSONArray jsonArray = new JSONArray(response);
         JSONArray commentsArray = jsonArray.getJSONObject(1).getJSONObject("data").getJSONArray("children");
         Comment comment;
+        listOfCommentsMap = new ArrayList<>();
 
 
         for (int i = 0; i < commentsArray.length(); i++) {
             commentsMap = new HashMap<>();
             commentsList = new ArrayList<>();
-//            JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
-             JSONObject commentJson = new JSONObject(reducedJson);
+            JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
+//             JSONObject commentJson = new JSONObject(reducedJson);
 
             // Building First Comment Object
             if (commentJson.has("body_html") && commentJson.getString("body_html") != null) {
