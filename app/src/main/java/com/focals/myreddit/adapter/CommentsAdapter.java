@@ -12,8 +12,6 @@ import com.focals.myreddit.R;
 import com.focals.myreddit.data.Comment;
 import com.focals.myreddit.data.RedditParser;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentViewHolder> {
 
     private static HashMap<String, ArrayList<Comment>> commentMap;
-    static String logTag = "Testing";
+    private static final String logTag = "Testing";
     private static StringBuilder stringBuilder;
     private static String indentation;
 
