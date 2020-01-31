@@ -18,63 +18,6 @@ public class RedditParser {
     private static ArrayList<Comment> commentsList;
     public static final String TOP = "TOP";
 
-    static String reducedJson = "{\n" +
-            "  \"replies\": {\n" +
-            "    \"data\": {\n" +
-            "      \"children\": [\n" +
-            "        {\n" +
-            "          \"data\": {\n" +
-            "            \"replies\": {\n" +
-            "              \"data\": {\n" +
-            "                \"children\": [\n" +
-            "                  {\n" +
-            "                    \"data\": {\n" +
-            "                      \"body_html\": \"R1.1\",\n" +
-            "                      \"parent_id\": \"t1_R1\",\n" +
-            "                      \"id\": \"R1.1\",\n" +
-            "                      \"depth\": 2,\n" +
-            "                      \"replies\": {\n" +
-            "                        \"data\": {\n" +
-            "                          \"children\": [\n" +
-            "                            {\n" +
-            "                              \"data\": {\n" +
-            "                                \"body_html\": \"R1.1.1\",\n" +
-            "                                \"parent_id\": \"t1_R1.1\",\n" +
-            "                                \"id\": \"R1.1.1\",\n" +
-            "                                \"depth\": 3\n" +
-            "                              }\n" +
-            "                            }\n" +
-            "                          ]\n" +
-            "                        }\n" +
-            "                      }\n" +
-            "                    }\n" +
-            "                  },\n" +
-            "                  {\n" +
-            "                    \"data\": {\n" +
-            "                      \"body_html\": \"R1.2\",\n" +
-            "                      \"parent_id\": \"t1_R1\",\n" +
-            "                      \"id\": \"R1.2\",\n" +
-            "                      \"depth\": 2\n" +
-            "                    }\n" +
-            "                  }\n" +
-            "                ]\n" +
-            "              }\n" +
-            "            },\n" +
-            "            \"body_html\": \"R1\",\n" +
-            "            \"parent_id\": \"t1_C0\",\n" +
-            "            \"id\": \"R1\",\n" +
-            "            \"depth\": 1\n" +
-            "          }\n" +
-            "        }\n" +
-            "      ]\n" +
-            "    }\n" +
-            "  },\n" +
-            "  \"body_html\": \"C0\",\n" +
-            "  \"id\": \"C0\",\n" +
-            "  \"parent_id\": \"mainParent\",\n" +
-            "  \"depth\": 0\n" +
-            "}\n";
-
     public static ArrayList<Subreddit> parseReddit(String response) {
         JSONObject jsonObject;
         ArrayList<Subreddit> subredditsList = new ArrayList<>();
@@ -156,37 +99,40 @@ public class RedditParser {
     }
 
 
-    public static void parseComments(String response) throws JSONException {
+    public static void parseComments(String response) {
 
-        JSONArray jsonArray = new JSONArray(response);
-        JSONArray commentsArray = jsonArray.getJSONObject(1).getJSONObject("data").getJSONArray("children");
-        Comment comment;
-        listOfCommentsMap = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+            JSONArray commentsArray = jsonArray.getJSONObject(1).getJSONObject("data").getJSONArray("children");
+            Comment comment;
+            listOfCommentsMap = new ArrayList<>();
 
 
-        for (int i = 0; i < commentsArray.length(); i++) {
-            commentsMap = new HashMap<>();
-            commentsList = new ArrayList<>();
-            JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
-//             JSONObject commentJson = new JSONObject(reducedJson);
+            for (int i = 0; i < commentsArray.length(); i++) {
+                commentsMap = new HashMap<>();
+                commentsList = new ArrayList<>();
+                JSONObject commentJson = commentsArray.getJSONObject(i).getJSONObject("data");
 
-            // Building First Comment Object
-            if (commentJson.has("body_html") && commentJson.getString("body_html") != null) {
-                String mainComment = commentJson.getString("body_html");
-                mainComment = getStringFromHtml(mainComment);
-                String id = commentJson.getString("id");
-                int depth = commentJson.getInt("depth");
-                comment = new Comment(id, mainComment, depth);
+                // Building First Comment Object
+                if (commentJson.has("body_html") && commentJson.getString("body_html") != null) {
+                    String mainComment = commentJson.getString("body_html");
+                    mainComment = getStringFromHtml(mainComment);
+                    String id = commentJson.getString("id");
+                    int depth = commentJson.getInt("depth");
+                    comment = new Comment(id, mainComment, depth);
 
-                // Add main comment to the map
-                commentsList.add(comment);
-                commentsMap.put(TOP, commentsList);
+                    // Add main comment to the map
+                    commentsList.add(comment);
+                    commentsMap.put(TOP, commentsList);
 
-                // Add replies (and their replies)
-                addReplies(commentJson);
+                    // Add replies (and their replies)
+                    addReplies(commentJson);
 
-                listOfCommentsMap.add(commentsMap);
+                    listOfCommentsMap.add(commentsMap);
+                }
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 

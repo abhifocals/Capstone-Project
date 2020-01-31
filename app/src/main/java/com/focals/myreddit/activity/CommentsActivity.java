@@ -130,11 +130,7 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
             progressBar.setVisibility(View.INVISIBLE);
 
             // Parsing Response
-            try {
-                RedditParser.parseComments(s);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            RedditParser.parseComments(s);
 
             // Setting up Adapter
             CommentsAdapter adapter = new CommentsAdapter(commentsList);
