@@ -124,7 +124,7 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
             RedditParser.parseComments(s);
 
             // Setting up Adapter
-            CommentsAdapter adapter = new CommentsAdapter(commentsList);
+            CommentsAdapter adapter = new CommentsAdapter();
             GridLayoutManager layoutManager = new GridLayoutManager(CommentsActivity.this, 1);
             commentsRecyclerView.setAdapter(adapter);
             commentsRecyclerView.setLayoutManager(layoutManager);

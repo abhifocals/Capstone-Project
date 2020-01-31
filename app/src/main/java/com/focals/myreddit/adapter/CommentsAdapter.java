@@ -22,14 +22,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentViewHolder> {
 
-    static ArrayList<Comment> childrenList;
     private static HashMap<String, ArrayList<Comment>> commentMap;
     static String logTag = "Testing";
     private static StringBuilder stringBuilder;
     private static String indentation;
-
-    public CommentsAdapter(ArrayList<Comment> commentsList) {
-    }
 
     @NonNull
     @Override
