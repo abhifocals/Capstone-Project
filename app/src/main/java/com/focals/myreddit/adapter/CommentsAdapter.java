@@ -63,13 +63,15 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         // Get children of parent
         ArrayList<Comment> childrenList = commentMap.get("t1_" + parentId);
 
-        for (int i = 0; i < childrenList.size(); i++) {
-            indentation = "> > > ";
+        if (childrenList != null) {
+            for (int i = 0; i < childrenList.size(); i++) {
+                indentation = "> > > ";
 
-            Log.d(logTag, childrenList.get(i).getText());
-            stringBuilder.append(indentation + childrenList.get(i).getText());
-            getChildren(childrenList.get(i));
-            stringBuilder.append("<br>");
+                Log.d(logTag, childrenList.get(i).getText());
+                stringBuilder.append(indentation + childrenList.get(i).getText());
+                getChildren(childrenList.get(i));
+                stringBuilder.append("<br>");
+            }
         }
 
         holder.commentsTextView.setText(Html.fromHtml(stringBuilder.toString().replaceAll("\n", "<br>"), Html.FROM_HTML_MODE_COMPACT));
