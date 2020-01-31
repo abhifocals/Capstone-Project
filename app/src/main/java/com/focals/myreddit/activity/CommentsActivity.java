@@ -14,9 +14,6 @@ import com.focals.myreddit.R;
 import com.focals.myreddit.adapter.CommentsAdapter;
 import com.focals.myreddit.data.Comment;
 import com.focals.myreddit.data.RedditParser;
-import com.focals.myreddit.data.Subreddit;
-import com.focals.myreddit.database.SubDao;
-import com.focals.myreddit.database.SubDatabase;
 import com.focals.myreddit.network.NetworkUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
@@ -31,10 +28,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CommentsActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView commentsRecyclerView;
-    private ArrayList<Comment> commentsList;
     private ImageView iv_postImage;
     private WebView webView;
-    Subreddit sub;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +76,6 @@ public class CommentsActivity extends BaseActivity implements BottomNavigationVi
 
         // Displaying back button in Toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // Initializing Database
-        SubDatabase db = SubDatabase.getInstance(this);
-        SubDao dao = db.subDao();
 
         // Setting Image for Favorite Button
         setFavButtonImage(imageButton);
