@@ -81,11 +81,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
         } else {
             indentation = indentation + "> ";
-            getAllChildren(comment);
+            getAllChildren(comment, indentation);
         }
     }
 
-    private static void getAllChildren(Comment comment) {
+    private static void getAllChildren(Comment comment, String indentation) {
         ArrayList<Comment> children = commentMap.get("t1_" + comment.getId());
 
         for (int i = 0; i < children.size(); i++) {
