@@ -13,7 +13,7 @@ Intended user is anyone who likes to read content on Reddit.
 
 # Features
 
-•	User can see latest subreddits and posts.
-•	User can add/remove subreddits as a Favorite.
-•	User can view comments in a subreddit post.
-•	User can view all posts in a subreddit.
+* User can see latest subreddits and posts.
+* User can add/remove subreddits as a Favorite.
+* User can view comments in a subreddit post.
+* User can view all posts in a subreddit.
